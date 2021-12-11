@@ -1,0 +1,90 @@
+% arara: pdflatex: {synctex: yes, interaction: nonstopmode}
+% arara: makeindex if changed('idx') || missing('idx')
+% arara: biber if changed(toFile('reference.bib')) || missing('bcf')
+
+% arara: pdflatex: {synctex: yes, interaction: nonstopmode} until !found('log', 'undefined references')
+
+% arara: clean: {files: [main.aux, main.idx, main.ilg, main.ind, main.log, main.bbl, main.bcf, main.ist, main.blg, main.run.xml, main.toc, arara.yaml, main.synctex.gz]}
+
+\documentclass[12pt, color=cyan, mode=fancy, bibstyle=authoryear, citestyle=authoryear]
+{elegantbook}
+
+% \listfiles
+
+% The above arara directory is to clean the folder.
+% By default, arara will run it. 
+% It will not run if it is placed after the documentclass line and running arara with the option -H or --hearder. 
+
+\addbibresource[location=local]{reference.bib}
+% \addbibresource[location=local]{ref.bib}
+
+\usepackage{odesetup}
+
+
+\begin{document}
+
+% \maketitle
+\import{setup/}{title-page.tex}
+\import{setup/}{preface.tex}
+
+\frontmatter
+
+\renewcommand{\baselinestretch}{0.975}
+
+\tableofcontents
+
+% \blankpage
+\renewcommand{\baselinestretch}{1.2}
+\normalsize
+
+\mainmatter
+
+
+
+% \includefrom{lessons/}{week1.tex}
+
+\import{lessons/}{week1.tex}
+\newpage
+
+\import{lessons/}{week2.tex}
+\newpage
+
+\import{lessons/}{week3.tex}
+\newpage
+
+\import{lessons/}{week4.tex}
+\newpage
+
+\import{lessons/}{week5.tex}
+\newpage
+
+\import{lessons/}{week6.tex}
+\newpage
+
+\import{lessons/}{week7.tex}
+\newpage
+
+\import{lessons/}{week8.tex}
+\newpage
+
+\import{lessons/}{week9.tex}
+\newpage
+
+\import{lessons/}{week10.tex}
+\newpage
+
+\import{lessons/}{week11.tex}
+\newpage
+
+\import{lessons/}{week12.tex}
+\newpage
+
+
+\printbibliography
+
+% \appendix
+\newpage
+
+\printindex
+
+\end{document}

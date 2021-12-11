@@ -1,0 +1,583 @@
+% !TEX root = ../main.tex
+\chapter{Separable and Linear First Order Equations}
+\chapterdate{9/2--9/19}
+
+A first order differential equation can always be written in the \dfn{standard form}
+\[y'=f(x, y).\]
+
+Sometimes, it might be easier to consider the \dfn{differential form} of the equation.
+\[M(x, y)\operatorname{d} x + N(x, y)\operatorname{d} y=0.\]
+
+Like direction integration, different type of differential equations will be solved using different techniques. 
+
+In the coming weeks, you will learn how to solve following types of first order differential equations.
+
+\begin{enumerate}
+  \item Separable equation
+\[A(x)\operatorname{d} x+B(y)\operatorname{d} y=0.\]
+  or \[y'=\frac{F(x)}{G(y)}.\]
+  \item Linear first order equations
+\[y' + p(x) y = q(x).\]
+  \item Bernoulli equations
+\[y' + p(x) y = q(x)y^n.\]
+  \item Homogeneous equations
+  $y'=f(x,y)$ if $f(tx,ty)=f(x,y)$. 
+  \item Exact equations 
+\[M(x,y)\operatorname{d} x+N(x,y)\operatorname{d} y=0\] and 
+\[\frac{\partial{M(x,y)}}{\partial y}=\frac{\partial{N(x,y)}}{\partial x}.\]
+\item Other nonlinear first order equations that can be solved by substitution.
+\end{enumerate}
+
+\section{Separable Equations}
+\begin{definition}
+  A first order differential equation is said to be \dfn{separable} if it can be written as
+  \begin{equation}
+    h(y)y'=g(x)\label{eq:2.1.1}
+  \end{equation}
+  Rewriting a separable differential equation in this form is called \dfn{separation of variables}.
+\end{definition}
+
+
+\subsection{How to solve separable equations}
+
+Suppose that $H(y)$ is an antiderivative of $h(y)$, i.e $\frac{\operatorname{d}}{\operatorname{d} y}H(y)=h(y)$. Then $\Big(H(y(x))\Big)'=h(y(x))y'(x)$ and Equation \ref{eq:2.1.1} can be written as
+\[\Big(H(y(x))\Big)'=g(x)\]
+Suppose $G(x)$ is an antiderviative of $g(x)$. Integrating both sides of the above equation yields
+\begin{equation}
+  H(y(x))=G(x)+c.
+  \label{eq:2.1.2}
+\end{equation}
+
+It can be checked that a solution of Equation \ref{eq:2.1.1} must satisfy Equation \ref{eq:2.1.2}.
+
+Equation \ref{eq:2.1.2} is called an \dfn{implicit solution} of $h(y)y'=g(x)$.
+
+In conclusion, to solve a separable equation, it suffices to find antiderivatives using direct integrations.
+
+From Calculus, we know that continuous functions have an antiderivatives. Therefore, as long as $h(y)$ and $g(x)$ are continuous, the differential equation \ref{eq:2.1.1} will have an implicit solution. The existence of a solution function follows from a result from advance Calculus called the \href{https://math.libretexts.org/Bookshelves/Differential_Equations/Book\%3A_Elementary_Differential_Equations_with_Boundary_Value_Problems_(Trench)/02\%3A_First_Order_Equations/2.02\%3A_Separable_Equations}{implicit function theorem}.
+Moreover, the solution of an initial value problem for Equation \ref{eq:2.1.1} is unique.
+
+If the constant $c$ in Equation \ref{eq:2.1.2} satisfies the initial condition, then we say the implicit solution is an \dfn{implicit solution of the initial value problem} for Equation \ref{eq:2.1.1}
+
+\begin{example}
+  Solve the equation
+  \[y'=x(1+y^2).\]
+\end{example}
+\begin{solution}
+Separating variables yields
+\[\frac{y'}{1+y^2}=x.\]
+Integrating leads to
+\[\tan^{-1}y=\frac{x^2}2 + c.\]
+Therefore, the general solution of the equation is
+\[y=\tan\left(\frac{x^2}{2}+c\right).\]
+\end{solution}
+
+\begin{exercise}
+  Solve the equation
+  $$y'  = \frac{\sin x}{y}$$
+  \end{exercise}
+  
+  \begin{exersol}
+  Rewrite the equation as
+  $$yy' = \sin x.$$
+  Integrating gives
+  $$\frac{1}{2}y^2 =  -\cos x + c.$$
+  Hence, the general solutions are
+  $$y = \pm \sqrt{- 2\cos x + 2c}.$$
+  \end{exersol}
+  
+\subsection{Constant solutions}
+
+In the above example, dividing $1+y^2$ is an equivalent transformation because it is always non-zero. In general, re-writing the function $y'=g(x)p(y)$ into $\frac{y'}{p(y)}=g(x)$ may lose some constant solutions.
+
+\begin{example}
+  Solve the differential equation
+  $$y'=2xy^2$$
+\end{example}
+\begin{solution}
+  It can be check that the function $y=0$ is a solution. Suppose that $y$ is a solution that is not identically zero. Then there must be intervals on which $y$ is never zero. Over this interval, we can separate variables, which yields
+$$
+\frac{y'}{y^2}=2x.
+$$
+Integrating both sides leads to
+$$
+-\frac1y=x^2+c
+$$
+Therefore, $y=-\frac1{x^2+c}$ is the general solution of the equation that is not identically zero.
+\end{solution}
+
+\begin{remark}
+If a first order separable is in the form
+\[y'=g(x)p(y).\]
+Before rewrite the differential equation in the form
+\[
+\frac{y'}{p(y)}=g(x),  
+\]
+we need to check for values of $y$ that make $g(y)=0.$ The equation $g(y)=0$ often leads to constant solutions.
+\end{remark}
+
+  \begin{exercise}
+  Find the general solution of
+  $$y'  =  e^x  y^2.$$
+  \end{exercise}
+  \begin{exersol}
+  Setting $y^2=0$ gives a constant solution $y=0$.
+  
+  Now suppose that $y$ is not a constant solution.
+  
+  Rewrite the equation as
+  $$\frac{y'}{y^2}  =e^x.$$
+  Integrating yields
+  $$-\frac{1}{y}=  e^x + c$$
+  Therefore, the general solution is
+  $$y = \frac{1}{-c - e^x}.$$
+  \end{exersol}
+
+\subsection{Initial value problems}
+\begin{example}
+  Solve the initial value problem
+  \[y' = \frac{\cos x}{y}, \qquad y(0)   =  3.\]
+\end{example}
+\begin{solution}
+  We first find the general solution.
+  The equation is the same as
+  \[yy' = \cos x. \]
+  Integrating both sides yields
+  \[\frac{1}{2}y^2 = \sin x + c\]
+  or
+  \[y = \pm \sqrt{2c+ 2\sin x}.\]
+  The initial condition leads to
+  \[y(0) = \sqrt{2c} = 3\]
+  Hence, $2c=9$ and the solution of the initial value problem is
+  \[y= \sqrt{9+ 2\sin x}.\]
+\end{solution}
+
+
+\begin{exercise}
+ Solve the initial value problem
+\[y' = \frac{x^3+2}{y^3+ 2},\qquad y(0)   =  1.\]
+\end{exercise}
+\begin{exersol}
+Rewrite the equation as
+\[(y^3+2)y' = x^3+2 \]
+Integrating both sides yields
+\[\frac{1}{4}y^4 + 2y  =  \frac{1}{4}x^4+2x + c. \]
+The initial condition implies that
+\[ c=\frac{1}{4} 1^4 + 2\cdot 1  =  \frac94. \]
+Therefore, the solution of the initial value problem is 
+\[\frac{1}{4}y^4 + 2y  =  \frac{1}{4}x^4+2x + \frac{9}{4}. \]
+\end{exersol}
+
+\subsection{Autonomous Equations*}
+\begin{definition}
+  A differential equation is called autonomous if it can be written as
+  \[\frac{\operatorname{d} x}{\operatorname{d} t}=f(x).\]
+\end{definition}
+
+Autonomous differential equations are separable. The general solution satisfies 
+\[\int \frac{1}{f(x)}\operatorname{d} x = t + c.\]
+In other words, an autonomous differential equation always has a general implicit solution.
+
+Those equations have many applications.
+
+\begin{example}
+  The population $P=P(t)$ of a species satisfies the logistic equation \[P'=aP(1-\alpha P)\] and $P(0)=P_0>0$, where $a$ and $\alpha$ are constants. Find $P$ for $t>0$.
+\end{example}
+\begin{solution}
+  The equation can be re-written as
+  \[\frac{P'}{P(1-\alpha P)}=a.\]
+  Applying the partial fraction decomposition to left hand side yields
+  \[\left(\frac{P'}{P}+\frac{\alpha P'}{1-\alpha P}\right)=a,\]
+  or equivalently
+  \[\Big(\ln(P)-\ln(1-\alpha P)\Big)'=a.\]
+  Therefore,
+  \begin{equation}
+    \frac{P}{1-\alpha P}=ce^{a t}.
+    \label{eq:2.1.4}
+    \end{equation}
+  By the initial condition $P(0)=P_0$,
+  \[c=\frac{P_0}{1-\alpha P_0}.\]
+  Solving for $P$ from Equation \ref{eq:2.1.4} leads to
+  \[\begin{aligned}
+  P=&\frac{P_0 e^{at}}{1-\alpha P_0 + \alpha P_0 e^{rt}}\\
+    =&\frac{P_0 }{\alpha P_0 + (1-\alpha P_0)e^{-rt}}
+  \end{aligned}
+  \]
+\end{solution}
+
+\begin{exercise} 
+  A frozen pizza, initially at $32^{\circ} F$ is put into an oven that is pre-heated to $400^{\circ} F$. The pizza warmed up to $50^{\circ} F$ in 2 minutes. Find how long would it take to reach $200^{\circ} F$ by using Newton's cooling law $T'(t) = -k(T(t) - T_m(t))$, where $T(t)$ is the temperature of the pizza after $t$ minutes and $T_m(t)$ is the ambient temperature,
+\end{exercise}
+\begin{exersol}
+  Since the oven temperature is constantly $400^{\circ} F$, the Newton cooling law implies
+  \[\frac{dT}{dt} = k (400-T)\]
+  Dividing by $(400-T)$ and integrating yields
+  \[
+   -\ln(400-T) = kt + C
+  \]
+  Solving for $T$ gives the general solution
+  \[T=400-e^{-kt-C},\]
+  or equivalent
+  \[T=400 - c e^{-kt}.\]
+  Since the initial temperature of the pizza was 32, that is $T(0)=32$, plugging it into the function $T(t)$ and solving for $c$ gives $c=368$.
+  Since it takes 2 minutes for the temperature to reach $50^\circ F$, that is $T(2)= 50$, the value $k$ must satisfy the equation
+  \[50= 400 - 368 e^{-2k}.\]
+  Solving for $k$ yields
+  \[k= -\frac{1}{2} \ln{\frac{350}{368}} = 0.02507\]
+  Thus the temperature of the pizza at time $t$ is:
+  \[T(t) = 400- 368 e^{-0.02507t}.\]
+  To reach $200^{\circ} F$, the time that it takes should satisfies
+  \[200 = 400- 368 e^{-0.02507t}.\]
+  Solving this for $t$ implies that it take 24.3 minutes for the pizza to reach $200^\circ F$
+\end{exersol}
+
+
+\subsection{More examples}
+
+\begin{example}
+  Solve the differential equation
+  \[y'=-2xy+3x\]
+\end{example}
+\begin{solution}
+Factoring out $x$ from the right-hand side separates variables
+\[y'=-2x(y-3).\]
+Setting $y-3=0$ leads to a constant solution $y=3$.
+
+Suppose that $y$ is not identically 3. Then the equation may be re-written as
+\[\frac{y'}{y-3}=-2x.\]
+Integrating both sides implies
+\[\ln(|y-3|)=x^2+c_1.\]
+Solve for $y$ leads to the general solutions
+\[y=\pm ce^{x^2}+3,\]
+where $c>0$.
+
+Note that the constant solution may includes in the general solutions $y=\pm ce^{x^2}+3$ by allowing $c=0$.
+\end{solution}
+
+\begin{example}
+  Solve the initial value problem
+	\[y'= e^{x+2y},\qquad y(0)=1.\]
+\end{example}
+\begin{solution}
+  The equation can be re-written as
+\[y'= e^x e^{2y}\]
+Since $e^{2y}>0$ for any $y$, dividing by $e^{2y}$ leads to the following equivalent differential equation
+\[e^{-2y}y' = e^x\]
+Direct integration yields
+\[-\frac{1}{2} e^{-2y} = e^x + c.\]
+Solving for $y$ gives the general solution
+\[y = -\frac{1}{2} \ln{(-2 e^x -2c)}.\]
+The initial condition $y(0)=1$ implies that
+\[1 = -\frac{1}{2} \ln{(-2 -2c)}.\]
+Therefore, $c=-\frac{1}{2}e^{-2}-1$.
+Then the solution of the initial value problem is
+\[y = -\frac{1}{2} \ln{(-2 e^x + e^{-2}+ 2)}.\]
+\end{solution}
+
+\section{Linear First Order Equations}
+\begin{definition}
+  A first order differential equation is called \dfn{linear} if it can be written as
+  $$y' + p(x)y = f(x).$$
+
+  A first order differential equation that cannot be written like this is \dfn{nonlinear}.
+
+  A linear first order differential equation is said to be homogeneous if $f(x)$ is identically $0$.
+\end{definition}
+
+\begin{example}
+  Determine whether the equation is linear, homogeneous linear or not.
+  \begin{enumerate}
+    \item  $y' - 2y = - e^{x}$.
+    \item  $x^2y'+ e^xy=0$.
+    \item $xy'+ y^2=0$.
+  \end{enumerate}
+\end{example}
+\begin{solution}
+  \begin{enumerate}
+    \item  $y' - 2y = - e^{x}$ is a linear first order differential equation because the highest order and exponents of $y$ are both 1. 
+    \item  $x^2y'+ e^xy=0$ is also a linear first order differential equation. Moreover, it is homogeneous because, it has no constant term, i.e. it is in the form $y'+p(x)y=0$.
+    \item $xy'+ y^2=0$ is not linear because the highest exponent of $y$ is 2.
+  \end{enumerate}
+\end{solution}
+
+Note that a homogeneous linear first order differential equation $y'+p(x)y=0$ is as special separable differential equation. It always has $y=0$ as a solution. We call it the trivial solution.
+
+If $p(x)=0$, the the equation becomes $y'=f(x)$ which can be solve by direct integration if $f(x)$ is continuous.
+
+How can we solve a general linear non-homogeneous differential equation? There are two methods both uses the product rule in some ways.
+
+\subsection{The integrating factor method}
+
+Let's first see an example.
+
+\begin{example}
+Solve the equation
+    \[y'+ \frac{2}{x} y = \frac{e^{x}}{x^2}.\]
+\end{example}
+\begin{solution}
+  Let's first clear the denominator by multiplying $x^2$ to both sides which yields
+  \[2xy + x^2 y'=e^{x}.\]
+  Now, notice that the left side is same as $\left( x^2 y \right)'$ by the product rule. Therefore, the equation can be re-written as
+  \[\left( x^2 y \right)'= e^{x}\]
+  Integrating both sides leads to
+ \[x^2 y = e^x + c.\]
+ Solving for $y$ gives the general solution
+ \[y  =  \frac{1}{x^2} e^{3x} + \frac{C}{x^2}.\]
+\end{solution}
+
+It seems that we are lucky that the left hand side becomes the derivative of a product. But it also suggests that we may look for a multiplier so that the left hand side will be the derivative of a product. The existence a multiplier should be clear once we find it. 
+
+Let's suppose that there is a function $r(x)$ such that 
+\[r(x)y'+r(x)p(x)y=\Big(r(x)y\Big)'.\]
+Apply the product rule to $r(x)y$ and compare both sides of the above equation, we see that $r(x)$ must satisfy the separable differential equation
+\[r'(x)=r(x)p(x).\]
+Solving this separable differential equation, we get $r(x)=e^{\int p(x)\operatorname{d} x}$ which is called the \dfn{integrating factor} for $y'+p(x)y=f(x)$.
+After finding $r(x)$, then the linear first order differential equation becomes
+\[\Big(r(x)y\Big)'=r(x)f(x)\]
+which has a solution
+\[y={e^{-\int p(x)\operatorname{d} x}}\left(\int e^{\int p(x)\operatorname{d} x}f(x)\operatorname{d} x + c\right).\]
+This method is called the \dfn{integrating factor method}.
+
+\begin{remark}
+  Note that it doesn't matter which antiderivative we take when computing the integrating factor. Because, it will eventually alter the constant $c$ by a factor.
+\end{remark}
+
+In the following, we will abuse the notation $\int p(x)\operatorname{d} x$ and set it equals a specific antiderivative.
+
+\begin{example}
+  Find the general solution of
+\[y'+2y=x^3e^{-2x}.\]
+\end{example}
+\begin{solution}
+The integrating factor $r(x)$ can be taken as
+\[r(x)=e^{\int 2\operatorname{d} x}= e^{2x}.\]
+Multiplying both sides of the equation by $e^{2x}$ transforms it to
+\[e^{2x}y'+2e^{2x}y=x^3,\]
+or equivalently
+\[\left(e^{2x}y\right)'=x^3.\]
+Integrating both sides yields
+\[ye^{2x}=\frac14x^4+c.\]
+So $y=\frac14e^{-2x}(x^4+c)$ is the general solution of the equation.
+\end{solution}
+
+\begin{exercise}
+  Find the general solution of 
+\[ y'  + y =1.\]
+\end{exercise}
+\begin{exersol}
+  The integrating factor is
+  \[r(x)=e^{\int \operatorname{d} x}=e^x.\]
+Multiplying both sides with the integrating factor $e^x$ leads to
+\[e^x y' + e^x y = e^x\]
+which is the same as
+\[(e^x y)' = e^x.\]
+Integrating both side gives the equation
+\[  e^x y = = e^x +c .\]
+Hence, the general solution of the equation is
+\[y = 1 + c e^{-x}.\]
+\end{exersol}
+
+\begin{example}
+  Solve the initial value problem. 
+\[y'+4y=e^{-4x}\qquad y(1)=3.\]
+\end{example}
+\begin{solution}
+  Since $p(x)=4$, the integral factor is $\int p(x) \operatorname{d} x = 4x$.
+  Multiplying the equation with $e^{4x}$ leads to
+    \[e^{4x} y'+ 4 e^{4x} y  =   1\]
+    which is the same as
+    \[( e^{4x} y)'   =1\]
+    Integrating both sides yields 
+    \[e^{4x} y = x + c.\]
+    So the general solution is
+    \[y= x e^{-4x} + c e^{-4x}.\]
+
+The initial condition means when $x$=1, $y=4$. Plugging the point into the function $y$ produces an equation of $c$
+\[  e^{4}\cdot 3 = 1 + c,\]
+which implies that 
+\[c=3e^4-1.\]
+Hence, the solution to the initial value problem is
+\[y=xe^{-4x}+(3e^4-1)e^{-4x}.\]
+\end{solution}
+
+\begin{exercise}
+ Solve the initial value problem 
+\[  y' - 3y =e^x, \qquad y(0)=0.\]
+\end{exercise}
+\begin{exersol}
+Since $p(x)=-3$, $\int p(x)  \operatorname{d} x= -3x$ and the integrating factor is $e^{-3x}$.
+Multiplying both sides with $e^{2x}$ yields
+\[e^{-3x} y' - 3e^{-3x} y  =   e^{-2x}\]
+The product rule and chain rule together implies that
+\[e^{-3x} y'+ 2 e^{-3x} y =  (e^{-3x} y)'.\]
+Hence, the original equation can be transformed into
+\[( e^{-3x} y)'   = e^{-2x}.\]
+Integrating both sides yields 
+\[e^{-3x} y = -\frac{1}{2} e^{-2x} + c.\]
+Solving for $y$ gives the general solution
+\[y= -\frac{1}{2} e^x + c e^{3x}.\]
+Since $y(0)=0$, $c$ satisfies
+\[0=-\frac12 + c,\] 
+or equivalently $c=\frac12$.
+
+Therefore, the solution to the initial value problem is
+\[y=-\frac12 e^x + \frac12 e^{3x}.\]
+\end{exersol}
+
+\subsection{The method of variation of parameters}
+  If you read Trench's book, you will find there is another method called \emph{variation of parameters}. The idea is to solve the \dfn{complimentary} linear homogeneous equation $y'+p(x)y=0$ first to get a solution $y_o$. Then find a "parameter" $u(x)$ such that $y=uy_o$ is a solution of the original linear non-homogeneous equation. By plugging $uy_o$ into the non-homogeneous linear equation and comparing both sides, you will find that $u'=\frac{f(x)}{y_o}$ which can be solved by direct integration.
+
+  A possible motivation of the idea is as follows.
+  Let $y_p$ be a particular solution for $y'+p(x)y=f(x)$. Then $y=y_o+y_p$ is also a solution. Whatever the $y_p$ is, $y=y_o(1+\frac{y_p}{y_o})$ is a solution. Here $u=1+\frac{y_p}{y_o}$ is the parameter that varies.
+
+  Both the integrating factor method and then variation of parameters work equally well for first order equations. For higher order differential equations, they have there own advantages and limitations. The integrating factor method can also be used for exact equations which includes all linear first order equations. The method of variation of parameters can be used for some nonlinear first order or linear higher order equations.
+
+\begin{example}
+  Find the general solution of 
+  \[  y' + 2y  = 4x. \]
+\end{example}
+\begin{solution}
+  First, we solve the complimentary linear homogeneous equation
+  \[y'+2y=0.\]
+Note that the constant solution $y=0$ won't be a solution to the original equation. So we assume that $y$ is not identically zero and hence dividing $y$ is legitimate. The linear homogeneous equation can be re-written as
+\[\frac{y'}{y}=-2x.\]
+Integrating both sides implies $y=e^{-2x}$. Again, you can check that adding a constant won't change the general solution.
+
+Now, we want to find a function $u$ such that $ue^{-2x}$ is a solution of the original equation.
+
+Suppose that $ue^{-2x}$ is a solution of the original equation. Then the function $u$ must satisfy the following equation
+\[u'e^{-2x}-2ue^{-2x}+2u^{-2x}=4x,\]
+or equivalently
+\[u'=4xe^{2x}.\]
+ Integrating using integration by parts yields
+ \[u=2xe^{2x}+2e^{2x}+c.\]
+
+ Therefore, the general solution of the original equation is
+ \[y=ue^{-2x}=2x+2+ce^{-2x}.\]
+\end{solution}
+
+\begin{exercise}
+  Find the general solution of
+\[y'+2y=x^3e^{-2x}.\]
+using the method of variation of parameters.
+\end{exercise}
+\begin{exersol}
+Solving the homogeneous linear equation $y'+2y=0$ produces a solution $y=e^{-2x}$.
+Suppose that $y=ue^{-2x}$ is a solution of the equation $y'+2y=x^3e^{-2x}$. Then the function $u$ satisfy the following differential equation.
+\[u'e^{-2x}-2ue^{-2x}+2ue^{-2x}=x^3e^{-2x},\]
+or equivalently
+\[u'=x^3.\]
+
+Therefore,
+\[u=\frac{x^4}{4}+c,\]
+and
+\[y=ue^{-2x}=\frac14e^{-2x}\left(x^4+c\right)\]
+is the general solution.
+\end{exersol}
+
+\section{Change of Variables}
+
+Some non-linear first order differential equations may be solve by changing variable. In this section, we will look into two of such types.
+
+\subsection{Bernoulli Equations}
+
+\begin{definition}
+  A \dfn{Bernoulli first order} differential equation is a differential equation of the form
+	$$y' + p(x) y = q(x)y^n.$$
+\end{definition}
+
+On way to solve this type of equation is to use the method of variation of parameters.
+
+\begin{example}
+  Solve the Bernoulli equation
+\[y'-y=xy^2.\]
+\end{example}
+\begin{solution}
+  Solving the complimentary homogeneous equation $y'-y=0$ yields a solution $y_o=e^x$. We look for solutions of the original equation in the form $y=ue^x$.
+  Plugging $y=ue^x$ into the Bernoulli equation yields
+  \[u'e^x=xu^2e^{2x},\] 
+  or equivalently
+  \[u'=xu^2e^x\]
+  which is a separable equation.
+  Separating variables and integrating both sides gives
+  \[
+  \begin{aligned}
+    \frac{u'}{u^2}=&xe^x\\
+    -\left(\frac1u \right)'=&x e^x\\
+    -\frac1u =&x e^x - e^x + c.
+  \end{aligned}
+  \]
+
+  Hence,
+\[u=-\frac{1}{(x-1)e^x+c}\]
+and
+\[y=-\frac{1}{x-1+ce^{-x}}.\]
+\end{solution}
+
+Another way is to use a substitution to reduce the equation to a linear equation. Indeed, suppose $y$ is not identically zero. Then dividing $y^n$ from both sides yields
+\[ y'y^{-n}+p(x)y^{-(n-1)} = q(x).\]
+Notice that $y' y^{-n}=\left(y^{-(n-1)}\right)'$. 
+Let $v=y^{-(n-1)}$, then the equation becomes 
+\[v' + p(x)z = q(x)\]
+which can be solved by multiple methods.
+
+\begin{example}
+  Find the solution of the initial value problem
+  \[y' + 2 y  =  y^3\qquad y(0)=2.\]
+\end{example}
+\begin{solution}
+  Clearly $y=0$ is a trivial solution of the differential equation but not a solution of the initial value problem.
+  Assume that $y$ is not identically zero.
+  Since $n=3$, let $v=y^{-2}$. Dividing $y^3$ from both sides of the equations implies that $z$ satisfies the equation.
+  \[v' - 4 v = -2.\]
+  According to the method of integrating factor, the integrating factor is 
+  \[r(x) = e^{\int (-4) \operatorname{d} x} = e^{-4x}.\]
+  Multiplying with $r(x)$ and integrating both sides yields
+  \[
+  \begin{aligned}
+    v'e^{-4x} - 4 ve^{-4x} =& -2e^{-4x}\\
+    \left(v e^{-4x}\right)'=&-2e^{-4x}\\
+    ve^{-4x}=&\frac12 e^{-4x} + c\\
+    v=& \frac{1}{2} + c e^{4x}.
+  \end{aligned}  
+  \]
+   As $v=y^{-2}$, then the general solutions are
+  \[y= \frac{\pm 1}{\sqrt{v}} =  \frac{\pm 1}{\sqrt{ \frac{1}{2} + c e^{4x}}}.\]
+  Since $y(0)=2$, the constant $c$ satisfies
+  \[\frac{\pm 1}{\sqrt{ \frac{1}{2} + c e^{4x}}}=2.\]
+  Because square root is nonnegative, only the equation
+  \[\frac{1}{\sqrt{ \frac{1}{2} + c e^{4x}}}=2\]
+  may have a solution. Solving for $c$ gives
+  \[c=-\frac14.\]
+
+  Therefore, the solution of the initial value problem is 
+  \[y= \frac{1}{\sqrt{\frac{1}{2} - \frac14 e^{4x}}}.\]
+\end{solution}
+
+\begin{remark}
+  Note that in this exercise if we change the initial condition to $y(0)=-2$ the solution will be  $y= -\frac{1}{\sqrt{\frac{1}{2} - \frac14 e^{4x}}}$. This suggests that the solution of an initial value problem may depend on the initial condition.
+\end{remark}
+
+
+\begin{exercise}
+  Solve the initial value problem
+ 		\[
+ 		y' - y =\frac{1}{y}, \qquad y(0)=1.
+ 		\]
+\end{exercise}
+\begin{exersol}
+  Multiplying both sides with $y$ and applying the 
+ substitution $v= y^2$ implies that $v$ satisfies 
+  \[v' - 2v = 2\]
+  The integrating factor is
+  \[r(x) = e^{-2x}\]
+  and the equation for $v$ is equivalent to
+  \[(ve^{-2x})' = 2e^{-2x}\]
+  whose general solution is
+  \[v= e^{2x} \int 2 e^{-2x} \operatorname{d} x = e^{2x} (c- e^{-2x}) = ce^{2x} -1.\]
+  Hence
+  \[y= \pm \sqrt{v} = \pm \sqrt{ce^{2x} -1}.\]
+  Since $y(0)=1$, then $c=2$ and $y=\sqrt{2 e^{2x} -1}$.
+\end{exersol}
+
+

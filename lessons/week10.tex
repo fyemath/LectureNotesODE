@@ -1,0 +1,278 @@
+% !TEX root = ../main.tex
+\chapter{Solving Differential Equations using Laplace Transforms}
+\chapterdate{11/15--11/18}
+
+\section{Solving IVP using Laplace Transforms}
+
+Consider the initial value problem
+\[ay''+by'+cy=f(t), \quad y(0)=y_0,\quad y'(0)=y_1.\]
+Applying the Laplace transform to both sides yields
+\[
+\begin{aligned}
+\mathcal{L}(ay''+by'+cy)(s)=&\mathcal{L}(f)(s)\\
+a\mathcal{L}(y'')(s)+b\mathcal{L}(y')(s)+c\mathcal{L}(y)(s)=&\mathcal{L}(f)(s)\\
+a[s^2\mathcal{L}(y)(s)-y_0s-y_1]+b[s\mathcal{L}(y)(s)-y(0)]+c\mathcal{L}(y)(s)=&\mathcal{L}(f)(s)\\
+(as^2+bs+c)\mathcal{L}(y)(s)-[ay_0s-ay_1-by_0]=&\mathcal{L}(f)(s)\\
+\mathcal{L}(y)(s)=&\frac{\mathcal{L}(f)(s)+ay_0s+ay_1+by_0}{as^2+bs+c}.
+\end{aligned}
+\]
+Applying the Inverse Laplace transform yields
+\[y(t)=\mathcal{L}^{-1}\left(\frac{\mathcal{L}(f)(s)+ay_0s+ay_1+by_0}{as^2+bs+c}\right).\]
+
+\begin{example}
+  Use the Laplace transform to solve the initial value problem
+  \[y''-6y'+5y=3e^{2t},\quad y(0)=2, \quad y'(0)=3.\]
+\end{example}
+\begin{solution}
+  Using the formulas
+  \[\mathcal{L}(y')(s)=s\mathcal{L}(y)-y(0),\]
+  \[\mathcal{L}(y'')(s)=s^2\mathcal{L}(y)-sy(0)-y'(0),\]
+and applying the Laplace transform to both sides yields
+\[(s^2-6s+5)\mathcal{L}(y)=\frac{3}{s-2}+2(s-6)+3.\]
+Therefore,
+\[\mathcal{L}(y)=\frac{3}{(s-2)(s-1)(s-5)}+\frac{2s-9}{(s-1)(s-5)}.\]
+Applying the partial fractional decomposition method to the right hand side yields
+\[\frac{3}{(s-2)(s-1)(s-5)}+\frac{2s-9}{(s-1)(s-5)}=\frac{5}{2}\cdot\frac{1}{s-1}-\frac{1}{s-2}+\frac{1}{2}\cdot\frac{1}{s-5}.\]
+Therefore,
+\[
+\begin{aligned}
+  y=&\mathcal{L}^{-1}\left(\frac{5}{2}\cdot\frac{1}{s-1}-\frac{1}{s-2}+\frac{1}{2}\cdot\frac{1}{s-5}\right)\\
+  =&\frac{5e^t}{2}-e^{2t}+\frac{e^{5t}}{2}.
+\end{aligned}  
+\]
+\end{solution}
+
+\begin{example}
+  Solve the initial value problem
+\[y''+2y'+2y=3, \quad y(0)=1,\quad y'(0)=1.\]
+\end{example}
+\begin{solution}
+  Applying the Laplace transform to the equation and solve for $\mathcal{L}(y)$ implies
+  \[\mathcal{L}(y)=\frac{3}{s(s^2+2s+2)}+\frac{s+3}{s^2+2s+2}.\]
+The partial fractional decomposition is
+\[\frac{3}{s(s^2+2s+2)}+\frac{s+1}{s^2+2s+2}=\frac{3}{2}\cdot\frac{1}{s}-\frac{1}{2}\cdot\frac{s+1}{(s+1)^2+1}-\frac{3}{2}\cdot\frac{1}{(s+1)^2+1}.\]
+Therefore,
+\[
+  \begin{aligned}
+  y=&\mathcal{L}^{-1}\left(\frac{3}{2}\cdot\frac{1}{s}-\frac{1}{2}\cdot\frac{s+1}{(s+1)^2+1}+\frac{1}{2}\cdot\frac{1}{(s+1)^2+1}\right)\\
+  =&\frac23-\frac12e^{-t}\cos t+\frac12e^{-t}\sin t.
+  \end{aligned}  
+\]
+\end{solution}
+
+\begin{exercise}
+Solve the initial value problem
+\[y''+y=0,\quad y(0)=0,\quad y'(0)=1.\]
+\end{exercise}
+\begin{solution}
+  Applying the Laplace transform to the equation yields
+  \[\mathcal{L}(y)=\frac{1}{s^2+1}.\]
+  Then
+  \[y=\mathcal{L}^{-1}\left(\frac1{s^2+1}\right)=\sin t.\]
+\end{solution}
+
+\begin{exercise}
+  Solve the initial value problem
+\[y''+ 25 y=9e^t,\quad y(0)=0,\quad y'(0)=2.\]
+\end{exercise}
+\begin{solution}
+  Applying the Laplace transform to the equation yields
+  \[\mathcal{L}(y)=\frac{1}{s^2+25}\cdot\left(\frac{9}{s-1}+2\right).\]
+  The partial fractional decomposition of the right hand side is
+  \[\frac{9}{(s-1)(s^2+25)}+\frac{2}{s^+25}=-\frac{9}{26}\cdot\frac{s}{s^2+25}+\frac{43}{130}\cdot\frac{5}{s^2+25}+\frac{9}{26}\cdot\frac{1}{s-1}.\]
+  Then
+  \[
+    \begin{aligned}
+      y=&\mathcal{L}^{-1}\left(-\frac{9}{26}\cdot\frac{s}{s^2+25}+\frac{43}{5}\cdot\frac{5}{s^2+25}+\frac{9}{26}\cdot\frac{1}{s-1}\right)\\
+      =&-\frac{9}{26}\cos(5t)+\frac{43}{130}\sin(5t)+\frac{9}{26}e^t.
+    \end{aligned}
+    \]
+\end{solution}
+
+\section{Convolutions*}
+
+Let $F(s)=\mathcal{L}(f(t))(s)$ and $G(s)=\mathcal{L}(g(t))(s)$. The inverse transform $\mathcal{L}^{-1}(F(s)G(s))$ can be calculated by an integral of $f$ and $g$.
+
+\begin{theorem}
+  Let $F(s)=\mathcal{L}(f(t))(s)$ and $G(s)=\mathcal{L}(g(t))(s)$. Then
+  \[\mathcal{L}^{-1}(F(s)G(s))=\int_0^t f(t-x)g(x)\mathrm{d} x.\] 
+\end{theorem}
+\begin{proof}
+Since changing the dummy variable of integration won't change the integral, the function $F(s)G(s)$ is determined by
+\[F(s)G(s)=\int_0^\infty e^{-sx}f(x)\mathrm{d} x\int_0^\infty e^{-st}g(y)\mathrm{d} y.\]
+By \href{https://en.wikipedia.org/wiki/Fubini\%27s_theorem}{Fubini's theorem}, the \href{https://en.wikipedia.org/wiki/Order_of_integration_(calculus)}{order of integration} in this case is interchangeable. Together with change of coordinates, it implies that 
+\[
+  \begin{aligned}
+    \int_0^\infty e^{-sx}f(x)\mathrm{d} x\int_0^\infty e^{-sy}g(y)\mathrm{d} y
+    =&\int_0^\infty \int_0^\infty e^{-s(x+y)}f(x)g(y)\mathrm{d} x\mathrm{d} y\\
+    =&\int_0^\infty \left(\int_0^\infty e^{-s(x+y)}f(x)\mathrm{d} x\right) g(y)\mathrm{d} y\\
+    =&\int_0^\infty \left(\int_y^\infty e^{-su}f(u-y)\mathrm{d} u\right) g(y)\mathrm{d} y\qquad \text{where }~ u=x+y \\
+    =&\int_0^\infty\int_y^\infty\left(e^{-sx}f(x-y)g(y)\right)\mathrm{d} x \mathrm{d} y\\
+    =&\int_0^\infty\int_0^x\left(e^{-sx}f(x-y)g(y)\right)\mathrm{d} y \mathrm{d} x \quad \text{change of coordinates}\\
+    =&\int_0^\infty e^{-s(x)}\left(\int_0^x f(x-y)g(y)\mathrm{d} y\right)\mathrm{d} x \\
+    =&\mathcal{L}\left(\int_0^y f(x-y)g(y)\mathrm{d} x\right)(s).
+  \end{aligned}
+  \]
+  That completes the proof.
+\end{proof}
+
+This theorem motivates the definition of convolution.
+
+\begin{definition}
+  The \emph{\textbf{convolution}} $f*g$ of two functions $f$ and $g$ is defined by
+\[(f*g)(t)=\int_0^t f(x)g(t-x)\mathrm{d} x.\]
+\end{definition}
+
+Applying a substitution $u=t-x$ and changing the dummy variable $u$ back to $x$ implies
+\[(f*g)(t)=\int_0^t f(x)g(t-x)\mathrm{d} x=-\int_t^0 f(t-u)g(u)\mathrm{d} u=\int_0^t g(x)f(t-x)\mathrm{d} x=(g*f)(t).\]
+
+\begin{example}
+Let $f(t)=e^{at}$ and $g(t)=e^{bt}$. Find $\mathcal{L}(f*g)$.
+\end{example}
+\begin{solution}
+By the theorem of convolution,
+\[\mathcal{L}(f*g)=\mathcal{L}(e^{at})\mathcal{ L}(e^{bt})=\frac{1}{(s-a)(s-b)}.\]
+\end{solution}
+
+\begin{example}
+  Find $\mathcal{L}^{-1}\left(\frac{1}{s(s-1)^2}\right)$.
+  \end{example}
+  \begin{solution}
+  From the table of Laplace transform $\frac1s=\mathcal{L}(1)(s)$ and $\frac{1}{s^2}=\mathcal{L}(t)(s)$. By the $s$-shifting theorem, 
+  \[\frac{1}{(s-1)^2}=\mathcal{L}(t)(s-1)=\mathcal{L}(te^t)(s).\]
+  Therefore, by the theorem of convolution,
+  \[\mathcal{L}^{-1}\left(\frac{1}{s(s-1)^2}\right)=(1)*(te^t)=\int_0^t1*xe^x\mathrm{d} x=xe^x-e^x+1.\]
+\end{solution}
+
+\begin{exercise}
+  Find $\mathcal{L}^{-1}\left(\frac{1}{s^2(s^2+1)}\right)$.
+\end{exercise}
+\begin{solution}
+  Note that $\frac{1}{s^2}=\mathcal{L}(t)(s)$ and $\mathcal{L}(\sin(t))(s)$. Therefore,
+  \[\mathcal{L}^{-1}\left(\frac{1}{s^2(s^2+1)}\right)=\int_0^t(t-x)\sin x\mathrm{d} x=((x-t)\cos x)|_0^t-\sin x|_0^t=t-\sin t.\]
+\end{solution}
+
+\section{Dirac Delta Function*}
+
+In real life, there are situations that the systems acted by sudden external forces. The external forces may or may not apply for a period. For example, an electrical surge caused by a lightning strike. In general terms, there is an impulse force whose magnitude can be infinitely large.
+
+In Mathematics, an idea to understand an impulse force is to approximate the force function by a piecewise continuous function.
+
+Consider the function unit step function
+\[
+\delta_h(t)=\begin{cases}
+  \frac{1}{h} & \text{for } 0< t\le h\\
+  0 & \text{otherwise},
+\end{cases}  
+\]
+which represents a force of a magnitude $\frac{1}{h}$ during the time period $0$ to $h$.
+
+The limit of this function $\delta_h(t)$ as $h$ goes to $0$, denoted as $\delta(t)$, is called the \dfn{Dirac delta function} (or simply \dfn{delta function}, or \dfn{unit impulse function}). That is
+\[\delta(t)=\lim\limits_{h\to 0}\delta_h(t)=\begin{cases}
+  \infty & t=0\\
+  0 & \text{otherwise}.
+\end{cases}\]
+For any real number $x$, we define
+\[\delta(t-x)=\lim\limits_{h\to 0}\delta_h(t-x)=\begin{cases}
+  \infty & t=x\\
+  0 & \text{otherwise}.
+\end{cases}
+\]
+
+\begin{remark}
+  In defining $\delta(t)$ as a limit, the shape of the impulse sequence $\delta_h(t)$ turns out irrelevant. For example, Dirac delta function $\delta(t)$ can also be defined as the limit of the sequence of Gaussian functions:
+  \[\delta(t)=\lim\limits_{h\to 0}\frac{1}{h\sqrt{\pi}}e^{-\frac{x}{h^2}}.\]
+  The interested reader is referred to \autocite[Chapter 5]{Bracewell1999} for more details.
+\end{remark}
+
+The Dirac delta function is not a function in the traditional sense as $\delta(0)=\infty$. It is a generalized function in the sense that it is function from the space of functions to the real line.
+%  See also \href{https://math.stackexchange.com/questions/285642/is-the-dirac-delta-function-really-a-function?noredirect=1&lq=1}{Is the Dirac Delta "Function" really a function?}.
+
+Note that 
+\[\int_{-\infty}^\infty \delta_h(t)\D t=\int_0^h\delta_h(t)\D t=1\]
+which yields
+\[\int_{-\infty}^\infty\delta(t)\D t=1.\]
+
+Note that $\int_{-\infty}^\infty\lim\limits_{h\to 0}\delta_h(t)f(t)\D t=0$ for any function. The integral is not meaningful if it is understood in this way. So the integral $\int_{-\infty}^t\delta(x-a)\D x$ really should be understood as $\lim\limits_{b\to 0}\int_{-\infty}^t\delta_b(x-a)\D x$. After all, the function $\delta(t)$ is not a real function, the meaning of the integration involving $\delta(t)$ should be generalized too. In the rest of the section, we shall interpret operations involving Dirac delta function, such as multiplication, integration, and differentiation in the way of performing the operation first and then taking the limit. This interpretation of operations involving $\delta(t)$ is compatible with other approaches of Dirac delta function. One of such approaches is to define the Dirac delta function as the derivative of the unit step function in the following sense:
+\[\delta(t-a)=\dfrac{\D }{\D t}\left(\int_{-\infty}^t\delta(x-a)\D x\right)=\dfrac{\D }{\D t}(u(t-a))=u'(t-a).\]
+
+This integration property together with $\delta(t)=0$ for $t\neq 0$ gives the formal characterization of Dirac delta function, that is, the Dirac delta function is a generalized function (or distribution) with the following properties:
+\begin{enumerate}
+  \item $\delta(t)=0$ if $t\neq 0$, and
+  \item $\int_{-\infty}^\infty \delta(t)\D t=1$, where the integral may be understand as the \href{https://en.wikipedia.org/wiki/Riemann%E2%80%93Stieltjes_integral}{Riemann–Stieltjes integral}.
+\end{enumerate}
+
+An important property which highlights the viewpoint of $\delta(t)$ being a function over the space of functions.
+
+\begin{theorem}[Sifting Property]
+  For any function $f$ continuous near $x$, 
+  \[
+    \int_a^b\delta(t-x)f(t)\D t=\begin{cases}
+    f(x) & \text{for } x\in (a, b)\\
+    0 & \text{for } x\not\in [a, b].
+  \end{cases}
+  \]
+\end{theorem}
+\begin{proof}
+  If $x\not\in [a, b]$, then $\delta(t-x)=0$ on $[a, b]$. So is the integral. Suppose that $x$ is in $(a, b)$.
+  Using the fundamental theorem of calculus, we get
+  \[
+  \begin{aligned}
+    \int_a^\delta(t-x)f(t)\D t=&\lim\limits_{h\to 0}\int_a^b\delta_h(t-x)f(t)\D t\\
+    =&\lim\limits_{h\to 0}\int_{x}^{x+h}\frac{1}{h}f(t)\D t\\
+    =&\lim\limits_{h\to 0}\frac{\int_{x}^{x+h}f(t)\D t}{h}\\
+    =&f(x).
+  \end{aligned}  
+  \]
+\end{proof}
+
+As a consequence, for any $a>0$, the Laplace transform of $\delta(t-a)$ is
+\[\mathcal{L}(\delta(t-a))(s)=\int_0^\infty\delta(t-a)e^{-st}\D t=e^{-as}.\]
+In particular,
+\[\mathcal{L}(\delta(t))(s)=1.\]
+
+The Dirac delta function can be used to solve the following initial value problem
+\[ay''+by'+cy=f(t), \quad y(0)=0, \quad y'(0)=0,\]
+where $a>0$.
+Applying the Laplace transform implies
+\[\mathcal{L}(y)(s)=\frac{\mathcal{L}(f)(s)}{as^2+bs+c}.\]
+Write the inverse transform of $\frac{1}{as^+bs+c}$ as
+\[w(t)=\mathcal{L}^{-1}\left(\frac{1}{as^+bs+c}\right),\]
+which is called the \dfn{unit impulse response} (or \dfn{weight function}).
+Then applying the theorem of convolution yields
+\[y=\mathcal{L}^{-1}\left(\mathcal{L}(f(t))(s)\cdot \frac{1}{as^2+bs+c}\right)=f(t)*w(t)=\int_{0}^tf(t-x)w(x)\D x.\]
+Because of the commutativity of convolution, the solution $y$ can also be calculated by
+\[y=\int_0^tf(x)w(t-x)\D x.\]
+
+In particular, if $f(t)=\delta(t)$, then the function $w(t)$ is nothing but the solution of the initial value problem
+\[ay''+by'+cy=\delta(t), \quad y(0)=0, \quad y'(0)=0.\]
+This is the reason why it is called the unit impulse response.
+
+\begin{example}
+  Solve the initial value problem
+  \[y''+y'-2y=3e^{5t},\quad y(0)=0, y'(0)=0.\]
+\end{example}
+\begin{solution}
+  The unit impulse function is determined by
+  \[
+    \begin{aligned}
+      w(t)=&\mathcal{L}^{-1}\left(\frac{1}{s^2+s-2}\right)\\
+      =&\frac13\mathcal{L}^{-1}\left(\frac{1}{s-1}-\frac{1}{s+2}\right)\\
+      =&\frac13(e^{t}-e^{-2t}).
+    \end{aligned}
+    \]
+
+  Then the solution of the equation is
+  \[
+  \begin{aligned}
+    y=&\int_0^t(e^{x}-e^{-2x})e^{5(t-x)}\D x\\
+    =&e^{5t}\int_0^t (e^{-4x}-e^{-7x})\D x\\
+    =&e^{5t}\left(-\frac{e^{-4x}}{4}+\frac{e^{-7x}}{7}\right)|_0^t\\
+    =&e^{5t}\left(-\frac{e^{-4t}}{4}+\frac{e^{-7t}}{7}-\frac{3}{28}\right)\\
+    =&\frac{e^{-2t}}{7}-\frac{e^{t}}{4}-\frac{3e^{5t}}{28}.
+  \end{aligned}  
+  \]
+\end{solution}
+
+% In general, inverse transforms are not easy to find, but can be determined by the complex integral
+% \[f(t)=\frac{1}{2\pi\mathrm{i}}\int_{r-\mathrm{i}\infty}^{r+\mathrm{i}\infty}e^{st}F(s)\D s.\]

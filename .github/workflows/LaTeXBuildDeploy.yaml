@@ -1,0 +1,26 @@
+name: Build and deploy latex sources to GitHub Pages
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    # - uses: actions/setup-java@v2
+    #   with:
+    #     distribution: 'zulu' # See 'Supported distributions' for available options
+    #     java-version: '17'
+    - name: Compile
+      uses: xu-cheng/texlive-action/full@v1
+      with:
+          run: |
+            arara main.tex
+    - name: Copy to public folder for deployment
+      run: |
+        mkdir -p public
+        cp main.pdf public/
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        force_orphan: true # Ensures that not all previous PDFs are kept around forever

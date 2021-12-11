@@ -1,0 +1,399 @@
+% !TEX root = ../main.tex
+\chapter{Bounded Value Problems and Fourier Series}
+\chapterdate{12/6--12/09}
+
+\section{Introduction to Bounded Value Problems}
+
+In studying heat conduction, or wave propagation, the following type of equation will be employed
+\[y''+\lambda y=0, \qquad y(0)=0, \qquad y(L)=0,\]
+where $\lambda$ is a real number and  $L>0$.
+
+More generally, the conditions may be given as
+\[ay(x_0)+by'(x_0)=\alpha \qquad cy(x_1)+dy'(x_1)=\beta,\]
+which are called \dfn{boundary conditions}. A differential equation with boundary conditions is called \dfn{bounded value problems}.
+
+Not like linear second-order differential equations with constant coefficients and initial conditions,  with boundary conditions, the existence and number of solutions vary.
+
+\begin{example}
+  Solve $y''+ y=0$ with each of the following boundary conditions 
+  \begin{enumerate}
+    \item $y(0)=1$ and $y(\pi/2)=0$.
+    \item $y(0)=0$ and $y(\pi)=1$.
+    \item $y(0)=0$ and $y(\pi)=0$.
+  \end{enumerate}
+\end{example}
+\begin{solution}
+  Since the characteristic polynomial of the equation is $p(r)=r^2+1$ which has two roots $r=\pm i$. Then the general solution of the equation is
+  \[y=c_1\cos x +c_2\sin x.\]
+
+  \begin{enumerate}
+    \item The boundary condition $y(0)=0$ implies that $c_1   = 1$. The boundary condition $y(\pi/2)=0$ implies that $c_2=0$. So this boundary value problem has a unique solution $y=\cos x$.
+    \item  The boundary condition $y(0)=0$ implies that $c_1   = 0$. But the boundary condition $y(\pi)=1$ implies that $c_1=-1$. That's a contradiction, which means this boundary value problem has no solution.
+    \item The boundary conditions implies that $c_1   = 0$ and $c_2$ can be any numbers. So this boundary value problem has infinitely many solutions in the form $y=c\sin x$. 
+  \end{enumerate}
+\end{solution}
+
+The existence and number of solutions also depend on the value of $\lambda$.
+
+\begin{example}
+  Solve $y'' + \frac{1}{4}y=0$ with boundary conditions $y(0)=0$ and $y(\pi)=0$.
+\end{example}
+\begin{solution}
+  Since the characteristic polynomial of the equation is $p(r)=r^2+\frac14$ which has two roots $r=\pm \frac{1}{2}i$. Then the general solution of the equation is
+  \[y=c_1\cos\left(\frac{x}{2}\right) +c_2\sin\left(\frac{x}{2}\right).\]
+  The boundary condition $y(0)=0$ implies that $c_1   = 0$. The boundary condition $y(\pi)=1$ implies that $c_2=0$. So this boundary value problem has only a trivial solution $y=0$.
+\end{solution}
+
+The boundary value problem
+\[y''+\lambda y=f(x), \qquad ay(0)+by'(0)=\alpha \qquad cy(L)+dy'(L)=\beta\]
+is called a \dfn{nonhomogeneous boundary value problem} over $[0, L]$ if either $f(x)$, $\alpha$ or $\beta$ is nonzero. The associated \dfn{homogeneous boundary value problem} is given by setting $f=0$, $\alpha=0$ and $\beta=0$.
+
+Like initial value problems, solutions of nonhomogeneous boundary value problems are sums of a particular solution and solutions of the associated homogeneous boundary problem.
+
+\begin{lemma}\label{lem:ReduceToHomogeneous}
+  Let $u$ be a solution of the nonhomogeneous boundary value problem
+  \[y''+\lambda y=f(x), \qquad ay(0)+by'(0)=\alpha \qquad cy(L)+dy'(L)=\beta.\] 
+  Then any solution $y$ of this nonhomogeneous boundary problem is given by 
+  \[y = u + z\] 
+  for some solution $z$ of the associated homogeneous boundary problem
+  \[y''+\lambda y=0, \qquad ay(0)+by'(0)=0 \qquad cy(L)+dy'(L)=0.\]
+\end{lemma}
+\begin{proof}
+  It sufficiently to show that $y-u$ is a solution of the associated boundary value problem. But that can be verified directly.
+\end{proof}
+
+To find all solutions of a boundary value problem, the key is to study the associated homogeneous boundary value problem.
+
+The following property of homogeneous boundary value problem can be verified directly.
+
+\begin{theorem}[Superposition Principle]
+  Let $u_1$ and $u_2$ be two solutions of the homogeneous boundary value problem 
+  \[y''+\lambda y=0, \qquad ay(0)+by'(0)=0 \qquad cy(L)+dy'(L)=0.\]
+  Then the linear combination
+  \[c_1u_2+c_2u_2\]
+  is also a solution.
+\end{theorem}
+
+% \begin{lemma}
+%   Consider the nonhomogeneous boundary value problem
+%   \[y''+ p(x)y'+q(x)y=f(x), \qquad ay(0)+by'(0)=\alpha \qquad cy(L)+dy'(L)=\beta.\] 
+%   Suppose $u_1$ and $u_2$ are linearly independent solutions of the equation
+%   \[y''+ p(x)y'+q(x)y=0\]
+%   and $y_p$ is a particular solution of the equation $y''+\lambda y=f(x)$. 
+%   Let
+%   \[
+%   M= \begin{pmatrix}
+%     a u_1(0)+b u_1'(0) & a u_2(0)+b u_2'(0) \\
+%     c u_1(L)+d u_1'(L) & c u_2(L)+d u_2'(L) 
+%   \end{pmatrix}
+%   \]
+%   and 
+%   \[
+%     N = \begin{pmatrix}
+%       a u_1(0)+b u_1'(0) & a u_2(0)+b u_2'(0) & \alpha - y_p(0)\\
+%       c u_1(L)+d u_1'(L) & c u_2(L)+d u_2'(L) & \beta - y_p(L)
+%     \end{pmatrix}.
+%     \]
+%   Then the nonhomogeneous boundary value problem
+%   has 
+%   \begin{enumerate}
+%     \item a unique solution if $\det(M)\neq 0$.
+%     \item infinitely many solutions if the rows of $N$ are proportional to each other.
+%     \item no solution otherwise.
+%   \end{enumerate}
+% \end{lemma}
+% \begin{proof}
+%   The general solution of the equation $y''+ p(x)y'+q(x)y=f(x)$ is given by
+%   \[y=y_p+c_1u_1+c_2u_2.\] 
+
+%  The solutions of the boundary value problem are determined by the values of $c_1$ and $c_2$ which satisfy the following linear system derived from boundary conditions
+% \begin{equation}
+%   \label{eq:boundaryconditions}
+%   \begin{pmatrix}
+%     a u_1(0)+b u_1'(0) & a u_2(0)+b u_2'(0) \\
+%     c u_1(L)+d u_1'(L) & c u_2(L)+d u_2'(L)
+%   \end{pmatrix}\begin{pmatrix}
+%     c_1\\ c_2
+%   \end{pmatrix}=\begin{pmatrix}
+%     \alpha-z(0)\\ \beta-z(L)
+%   \end{pmatrix}.
+% \end{equation}
+
+% If $\det(M)\neq 0$, then $c_1$ and $c_2$ are uniquely determined in the linear system \ref{eq:boundaryconditions}.
+
+% If the rows of $N$ are proportional to each other, then the linear system \ref{eq:boundaryconditions} has a redundant equation. Hence, there are infinitely many pairs $(c_1, c_2)$ satisfies the linear system.
+
+% Otherwise, $\det(M)=0$ but rows of $N$ are NOT proportional to each other. In this case, the linear system is equivalent to
+% \[
+%   \begin{pmatrix}
+%     a u_1(0)+b u_1'(0) & a u_2(0)+b u_2'(0) \\
+%    0 & 0
+%   \end{pmatrix}\begin{pmatrix}
+%     c_1\\ c_2
+%   \end{pmatrix}=\begin{pmatrix}
+%     \alpha-z(0)\\ *
+%   \end{pmatrix},
+% \]
+% where $*$ is a non-zero number. The new linear system clearly has no solution.
+% \end{proof}
+
+\section{Eigenvalues and Eigenfunctions}
+
+In this section, we study homogeneous boundary value problems. 
+
+Consider the boundary value problem
+\[
+  y''+\lambda y=0, \qquad ay(0)+by'(0)=0 \qquad cy(L)+dy'(L)=0.
+\]
+A value of $\lambda$ such that the boundary value problem has a nontrivial solution is called an \dfn{eigenvalue of the boundary value problem}, and the nontrivial solutions are called \dfn{$\lambda$-eigenfunctions}, or \dfn{eigenfunctions associated to $\lambda$}.
+
+\begin{example}
+  Find eigenvalues and eigenfunctions of the boundary value problem
+  \[
+  y''+\lambda y=0, \qquad y(0)=0 \qquad y(L)=0.
+\]
+\end{example}
+\begin{solution}
+  If $\lambda =0$, then the general solution of the equation $y''+\lambda y=0$ is
+  $y=c_1+c_2x$. The boundary conditions imply $c_1=0$ and $c_2=0$. So $\lambda=0$ is not an eigenvalue.
+  
+  If $\lambda<0$, then equation $y''+\lambda y=0$ has the general solution
+  \[y=c_1e^{-\sqrt{-\lambda x}}+c_2e^{\sqrt{-\lambda x}}.\]
+  Note that the general solution can also be written as  a linear combination $y=c_1\cosh(\sqrt{-\lambda x}) + c_2\sinh(\sqrt{-\lambda x}) $ of the hyperbolic functions:
+  \[
+    \cosh x=\frac{e^x+e^{-x}}{2}\qquad\sinh x=\frac{e^x-e^{-x}}{2},
+  \]
+  which will be convenient to determine $c_1$ and $c_2$ from the boundary conditions.
+
+  Since $\cosh(x)>0$ for any $x$ and $\sinh(x)=0$ if and only if $x=0$, then the boundary condition $y(0)=0$ implies that $c_1=0$ and the boundary condition $y(L)=0$ then implies $c_2=0$. So a negative $\lambda$ is not an eigenvalue.
+
+  If $\lambda>0$, the the general solution is 
+  \[y=c_1\cos(\sqrt{\lambda} x)+c_2\sin(\sqrt{\lambda} x).\]
+  The boundary conditions imply $c_1$ and $c_2$ satisfy the system
+  \[
+    \begin{cases}
+      c_1=&0  \\
+      c_2\sin(\sqrt{\lambda} L)=&0
+    \end{cases}
+  \]
+  So $\lambda$ is an eigenvalue if $\sqrt{\lambda} L=n\pi$,or equivalently $\lambda=\frac{n^2\pi^2}{L^2}$, where  $n\neq 0$.
+
+  In this case, the function
+  \[y_n=\sin\left(\frac{n\pi x}{L}\right)\]
+  is an eigenfunction associated to the eigenvalue $\lambda=\frac{n^2\pi^2}{L^2}$.
+\end{solution}
+
+\begin{exercise}
+  Find eigenvalues and eigenfunctions of the boundary value problem
+  \[
+  y''+\lambda y=0, \qquad y'(0)=0 \qquad y'(L)=0.
+\]
+\end{exercise}
+\begin{exersol}
+  If $\lambda =0$, then the general solution of the equation $y''+\lambda y=0$ is
+  $y=c_1+c_2x$. The boundary conditions imply $c_2=0$. So $\lambda=0$ is an eigenvalue with an eigenfunction $y=1$.
+  
+  If $\lambda<0$, then equation $y''+\lambda y=0$ has the general solution
+  \[y=c_1\cosh(\sqrt{-\lambda x})+c_2\sinh(\sqrt{-\lambda x}).\]
+  Since $(\cosh x)'=-\sinh x$ and $(\sinh x)=\cosh x$,  the boundary conditions $y'(0)=0$ and $y'(L)=0$ imply that $c_1=0$ and $c_2=0$.
+  So a negative $\lambda$ is not an eigenvalue.
+
+  If $\lambda>0$, the the general solution is 
+  \[y=c_1\cos(\sqrt{\lambda} x)+c_2\sin(\sqrt{\lambda} x).\]
+  The boundary conditions imply $c_1$ and $c_2$ satisfy the system
+  \[
+    \begin{cases}
+      c_2=&0  \\
+      c_1\sin(\sqrt{\lambda} L)=&0
+    \end{cases}
+  \]
+  So $\lambda$ is an eigenvalue if $\sqrt{\lambda} L=n\pi$,or equivalently $\lambda=\frac{n^2\pi^2}{L^2}$, where  $n\neq 0$.
+
+  In this case, the function
+  \[y_n=\cos\left(\frac{n\pi x}{L}\right)\]
+  is an eigenfunction associated to the eigenvalue $\lambda=\frac{n^2\pi^2}{L^2}$.
+\end{exersol}
+
+Those eigenfunctions has very interesting properties.
+
+Two integrable functions $f$ and $g$ are said to be \dfn{orthogonal} on an interval $[a,b]$ if
+\[\int_a^bf(x)g(x)\D x=0.\]
+
+More generally, a collection of integrable functions $\phi_1$, $\phi_2$, ..., $\phi_n$, ..., are orthogonal on $[a,b]$ if they are mutually orthogonal.
+
+\begin{example}
+  The eigenfunctions $\sin\left(\frac{n\pi x}{L}\right)$, $n=1,2,\dots, $ are orthogonal to each other over $[0, L]$.
+\end{example}
+\begin{solution}
+  Using the product to sum identity
+  \[\sin \alpha\sin\beta=\frac12\left(\cos(\alpha-\beta)-\cos(\alpha+\beta)\right),\]
+  the integral is calculated by
+  \[
+    \begin{aligned}
+      &\int_0^L \sin\left(\frac{m\pi x}{L}\right) \sin\left(\frac{n\pi x}{L}\right)\D x\\
+      &=\frac12 \left(\int_0^L \cos\left(\frac{(m-n)\pi x}{L}\right)\D x - \int_0^L \cos\left(\frac{(m+n)\pi x}{L}\right)\D x\right)\\
+      &=\frac12 \left(\frac{L}{(m+n)\pi}\sin\left(\frac{(m+n)\pi x}{L}\right)\bigg|_0^L - \frac{L}{(m-n)\pi}\sin\left(\frac{(m-n)\pi x}{L}\right)\bigg|_0^L \right)\\
+      &=\frac12 \left(\frac{L}{(m+n)\pi}\sin((m+n)\pi)-\sin((m-n)\pi)\right)\\
+      &=0.
+    \end{aligned}
+   \]
+   Therefore, those eigenfunctions are mutually orthogonal.
+\end{solution}
+
+\begin{exercise}
+  Show that the functions
+\[1,\, \cos\left(\frac{\pi x}{L}\right),\, \sin\left(\frac{\pi x}{L}\right), \, \cos\left(\frac{2\pi x}{L}\right), \, \sin\left(\frac{2\pi x}{L}\right),\dots, \cos\left(\frac{n\pi x}{L}\right), \, \sin\left(\frac{n\pi x}{L}\right),\dots\]
+are orthogonal on $[-L,L]$.
+\end{exercise}
+\begin{exersol}
+  From the definition of orthogonality, we need to show that
+  \[
+  \int_{-L}^L f(x)g(x)\D x=0,  
+  \]
+  where $f$ and $g$ are two distinct functions in the given set of functions.
+
+  For any integer $r\neq 0$, because $sin$ is an odd function, calculating using the substitution $t=-x$ yields
+  \[
+    \int_{-L}^L\sin\left(\frac{r\pi x}{L}\right)\D x=-\int_{-L}^L\sin\left(\frac{r\pi t}{L}\right)\D t
+  \]
+  which implies
+  \[\int_{-L}^L\sin\left(\frac{r\pi x}{L}\right)\D x=0.\]
+
+  Similarly,
+  \[
+    \int_{-L}^L\sin\left(\frac{m\pi x}{L}\right)\cos\left(\frac{n\pi x}{L}\right)\D x=0,
+  \]
+because the integrand is an odd function.
+
+  Calculating using the substitution $t=\frac{r\pi x}{L}$ yields
+  \[
+    \int_{-L}^L\cos\left(\frac{r\pi x}{L}\right)\D x=\frac{L}{r\pi}
+    \int_{-r\pi}^{r\pi}\cos t\D t=\frac{L}{r\pi}\sin t\bigg|_{-r\pi}^{r\pi}=0.
+  \]
+
+ Therefore, $1$ is orthogonal with any function in the set, and sine and cosine functions in the set are also orthogonal.
+
+ It remains to check orthogonality among sine functions and among cosine functions.
+
+ The trigonometric identities,
+ \[
+ \sin\alpha\sin\beta=\frac12(\cos(\alpha-\beta)-\cos(\alpha+\beta)), 
+ \]
+ \[
+ \cos\alpha\cos\beta=\frac12(\cos(\alpha+\beta)+\cos(\alpha-\beta)), 
+ \]
+ and the following result
+ \[
+  \int_{-L}^L\cos\left(\frac{r\pi x}{L}\right)\D x=0,
+ \]
+ together implies the orthogonality among sine function or among cosine function.
+
+ Therefore, the set of functions are orthogonal.
+\end{exersol}
+
+\section{Introduction to Fourier Series}
+
+The orthogonality of eigenfunctions has great applications in solving partial differential equations. Eigenfunctions can be used to express a function $f$ as a sum of linear combination of them if the function $f$ is good enough.
+
+\begin{theorem}
+Suppose the functions $\phi_1$, $\phi_2$, $\phi_3$, ..., are orthogonal on $[a,b]$ and
+
+\[\int_a^b\phi_n^2(x)\D x\ne0,\quad n=1,2,3,\dots.\]
+
+Let $c_1$, $c_2$, $c_3$,... be constants such that the partial sums 
+\[f_N(x)=\sum_{m=1}^N c_m\phi_m(x)\] 
+satisfy the inequalities
+\[|f_N(x)|\le M,\quad a\le x\le b,\quad N=1,2,3,\dots \]
+for some constant $M<\infty.$ Suppose also that the series
+\[f(x)=\sum_{m=1}^\infty c_m\phi_m(x)\]
+converges and is integrable on $[a,b]$. Then
+\[c_n=\dfrac{\int_a^bf(x)\phi_n(x)\D x}{\int_a^b\phi_n^2(x)\D x},\quad n=1,2,3,\dots.\]
+\end{theorem}
+
+Suppose $\phi_1$, $\phi_2$,..., $\phi_n$, ..., are orthogonal on $[a,b]$ and $\displaystyle \int_a^b\phi_n^2(x)\D x\ne0$, $n=1$, $2$, $3$, $\dots$. Let $f$ be integrable on $[a,b]$, and define
+\[c_n=\dfrac{\int_a^bf(x)\phi_n(x)\D x}{\int_a^b\phi_n^2(x)\D x},\quad n=1,2,3,\dots.\]
+Then the infinite series 
+\[\sum_{n=1}^\infty c_n\phi_n(x)\] is called the \dfn{Fourier expansion} of $f$ in terms of the orthogonal set $\{\phi_n\}_{n=1}^\infty$, and $c_1$, $c_2$,..., $c_n$,... are called the \dfn{Fourier coefficients} of $f$ with respect to $\{\phi_n\}_{n=1}^\infty$.
+
+Due to the fact that the Fourier expansion of a function may diverges every where,  we indicate the relationship between $f$ and its Fourier expansion by
+\[f(x)\sim\sum_{n=1}^\infty c_n\phi_n(x),\quad a\le x\le b.\]
+
+Recall that the set of functions
+\[1,\, \cos\left(\frac{\pi x}{L}\right),\, \sin\left(\frac{\pi x}{L}\right), \, \cos\left(\frac{2\pi x}{L}\right), \, \sin\left(\frac{2\pi x}{L}\right),\dots, \cos\left(\frac{n\pi x}{L}\right), \, \sin\left(\frac{n\pi x}{L}\right),\dots\]
+are orthogonal on $[-L,L]$.
+
+For any piecewise continuous function on $[-L, L]$, the Fourier expansion
+\[f(x)\sim \frac{a_0}{2} + \sum\limits_{n=1}^\infty\left\{a_n\cos\left(\frac{n\pi x}{L}\right)+b_n\sin\left(\frac{n\pi x}{L}\right)\right\}\]
+is called the Fourier series of $f$, where $a_n$ and $b_n$, for $n=0, 1, 2,\dots $, are given by the Euler-Fourier formulas
+\[
+  a_n=\frac{1}{L}\int_{-L}^Lf(x)\cos\left(\frac{n\pi x}{L}\right)\D x \qquad\text{and}\qquad
+  b_n=\frac{1}{L}\int_{-L}^Lf(x)\sin\left(\frac{n\pi x}{L}\right)\D x.
+\]
+
+\begin{example}
+  Find the Fourier series of $f(x)=|x|$ on $[-\pi,\pi]$.
+\end{example}
+
+\begin{solution}
+
+Since $f$ is even and $\sin (nx)$ is odd, the number $b_n=0$ for all $n$ and the Fourier series can be written as
+\[F(x):=\frac{a_0}{2}+\sum\limits_{n=1}^\infty a_n\cos(nx).\]
+
+Since $\cos(nx)$ is also even, applying the methods of substitutions and integration by parts implies 
+\[a_0=\frac{1}{\pi}\int_{-\pi}^\pi |x|\D x=\frac{2}{\pi}\int_0^\pi x\D x=\pi.\]
+\[
+  \begin{aligned}
+    a_n
+    =&\frac{1}{\pi}\int_{-\pi}^\pi |x|\cos(nx)\D x\\
+    =&\frac{2}{\pi}\int_0^\pi x\cos(nx) \D x\\
+    =&\frac{2}{n\pi}\left(x\sin(nx)\bigg|_0^{\pi}-\int_0^{\pi} \sin(nx) \D x\right)\\
+    =&\frac{2}{n^2\pi}\cos(nx)\bigg|_0^\pi\\
+    =&\frac{2((-1)^n-1)}{n^2\pi}\\
+    =&\begin{cases}
+      0 & \text{if }~ n=2(k+1)\\
+      -2 & \text{if }~ n=2k+1
+    \end{cases} \qquad k=0,1,2,\dots .
+  \end{aligned}
+\]
+
+Therefore
+\[
+  F(x)=\frac{\pi}{2}-\frac{4}{\pi}\sum\limits_{k=0}^\infty \frac{1}{(2k+1)^2} \cos[(2k+1)x].
+\]
+\end{solution}
+
+
+% \begin{exercise} Find the Fourier series of the function $f(x) = x^2 -3x$ over $[-\pi, \pi]$.
+% \end{exercise}
+% \begin{exersol}
+%   The Fourier series of the function is
+% \[
+%   F(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos nx + b_n \sin nx \right).
+% \]
+
+%   \textbf{step 1} Find $a_0$.
+% $$a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos 0x dx$$
+% $$= \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)dx = \frac{1}{\pi} \int_{-\pi}^{\pi} x^2 -3x dx$$
+% $$= \frac{2}{\pi} \int_{0}^{\pi} x^2 dx$$
+% $$= \left. \frac{2}{3\pi} x^3 \right\vert_0^{\pi}$$
+% $$= \frac{2 \pi^2}{3}$$
+% In the above calculation, we used the fact that $-3x$ is an odd function where as $x^2$ is an even function.
+
+% \textbf{step2} Find $a_n$
+% $$a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos nx dx$$
+% $$= \frac{1}{\pi} \int_{-\pi}^{\pi} (x^2 -3x) \cos nx dx$$
+% Now, using the fact that even function times even function is an even function and also that odd function times odd function is odd, we see that the above is equal to:
+% $$ = \frac{2}{\pi} \int_{0}^{\pi} x^2 \cos nx dx$$
+% Then using the integration by parts, we have:
+% $$= \frac{2}{\pi} \left. \left(\frac{x^2}{n} \sin nx + \frac{2x}{n^2} \cos nx - \frac{2}{n^3} \sin nx \right) \right\vert_{0}^{\pi} = \frac{4}{n^2} (-1)^n $$
+
+% \textbf{step 3} Find $b_n$
+% $$b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin nx dx$$
+% $$ =\frac{2}{\pi} \int_{0}^{\pi} -3x \sin nx dx $$
+% (Note: $x^2 \sin nx$ is an odd function, and so its integral will be zero.)
+% By integration by parts, we have:
+% $$ =-\frac{2}{\pi} \left. \left(\frac{-3x}{n} \cos nx + \frac{-3}{n^2} \sin nx \right) \right\vert_{0}^{\pi} = \frac{6}{n} (-1)^n $$
+
+% \textbf{step 4} Put everything into the series:
+% $$x^2-3x = \frac{\pi^2}{3}+\sum_{n=1}^{\infty} \left( \frac{4}{n^2} (-1)^n \cos nx + \frac{6}{n} (-1)^n \sin nx \right) $$
+% \end{exersol}

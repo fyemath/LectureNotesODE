@@ -1,0 +1,832 @@
+% !TEX root = ../main.tex
+\chapter{Series Solutions}
+\chapterdate{11/01--11/04}
+
+Most functions seen in calculus belongs to a class known as the elementary functions. 
+The class of elementary functions consists of polynomials, rational functions, radical functions, trigonometric functions, inverse trigonometric functions, exponential functions, logarithmic functions and all others that can be constructed from those by adding, subtracting, multiplying, dividing, or composing. 
+In applications, many second order differential equations cannot be solved in terms of elementary functions. For example, \href{https://en.wikipedia.org/wiki/Airy_function}{Airy's Equation}
+\[y''-xy=0\] 
+does not have any solution that is an elementary function. How do we know that? This question turns out to be complicated. A proof employs differential Galois theory. Interested reader many find an argument in the paper \href{https://www.sciencedirect.com/science/article/pii/S0747717186800104}{An algorithm for solving second order linear homogeneous differential equations} by Kovacic.
+
+One approach to solve equations that have no elementary solutions is to use power series. We can then define special functions using power series and study their properties.
+
+\section{Review of Power Series}
+\subsubsection*{Convergence}
+A \dfn{power series} in $(x-x_0)$ is an infinite sum of the form
+\[\sum\limits_{n=0}^\infty a_n(x-x_0)^n=a_0+a_1(x-x_0)+a_2(x-x_0)^2+\cdots.\]
+
+A power series in $(x-x_0)$ is said to converge at $x$ if the limit
+\[\lim\limits_{m\to \infty}\sum\limits_{n=0}^m(x-x_0)\]
+exists.
+
+Clearly, the power series $\sum\limits_{n=0}^\infty a_n(x-x_0)^n$ converges at $0$. If it also converges at another point, then either it converges for all $x$, or converges over an interval $(x_0-R, x_0+R)$ for some positive number $R$ and diverges over the interval $(-\infty, x_0-R)\cup (x_0+R,\infty)$.
+
+\begin{theorem}
+For any power series
+\[\sum_{n=0}^\infty a_n(x-x_0)^n,\]
+exactly one of the following statements holds true:
+\begin{enumerate}
+  \item 
+  The power series converges only for $x=x_0.$
+  \item 
+  The power series converges for all values of $x.$
+  \item \label{case:RadiusConvergence}
+  There's a positive number $R$ such that the power series converges if $|x-x_0|<R$ and diverges if $|x-x_0|>R$.
+\end{enumerate}
+\end{theorem}
+
+The number $R$ in the third, case \ref{case:RadiusConvergence}, is called the \dfn{radius of convergence} of the power series. For convenience, we set $R=0$ in the first case and $R=\infty$ in the second case.  The interval $(x_0-R, x_0+R)$ is called the interval of convergence.
+
+In calculus, several methods of finding the radius of convergence are given. One of them is the following theorem.
+\begin{theorem}
+  Suppose there's an integer $N$ such that $a_n\ne 0$ if $n\ge N$ and
+  \[\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|=L,\]
+  where $0\le L\le\infty.$ 
+  Then the radius of convergence of $\sum_{n=0}^\infty a_n(x-x_0)^n$ is $R=\frac1L,$ where the the convention that $R=0$ if $L=\infty,$ or $R=\infty$ if $L=0$ is used.
+\end{theorem}
+
+\begin{example}
+  Find the radius of convergence of the series
+  \[\sum_{n=10}^\infty (-1)^n \frac{x^n}{n!}.\]
+\end{example}
+\begin{solution}
+  When $n$ goes to infinity, the limit $\lim\limits_{n\to \infty}\left|\frac{a_{n+1}}{a_n}\right|$ is
+  \[
+  \begin{aligned}
+    \lim\limits_{n\to \infty}\left|\frac{a_{n+1}}{a_n}\right|=&\lim\limits_{n\to \infty}\left|\dfrac{\frac{(-1)^{n+1}}{(n+1)!}}{\frac{(-1)^n}{n!}}\right|\\
+    =&\lim\limits_{n\to \infty}\dfrac{1}{n+1}\\
+    =&0.
+  \end{aligned}  
+  \]
+
+  Therefore, the radius of convergence is $R=\infty$.
+\end{solution}
+\begin{exercise}
+  Find the radius of convergence of the series
+  \[\sum_{n=5}^\infty (-1)^{n+1} \frac{x^n}{2^n}.\]
+\end{exercise}
+\begin{exersol}
+  When $n$ goes to infinity, the limit $\lim\limits_{n\to \infty}\left|\frac{a_{n+1}}{a_n}\right|$ is
+  \[
+  \begin{aligned}
+    \lim\limits_{n\to \infty}\left|\frac{a_{n+1}}{a_n}\right|=&\lim\limits_{n\to \infty}\left|\dfrac{\frac{(-1)^{n+2}}{2^{n+1}}}{\frac{(-1)^{n+1}}{2^n}}\right|\\
+    =&\lim\limits_{n\to \infty}\dfrac{1}{2}\\
+    =&\frac12.
+  \end{aligned}  
+  \]
+
+  Therefore, the radius of convergence is $R=\frac{1}{\frac12}=2$.
+\end{exersol}
+
+\subsubsection*{Differentiations of power series}
+
+For a continuous function $f$ that has derivatives of all orders for $|x|<R$, the Taylor expansion 
+\[f(x)=\sum\limits_{n=0}^\infty\dfrac{f^{(n)(x)}}{n!}x^n\]
+is a power series known as the Maclaurin series of $f$. For example,
+\[e^{x} = \sum_{n=0}^{\infty} \frac{x^{n}}{n!}, \quad -\infty<x<\infty;\]
+\[\sin x = \sum_{n=0}^{\infty} (-1)^{n} \frac{x^{2n+1}}{(2n+1)!}, \quad -\infty<x<\infty;\]
+\[\cos x = \sum_{n=0}^{\infty} (-1)^{n} \frac{x^{2n}}{(2n)!} \quad -\infty<x<\infty;\]
+\[\frac{1}{1-x} = \sum_{n=0}^{\infty} x^{n} \quad -1<x<1.\]
+
+Backwards, suppose the power series $\sum\limits_{n=0}^\infty a_n(x-x_0)^n$ has a positive radius of convergence $R$. Then we can define a function
+\[f(x)=\sum_{n=0}^\infty a_n(x-x_0)^n\]
+on its open interval of convergence $(x_0-R, x_0+R)$. Such a function is called an \href{https://en.wikipedia.org/wiki/Analytic_function}{analytic function} and has very good properties.
+
+\begin{definition}
+  A function $f$ is \dfn{analytic} at $x_0$ if 
+  \[f(x)=\sum\limits_{n=0}^{\infty }a_n\left(x-x_0\right)^{n}\] 
+  and the series is convergent to $f(x)$ for all $x$ in an open interval containing $x_0$.
+  
+  A function is analytic on an open interval if it is analytic at all points in the interval.
+\end{definition}
+
+The set of analytic functions is closed under addition and multiplication.
+
+\begin{theorem}
+Suppose the power series $\sum_{n=0}^\infty a_n(x-x_0)^n$ has a positive radius $R$ and a function $f$ is defined by
+\[f(x)=\sum_{n=0}^\infty a_n(x-x_0)^n.\]
+Then 
+\begin{enumerate}
+  \item 
+  $f$ has derivatives of all orders in the open interval $(x_0-R, x_0+R)$,
+\item successive derivatives of $f$ can be obtained by repeatedly differentiating the power series term by term, that is
+\[
+  \begin{aligned} 
+    f'(x)=&{\sum_{n=1}^\infty na_n(x-x_0)^{n-1}},\\
+    f''(x)=&{\sum_{n=2}^\infty n(n-1)a_n(x-x_0)^{n-2}},\\ 
+    &\vdots\\
+    f^{(k)}(x)=&{\sum_{n=k}^\infty n(n-1)\cdots(n-k+1)a_n(x-x_0)^{n-k}},
+  \end{aligned}
+\]
+\item all of these series have the same radius of convergence $R$.
+\end{enumerate}
+\end{theorem}
+
+As a corollary, we see that if $f$ is a function defined by a power series, then the Taylor series of the function is exactly the power series.
+
+\begin{corollary}
+  Let $f$ be a function defined by
+\[f(x)=\sum_{n=0}^\infty a_n(x-x_0)^n,\]
+where the power series has a positive radius of convergence $R$. 
+Then
+\[a_n=\frac{f^{(n)}(x_0)}{n!},\]
+that is, the power series $\sum_{n=0}^\infty a_n(x-x_0)^n$ is the Taylor series of $f$ about $x_0$.
+\end{corollary}
+
+\begin{example}
+Consider the power series 
+$\sum_{n=0}^\infty(-1)^n \frac{x^{2n+1}}{(2n+1)!}$
+which converges for all real number $x$.
+Show that the derivative of the power series defines a function which is $\cos x$.
+\end{example}
+\begin{solution}
+  The derivative of a power series is the infinite sum of derivatives of terms. So
+  \[
+    \begin{aligned}
+      \frac{\D}{\D x}\left(\sum_{n=0}^\infty(-1)^n \frac{x^{2n+1}}{(2n+1)!}\right)
+      =&\sum_{n=0}^\infty(-1)^n\frac{\D}{\D x}\left(\frac{x^{2n+1}}{(2n+1)!}\right)\\
+      =&\sum_{n=0}^\infty(-1)^n \frac{x^{2n}}{(2n)!}
+    \end{aligned}
+  \]
+  Comparing with the Maclaurin series of $\cos x$, we see that the derivative is $\cos x$. Indeed, the function defined by the power series is noting but $\sin x$.
+\end{solution}
+
+\begin{exercise}
+  Consider the power series
+  $\sum_{n=0}^\infty \frac{x^n}{n!}$
+which converges for all real number $x$.
+Show that the second derivative of the power series defines a function which is $e^x$.
+\end{exercise}
+\begin{exersol}
+The first derivative is
+  \[
+    \begin{aligned}
+      \frac{\D}{\D x}\left(\sum_{n=0}^\infty\frac{x^n}{n!}\right)=&\sum_{n=0}^\infty\frac{\D}{\D x}\left(\frac{x^n}{n!}\right)\\
+      =&\sum_{n=1}^\infty \frac{x^{n-1}}{(n-1)!}\\
+      =&\sum_{n=0}^\infty \frac{x^n}{n!}\\
+    \end{aligned}
+  \]
+  which is the power series itself. So is the second derivative.
+  Comparing with the Maclaurin series of $e^x$, we see that the power series, its first derivative and the second derivative are the same function $e^x$.
+\end{exersol}
+
+
+\subsubsection*{Shifting indices}
+
+You probably know that the summation index is called a dummy index, and can changed to any other name. For a power series, whose $n$-th term is not a multiple of $(x-x_0)^n$, one can use a substitution and rename the index to shift exponent to $n$. For example
+\[
+\begin{aligned}
+  f'(x)=&\sum\limits_{n=1}^\infty na_n(x-x_0)^{n-1}\\
+  =&\sum\limits_{k=0}^\infty (k+1)a_{k+1}(x-x_0)^k,\quad\text{substituting} k=n-1\\
+  =&\sum\limits_{n=0}^\infty (n+1)a_{n+1}(x-x_0)^n,\quad\text{renaming}\\
+\end{aligned}  
+\]
+
+In general, for any integer $k$, the power series
+\[\sum\limits_{n = n_0}^\infty a_n ( x - x_0)^{n - k}\]
+can be rewritten as
+\[\sum\limits_{n = n_0-k}^\infty a_{n+k} ( x - x_0)^{n},\]
+that is, replacing $n$ by $n + k$ in the general term and $n_0$ by $n_0-k$ in the lower limit of summation leaves the series unchanged.
+
+\begin{example}
+Given that
+\[y(x)=\sum_{n=0}^\infty a_nx^n,\]
+write the function $xy$ as a power series in which the general term is a constant multiple of $x^n$.
+\end{example}
+\begin{solution}
+  Since 
+  \[xy(x)=\sum_{n=0}^\infty a_nx^{n+1}\]
+  replacing $n$ by $n-1$ and $0$ by $0-(-1)=1$ yields
+  \[xy(x)=\sum_{n=1}^\infty a_{n-1}x^n.\]
+\end{solution}
+
+\begin{exercise}
+Given that
+\[y(x)=\sum_{n=0}^\infty a_nx^n,\]
+write the function $y''$ as a power series in which the general term is a constant multiple of $x^n$.
+\end{exercise}
+\begin{exersol}
+Since
+  \[y''(x)=\sum_{n=2}^\infty n(n-1)a_nx^{n-2},\]
+replacing $n$ by $n+2$ and $2$ by $2-2=0$ yields
+\[y''(x)=\sum_{n=0}^\infty (n+2)(n+1)a_{n+2}x^n.\]
+\end{exersol}
+
+\subsection*{Linear combination of power series}
+
+From calculus, particular, the section on Riemann sums, we know that the linear combination of infinite sums is the infinite sums of linear combinations. More precisely, if $f(x)=\sum\limits_{n=0}^\infty a_nx^n$ with the convergence radius $R_1$ and $g(x)=\sum\limits_{n=0}^\infty b_nx^n$ with the convergence radius $R_2$, then
+\[Af(x)\pm Bg(x)=\sum\limits_{n\to 0}^\infty (Aa_n+Bb_n)x^n\] 
+which has the convergence radius $R=\min\{R_1, R_2\}$.
+
+Note that power series can also be multiplied like polynomials:
+\[f(x)g(x)=\sum\limits_{n=0}^\infty\left(\sum\limits_{k=0}^n a_kb_{n-k}\right)x^n.\]
+
+Let's end this section by finding a power series solution for the Airy equation $y''-xy=0$. 
+
+\begin{example}
+  Find the first 3 terms of the power series solution for the Airy equation $y''-xy=0$ with initial conditions $y(0)=0$ and $y'(0)=1$.
+\end{example}
+\begin{solution}
+  Suppose that $y(x)=\sum\limits_{n=0}^\infty a_nx^n$ is a solution.  Using the linear combination property, and the technique of shifting indices, we see that
+  \[
+  \begin{aligned}
+    y''-xy=&\sum_{n=0}^\infty (n+2)(n+1)a_{n+2}x^n - x\sum\limits_{n=0}^\infty a_nx^n\\
+    =&\sum_{n=0}^\infty (n+2)(n+1)a_{n+2}x^n - \sum_{n=0}^\infty a_n x^{n+1}\\
+    =&\sum_{n=0}^\infty (n+2)(n+1)a_{n+2}x^n - \sum_{n=1}^\infty a_{n-1}x^n\\
+    =& (0+2)(0+1)a_{0+2}x^0+\sum_{n=1}((n+2)(n+1)a_{n+2}-a_{n-1})x^n\\
+    =&2a_2 + \sum_{n=1}((n+2)(n+1)a_{n+2}-a_{n-1})x^n.
+  \end{aligned}  
+  \]
+  If $y(x)$ is solution of the Airy equation, then
+  \[
+    \begin{aligned}
+      2a_2=&0\\  
+      (n+2)(n+1)a_{n+2}-a_{n-1}=&0 \qquad \text{for } n=1, 2, \dots.
+    \end{aligned}
+  \]
+  Since $y(0)=0$ and $y'(0)=1$, we see that $a_0=0$ and $a_1=1$. Note that $a_2=0$ too. Then $a_n$ can be solve recursively using the second formula. For example, 
+  \[a_3=a_{1+2}=\frac{a_{1-1}}{(1+2)(1+1)}= \frac{a_0}{3\cdot 2}=0,\]
+  \[a_4=a_{2+2}=\frac{a_{2-1}}{(2+2)(2+1)}= \frac{a_1}{4\cdot 3}=\frac{1}{12},\]
+  \[a_5=a_{3+2}=\frac{a_{3-1}}{(3+2)(3+1)}= \frac{a_2}{5\cdot 4}=0.\]
+  \[a_6=a_{4+2}=\frac{a_{4-1}}{(4+2)(4+1)}= \frac{a_3}{6\cdot 5}=0.\]
+  \[a_7=a_{5+2}=\frac{a_{5-1}}{(5+2)(5+1)}= \frac{a_4}{7\cdot 6}=\frac{1}{7\cdot 6\cdot 4\cdots 3}=\frac{1}{45360}.\]
+
+  Indeed, the power series solution of the Airy equation has the form
+  \[y(x)=x+\frac{1}{12}x^4+\frac{1}{504}x^7+\frac{1}{45360}x^{10}+\cdots + \frac{1}{\prod\limits_{j=1}^k3 j\cdot(3j+1)}x^{3k+1}+\cdots.\]
+\end{solution}
+
+\begin{remark}
+  When the recurrence relation is in the form
+  \[a_{n+2}=c_1a_{n}+c_2a_{n-1},\]
+  where $c_1$ and $c_2$ are constant, the solution, known as the generating function of the sequence $a_n$, may be expressed as a rational function. See the wiki page \href{https://en.wikipedia.org/wiki/Recurrence_relation}{Recurrence relation} for more information.
+\end{remark}
+
+\begin{exercise}
+  Find the first $4$ terms of the power series solution for the initial value problem
+  \[y''-xy'=0, y(0)=1, y'(0)=1.\]
+\end{exercise}
+\begin{exersol}
+  Suppose that $y(x)=\sum\limits_{n=0}^\infty a_nx^n$ is a solution. Then
+  \[
+  \begin{aligned}
+    y''-xy'=&\sum_{n=0}^\infty (n+2)(n+1)a_{n+2}x^n - x\sum_{n=1}^\infty n a_n x^{n-1}\\
+    =&\sum_{n=0}^\infty (n+2)(n+1)a_{n+2}x^n - \sum_{n=1}^\infty n a_n x^n\\
+    =&2a_2+\sum_{n=1}^\infty ((n+2)(n+1)a_{n+2}-n a_n)x^n
+  \end{aligned}  
+  \]
+  If $y(x)$ is solution of the Airy equation, then
+  \[
+    \begin{aligned}
+      2a_2=&0\\  
+      (n+2)(n+1)a_{n+2}-na_n=&0 \qquad \text{for } n=1, 2, \dots.
+    \end{aligned}
+  \]
+  Since $y(0)=1$ and $y'(0)=1$, we see that $a_0=1$ and $a_1=1$. Note that $a_2=0$ too. Then
+  \[a_3=\frac{a_1}{6}=\frac16,\]
+  \[a_4=\frac{2a_2}{12}=0.\]
+  \[a_5=\frac{3a_3}{20}=\frac{1}{40}.\]
+So the power series solution has the form
+\[y(x)=1+x+\frac{x^3}{6}+\frac{x^5}{40}+\cdots.\]
+\end{exersol}
+
+\section{Series Solutions Near an Ordinary Point}
+
+In this section, we will study the homogeneous linear second order equation of the form
+\begin{equation}\label{eq:LinearSecondPowSol}
+  P_0y''+P_1y'+P_2y=0,
+\end{equation}
+where the coefficient functions $P_0(x)$, $P_1(x)$ and $P_2(x)$ are polynomials with no common factor and $P_0$ is not identically zero.
+
+A point $x_0$ is called an \dfn{ordinary point} of Equation \ref{eq:LinearSecondPowSol} if $P_0(x_0)\neq 0$, otherwise, it is called a \dfn{singular point}.
+
+\begin{example}
+  Find ordinary points of Legendre's equation
+  \[(1-x^2)y''-2xy'+\alpha(\alpha+1)y=0.\]
+\end{example}
+\begin{solution}
+  Solving the equation $P_0(x)=0$ will gives singular points. In this case, the equation
+  \[1-x^2=0\]\
+  has two solutions $x=1$ and $x=-1$ which are singular points of Legendre's equation. All other points are ordinary point of the equation.
+\end{solution}
+
+Since polynomials are analytic functions, it can be shown that the rational function $\frac{P_1}{P_0}$ and $\frac{P_2}{P_0}$ are analytic at any ordinary point. Near an ordinary point, we can rewrite Equation \ref{eq:LinearSecondPowSol} as
+\[y''+\frac{P_1}{P_0}y'+\frac{P_2}{P_0}y=0\]
+which is called the normalized equation. Since $\frac{P_1}{P_0}$ and $\frac{P_2}{P_0}$ are analytic, using properties of power series, we can find a power series solution $y(x)$ in $x-x_0$ which is valid near $x_0$.
+
+\begin{theorem}
+  Let $x_0$ be an ordinary point of the equation
+  \[P_0y''+P_1y'+P_2y=0\]
+  and let $a_0$ and $a_1$ be arbitrary constants. Then there exists a unique solution $y(x)=\sum_{n=0}^\infty a_n(x-x_0)^n$ near $x_0$ such that $y(x_0)=a_0$ and $y'(x_0)=a_1$. Moreover, if the power series expansions of $\frac{P_1(x)}{P_0(x)}$ and $\frac{P_2(x)}{P_0(x)}$ converge on an open interval $(x_0-R, x_0+R)$, then the power series solution also converges on the same interval.
+\end{theorem}
+
+The first part of this theorem can be proved by solving recursive formula of $a_n$.  The proof of the same convergence interval is a little bit involved. As we mainly focus on solving the equation, we will not discuss the proof of the theorem. 
+We refer the reader to \autocite[Section 28]{Simmons2016} for a proof in more general setting.
+
+This theorem, together with the existence and uniqueness of the solution of a linear second order equation, implies that every solution of Equation \ref{eq:LinearSecondPowSol} can be represented by a power series. We can such a solution a \dfn{power series solution}.
+
+The basic idea to find a power series solution is similar to the undetermined coefficient method. To simplify notations in calculation, we define a differential operator
+\[L=P_0\dfrac{\D^2}{\D x^2}+P_1\dfrac{\D}{\D x}+P_2\]
+which acts on $y$ by
+\[Ly=P_0\dfrac{\D^2}{\D x^2}y+P_1\dfrac{\D}{\D x}y+P_2y=P_0y''+P_1y'+P2y.\]
+Suppose $y(x)=\sum\limits_{n=0}^\infty a_n(x-x_0)^n$ is a power series solution satisfies the initial conditions $y(0)=a_0$ and $y'(0)=a_1$. Then
+\[Ly=\sum\limits_{n=0}^\infty b_n(x-x_0)^n,\]
+where $b_n$ are expressions in terms of coefficients of $P_0$, $P_1$, and $P_2$, and $a_0$, $a_1$, \dots, $a_{n+N}$ for some positive integer $N$. Then $y$ is a solution if and only if $b_n=0$ for all $n\ge 0$. The coefficients $a_2$, $a_3$, \dots, can be determined recursively using relations $b_n=0$.
+
+You will find in calculations of power series, the product of a sequence frequent appear. To simplify calculation, we denote the product of a sequence $a_m$, $a_{m+1}$, $a_{m+2}$, $\dots$, $a_n$, where $n>m$, by
+\[\prod\limits_{k=m}^na_k=a_m\cdots a_{m+1}\cdots\cdots\cdot a_n.\]
+For convenience, we define
+\[\prod\limits_{k=m}^na_k=1\qquad\text{if }~n<m.\]
+
+\begin{example}
+  Find the power series in $x$ for the general solution of
+  \[(1+2x^2)y''+6xy'+2y=0.\]
+\end{example}
+
+\begin{solution}
+
+Let
+\[Ly=(1+2x^2)y''+6xy'+2y=y''+2x^2y''+6xy'+2y.\]
+
+If 
+\[y=\sum_{n=0}^\infty a_nx^n,\]
+then
+\[y'=\sum_{n=1}^\infty na_nx^{n-1}\quad\mbox{ and }\quad y''=\sum_{n=2}^\infty n(n-1)a_nx^{n-2}.\]
+So
+\[
+  \begin{aligned} 
+    Ly 
+    =& \sum^\infty_{n=2}n(n-1)a_nx^{n-2} + 2x^2\sum^\infty_{n=2}n(n-1)a_nx^{n-2}+ 6x \sum^\infty_{n=1}na_nx^{n-1} + 2 \sum^\infty_{n=0}a_nx^n\\
+    =& \sum^\infty_{n=2}n(n-1)a_nx^{n-2} + 2\sum^\infty_{n=2}n(n-1)a_nx^n+ 6\sum^\infty_{n=1}na_nx^n + 2\sum^\infty_{n=0}a_nx^n\\
+    =& \sum^\infty_{n=0}(n+2)(n+1)a_{n+2}x^{n} + 2\sum^\infty_{n=0}n(n-1)a_nx^n+ 6\sum^\infty_{n=0}na_nx^n + 2\sum^\infty_{n=0}a_nx^n\\
+    =& \sum^\infty_{n=0}\left[(n+2)(n+1)a_{n+2}+  (2n(n-1) + 6n + 2)a_n\right]x^n\\
+    =& \sum^\infty_{n=0}\left[(n+2)(n+1)a_{n+2}+ 2(n+1)^2a_n\right]x^n
+  \end{aligned}
+\]
+
+If $y$ is a solution, then $Ly=0$ which implies that coefficients of the power series expression of $y$ satisfy the recurrence relation
+\[a_{n+2}=-2\frac{n+1}{n+2}a_n,\quad n\ge0.\]
+Since the indices on the left and right differ by two, we write the recurrence relation separately for $n=2m$ and $n=2m+1$. 
+Then
+\[
+  \begin{aligned} 
+  a_{2m+2} 
+  =& -2 \frac{2m+1}{2m+2}a_{2m} =-\frac{2m+1}{ m+1}a_{2m},\quad m \ge0,
+  \end{aligned}
+\]
+and
+\[
+  \begin{aligned} 
+    a_{2m+3} =& -2\frac{2m+2}{2m+3}a_{2m+1} =-4\frac{m+1}{2m+3}a_{2m+1},\quad m\ge0.
+  \end{aligned}
+\]
+Computing the coefficients of even powers of $x$ from the recurrence relation yields
+\[
+  \begin{aligned} 
+    a_2 
+    =& -\frac{1}{1}a_0,\\
+    a_4 =& -\frac{3}{2}a_2=\left(-\frac{3}{2}\right)\left(-\frac{1}{1}\right)a_0 =\frac{1\cdot3}{1\cdot2}a_0, \\
+    a_6 =& -\frac{5}{3}a_4= -\frac{5}{3}\left(\frac{1\cdot3}{1\cdot2}\right)a_0 =-\frac{1\cdot3\cdot5}{1\cdot2\cdot3}a_0, \\
+    a_8 =& -\frac{7}{4}a_6=-\frac{7}{4} \left(-\frac{1\cdot3\cdot5}{1\cdot2\cdot3}\right)a_0= \frac{1\cdot3\cdot5\cdot7}{1\cdot2\cdot3\cdot4}a_0.
+  \end{aligned}
+\] 
+In general,
+\[a_{2m}=(-1)^m\frac{\prod_{k=1}^m(2k-1)}{m!}a_0,\qquad m\ge0.\]
+
+Computing the coefficients of odd powers of $x$ yields
+
+\[
+  \begin{aligned} 
+    a_3 =& -4\cdot\frac{1}{3}a_1, \\ 
+    a_5 =& -4\cdot\frac{2}{5}a_3=-4\cdot\frac{2}{5}\left(-4\frac{1}{3}\right)a_1 =4^2\frac{1\cdot2}{3\cdot5}a_1, \\ 
+    a_7 =& -4\cdot\frac{3}{7}a_5=-4\cdot\frac{3}{7}\left( 4^2\frac{1\cdot2}{3\cdot5}\right)a_1= -4^3\frac{1\cdot2\cdot3}{3\cdot5\cdot7}a_1,\\ 
+    a_9 =& -4\cdot \frac{4}{9}a_7=-4\cdot \frac{4}{9}\left( 4^3\frac{1\cdot2\cdot3}{3\cdot5\cdot7}\right)a_1= 4^4\frac{1\cdot2\cdot3\cdot4}{3\cdot5\cdot7\cdot9}a_1.
+  \end{aligned}
+\]
+In general,
+\[a_{2m+1}=\dfrac{(-1)^m4^m m!}{\prod_{k=1}^m(2k+1)}a_1,\qquad m\ge0.\]
+
+Therefore, the power series form of the general solution is
+\[
+  y=a_0 \sum^\infty_{m=0}(-1)^m \frac{\prod_{j=1}^m(2j-1)}{m!}x^{2m} +a_1 \sum^\infty_{m=0}(-1)^m \frac{4^mm!}{\prod_{j=1}^m(2j+1)} x^{2m+1}.
+\]
+\end{solution}
+
+Using the method shown in the above example, we find the power series solution of the more general equation
+\[(1+\alpha(x-x_0)^2)y''+\beta(x-x_0) y'+\gamma y=0.\]
+\begin{theorem}
+  The coefficients $\{a_n\}$ in any solution $y=\sum_{n=0}^\infty a_n(x-x_0)^n$ of
+the equation
+\[\left(1+\alpha(x-x_0)^2\right)y''+\beta(x-x_0) y'+\gamma y=0\]
+satisfy the recurrence relation
+\[a_{n+2}=-\frac{p(n)}{(n+2)(n+1)}a_n,\qquad n\ge0,\]
+where
+\[p(n)=\alpha n(n-1) +\beta n + \gamma.\]
+
+Moreover, the coefficients of the even and odd powers of $x-x_0$ can be computed separately as
+\[a_{2m+2} = -\frac{p(2m)}{(2m+2)(2m+1)}a_{2m},\quad m\ge0\]
+\[ a_{2m+3} = -\frac{p(2m+1)}{(2m+3)(2m+2)}a_{2m+1},\quad m\ge0\]
+where $a_0$ and $a_1$ are arbitrary.
+\end{theorem}
+
+\begin{example}
+  Compute $a_0$, $a_1$, $\dots$, $a_7$ in the power series solution $y=\sum\limits_{n=0}^\infty a_nx^n$ of the initial value problem
+\[(1+2x^2)y''+10xy'+8y=0,\quad y(0)=2,\quad y'(0)=-3.\]
+\end{example}
+\begin{solution}
+Since $\alpha=2$, $\beta=10$, and $\gamma=8$ in the equation, we have
+\[p(n)=2n(n-1)+10n+8=2(n+2)^2.\]
+
+Therefore,
+\[a_{n+2}=-2\frac{(n+2)^2}{(n+2)(n+1)}a_n=-2\frac{n+2}{ n+1}a_n,\quad n\ge0.\]
+For $n=2m$, we have
+\[
+  \begin{aligned} a_{2m+2} = -2\frac{(2m+2)}{2m+1}a_{2m}=-4\frac{m+1}{2m+1}a_{2m},\quad m\ge 0
+  \end{aligned}
+\]
+
+For $n=2m+1$, we have
+\[
+  \begin{aligned} a_{2m+3} = -2\frac{2m+3}{2m+2}a_{2m+1}=-\frac{2m+3}{ m+1}a_{2m+1},\quad m\ge0.
+  \end{aligned}
+\]
+
+Since $a_0=y(0)=2$, we have
+\[
+  \begin{aligned} 
+    a_2 &= -4\cdot\frac{1}{1}2=-8,\\
+    a_4 &= -4\cdot\frac{2}{3}(-8)=\frac{64}{3},\\
+    a_6 &= -4\cdot\frac{3}{5}\left(\frac{64}{3}\right)=-\frac{256}{5}.
+  \end{aligned}
+\]
+
+Since $a_1=y'(0)=-3$, we have
+\[
+  \begin{aligned} 
+    a_3 &= -\frac{3}{1}(-3)=9,\\
+    a_5 &= -\frac{5}{2}9=-\frac{45}{2},\\
+    a_7 &= -\frac{7}{3}\left(-\frac{45}{2}\right)=\frac{105}{2}.
+  \end{aligned}
+\]
+
+Therefore, the solution in power series form is
+\[y=2-3x-8x^2+9x^3+\frac{64}{3}x^4-\frac{45}{2}x^5-\frac{256}{5} x^6+\frac{105}{2}x^7+\cdots .\]
+\end{solution}
+
+\begin{exercise}
+  Let $x_0$ be an arbitrary real number. Find the power series in  $(x-x_0)$ for the general solution of
+  \[y''+y=0.\]
+\end{exercise}
+\begin{exersol}
+Let
+\[Ly=y''+y.\]
+Suppose
+\[y=\sum_{n=0}^\infty a_n(x-x_0)^n,\]
+then
+\[y''=\sum_{n=2}^\infty n(n-1)a_n(x-x_0)^{n-2}.\]
+So
+\[
+\begin{aligned}
+  Ly
+  =&\sum_{n=2}^\infty n(n-1)a_n(x-x_0)^{n-2}+\sum_{n=0}^\infty a_n(x-x_0)^n\\
+  =&\sum_{n=0}^\infty (n+2)(n+1)a_{n+2}(x-x_0)^n+\sum_{n=0}^\infty a_n(x-x_0)^n\\
+  =&\sum_{n=0}^\infty ((n+2)(n+1)a_{n+2}+a_n).
+\end{aligned}  
+\]
+
+Therefore $Ly=0$ if and only if
+\[a_{n+2}=-\frac{a_n}{(n+2)(n+1)},\qquad n\ge 0,\]
+where $a_0$ and $a_1$ are arbitrary.
+
+Since the indices on the left and right sides of the recurrence relation differ by two, we write the recurrence relation separately for $n$ even $n=2m$ and $n$ odd $n=2m+1$, where $m=0, 1, 2, \dots$. Then
+\[a_{2m+2} =\dfrac{(-1)a_{2m}}{(2m+2)(2m+1)},\qquad m\ge 0\]
+and
+\[a_{2m+3} = \dfrac{-a_{2m+1}}{(2m+3)(2m+2)},\qquad m\ge0.\]
+
+Computing the coefficients of the even powers of $x-x_0$ using the recurrence relation yields
+\[
+  \begin{aligned} 
+    a_2 =& -\frac{a_0}{2\cdot1}\\
+    a_4 =& -\frac{a_2}{4\cdot3}=-\frac{1}{4\cdot3} \left(-\frac{a_0}{2\cdot1}\right)= \frac{a_0}{4\cdot3\cdot2\cdot1}, \\ 
+    a_6 =& -\frac{a_4}{6\cdot5}=-\frac{1}{6\cdot5} \left(\frac{a_0}{4\cdot3\cdot2\cdot1}\right) =-\frac{a_0}{6\cdot5\cdot4\cdot3\cdot 2\cdot1},
+  \end{aligned} 
+  \]
+and, in general,
+\[a_{2m}=(-1)^m \frac{a_0}{(2m)!},\qquad m\ge 0.\]
+
+Similarly, computing the coefficients of the odd powers of $x-x_0$ yields
+\[
+  \begin{aligned} 
+    a_3 =& -\frac{a_1}{3\cdot2}\\
+    a_5 =& -\frac{a_3}{5\cdot4}=-\frac{1}{5\cdot4} \left(-\frac{a_1}{3\cdot2}\right)= \frac{a_1}{5\cdot4\cdot3\cdot2}, \\ 
+    a_7 =& -\frac{a_5}{7\cdot6}
+    =-\frac{1}{7\cdot6} \left(\frac{a_1}{5\cdot4\cdot3\cdot2}\right)
+    =-\frac{a_1}{7\cdot6\cdot5\cdot4\cdot 3\cdot2},
+  \end{aligned}
+\]
+and, in general,
+\[a_{2m+1}=\frac{(-1)^m a_1}{(2m+1)!}\qquad m\ge 0.\]
+Therefore, the general solution can be written as
+\[
+  y=a_0\sum_{m=0}^\infty(-1)^m\frac{(x-x_0)^{2m}}{(2m)!} +a_1\sum_{m=0}^\infty(-1)^m\frac{(x-x_0)^{2m+1}}{(2m+1)!}.
+\]
+
+Recall from calculus that
+\[\sum_{m=0}^\infty(-1)^m\frac{(x-x_0)^{2m}}{(2m)!}=\cos(x-x_0) \quad \text{and} \quad \sum_{m=0}^\infty(-1)^m\frac{(x-x_0)^{2m+1}}{(2m+1)!}=\sin(x-x_0).\]
+Then the solution is indeed,
+\[y=a_0\cos(x-x_0)+a_1\sin(x-x_0).\]
+\end{exersol}
+
+\begin{exercise}
+  Find the coefficients $a_0$, $a_1$, \dots, $a_7$ of the power series solution of the initial value problem
+  \[y'' + xy'+ y =0, \qquad y(0)=1,\qquad y'(0)=1.\]
+\end{exercise}
+\begin{exersol}
+Let $Ly=y'' + xy'+ y$ and $y=\sum\limits_{n=0}^\infty a_nx^n$. Then
+\[y'=\sum_{n=1}^\infty na_nx^{n-1},\]
+\[y''=\sum_{n=2}^\infty n(n-1) a_n x^{n-2}.\]
+Therefore,
+\[
+\begin{aligned}
+  Ly
+  =&\sum_{n=2}^\infty n(n-1) a_n x^{n-2} + x\sum_{n=1}^\infty na_nx^{n-1} + \sum\limits_{n=0}^\infty a_nx^n\\
+  =&\sum_{n=0}^\infty (n+2)(n+1) a_{n+2} x^n + \sum_{n=1}^\infty na_nx^{n} + \sum\limits_{n=0}^\infty a_nx^n\\
+  =&\sum_{n=0}^\infty (n+2)(n+1) a_{n+2} x^n + \sum_{n=0}^\infty na_nx^n + \sum\limits_{n=0}^\infty a_nx^n\\
+  =&\sum_{n=0}^\infty [(n+2)(n+1)a_{n+2}+(n+1)a_n]x^n\\
+\end{aligned}  
+\]
+
+If $y$ is a solution, then $Ly=0$ which yields the recurrence relation
+\[a_{n+2}=-\frac{a_n}{n+2}.\]
+When $n=2m$ is even,
+\[a_{2m}=-\frac{a_{2m-2}}{2m},\qquad m\ge 1.\]
+When $n=2m+1$ is odd, then
+\[a_{2m+1}=-\frac{a_{2m-1}}{2m+1},\qquad m\ge 1.\]
+Since $a_0=y(0)=1$, we see that
+\[
+  \begin{aligned}
+    a_2=-\frac{a_0}{2}=-\frac12,\\
+    a_4=-\frac{a_2}{4}=\frac12\cdot \frac14=\frac{1}{8},\\
+    a_6=-\frac{a_4}{6}=-\frac18\cdot \frac16=-\frac{1}{48}.
+  \end{aligned}
+\]
+Since $a_1=y'(0)=1$, we see that
+\[
+  \begin{aligned}
+    a_3=-\frac{a_1}{3}=-\frac13,\\
+    a_5=-\frac{a_3}{5}=\frac13\cdot \frac15=\frac{1}{15},\\
+    a_7=-\frac{a_5}{7}=-\frac{1}{15}\cdot \frac17=-\frac{1}{105}.
+  \end{aligned}
+\]
+
+Therefore, the power series solution is in the form
+\[y = 1 + x - \frac{1}{2} x^2-\frac{1}{3} x^3 + \frac{1}{8} x^4 +\frac{1}{15}x^5 - \frac{1}{48} x^6-\frac{1}{105}x^7 + \cdots.\]
+\end{exersol}
+
+\section{Method of Frobenius and Euler Equations}
+
+Note that differentiating a power series increases the lowest exponent. At a regular point, $\frac{1}{P_0}$ is also analytic. Hence, the equation
+\[y''+\frac{P_1}{P_0}y'+\frac{P_2}{P_0}y=0\]
+may have a power series solution.
+
+At a singular point, the rational function $\frac{1}{P_0}$ is no longer analytic, that is, it may not have a power series expression. For example, in the \href{https://encyclopediaofmath.org/wiki/Hypergeometric_equation}{hypergeometric equation}
+\[x(1-x)y''+[c-(a+b+1)x]y'-aby=0,\]
+where $a$, $b$, and $c$ are constants, the coefficient $P_0=x(1-x)$, then
+\[\frac{1}{P_0}=\frac{1}{x(1-x)}=x^{-1}\frac{1}{1-x}=x^{-1}\sum_{n=0}^\infty x^n.\]
+If $y(x)=\sum\limits_{n=0}^\infty a_nx^n$ is a solution, then the lowest exponent of $y''$ may be strictly greater than those of the other two terms. As a consequence, at $x=0$, there may be no power series solution. 
+
+Here is another concrete example, the equation
+\[y''+\frac2x y'-\frac{2}{x^2}y=0\]
+has two solutions, $y_1=x$, and $y_2=x^{-2}$, where $y_2=x^{-2}$ does not have a power series expression $\sum_{n=0}^\infty a_nx^n$.
+
+Mathematicians don't give up, when one method does not work, they look for other methods. When the equation $y''+\frac{P_1}{P_0}y'+\frac{P_2}{P_0}y=0$ is not too singular at a singular point $x_0$, in the sense that $P_0=(x-x_0)^2A(x)$, where $A(x)$ is a polynomial and $A(x_0)\ne 0$,   German mathematician, \href{https://en.wikipedia.org/wiki/Ferdinand_Georg_Frobenius}{Ferdinand Frobenius} developed the method of finding series solution in the form
+\[y(x)=x^r\sum\limits_{n=0}^\infty a_nx^n.\]
+
+\begin{definition}
+  Let $P_0$, $P_1$, and $P_2$ be polynomials with no common factor and suppose $P_0(x_0)=0$. Then $x_0$ is a \dfn{regular singular} point of the equation
+  \[P_0(x)y''+P_1(x)y'+P_2(x)y=0\]
+  if 
+  \[\frac{(x-x_0)P_1}{P_0} \quad\text{and}\quad\frac{(x-x_0)^2P_2}{P_0}\]
+  are analytic at $x_0$. 
+  
+  Otherwise, $x_0$ is called an \dfn{irregular singular} point of the equation.
+\end{definition}
+
+\begin{example}[Bessel’s equation]
+
+The equation
+\[x^2y''+xy'+(x^2-\nu^2)y=0,\]
+has the singular point $x_0=0$. Determine if $x_0=0$ is a regular singular point.
+\end{example}
+\begin{solution}
+  Since 
+  \[\frac{xP_1}{P_0}=\frac{x^2}{x^2}=1\quad \text{and}\quad \frac{x^2P_2}{P_0}=\frac{x^2(x^2-\nu^2)}{x^2}=(x^2-\nu^2)\]
+  are analytic at $0$, the point $x_0=0$ is regular singular. 
+\end{solution}
+
+\begin{exercise}[Legendre’s equation]
+
+The equation
+\[(1-x^2)y''-2xy'+\alpha(\alpha+1)y=0\]
+has the singular points $x_0=\pm1$. Determine if $x_0=\pm 1$ are regular singular points.
+\end{exercise}
+\begin{exersol}
+Since
+\[\frac{(x\pm 1)P_1}{P_0}=\frac{-(x\pm 1)2x}{x^2-1}=\frac{-2x}{x\mp 1}\]
+and
+\[\frac{(x\pm 1)^2P_2}{P_0}=\frac{\alpha(\alpha+1)(x\pm 1)^2}{x^2-1}=\frac{\alpha(\alpha+1)(x\pm 1)}{x\mp 1}\]
+are both analytic at $\pm 1$, the points $x_0=\pm 1$ are regular singular points of the equation.
+\end{exersol}
+
+At this stage, the only second order linear equation we can solve completely near a singular point is the Euler equation.
+
+\begin{definition}[Euler Equation]
+  An \dfn{Euler equation} is an equation that can be written in the form
+  \[ax^2y''+bxy'+cy=0,\]
+  where $a,b$, and $c$ are real constants and $a\ne 0$.
+\end{definition}
+
+From the existence theorem (Theorem \ref{thm:SeconOrderUniqueness}), we know that Euler equation has solutions defined on $(0,\infty)$ and $(-\infty,0)$. Since the two intervals are symmetric, by a substitution $t=-x$ when $x<0$, we may and will restrict ourself to the interval $(0, \infty)$.
+
+The normalized form equation
+\[y''+\frac{p}{x}y'+\frac{q}{x^2}y=0,\]
+where $p=\frac{b}{a}$ and $q=\frac{c}{a}$, suggest that a solution is in the form
+\[y=x^r\sum\limits_{n=0}^\infty a_nx^n=\sum\limits_{n=0}^\infty a_nx^{n+r}.\]
+We can then determine $r$ and $a_n$'s by plugging the series into the equation. Indeed, for Euler equation, we can take $a_0=1$ and $a_n=0$ for $n=1, 2, 3, \dots$.
+
+Differentiating $y$ yields
+\[y'=\sum\limits_{n=0}(n+r)a_nx^{n+r-1},\]
+\[y''=\sum\limits_{n=0}(n+r)(n+r-1)a_nx^{n+r-2},\]
+and
+\[
+\begin{aligned}
+  &y''+\frac{p}{x}y'+\frac{q}{x^2}\\
+  =&y''+px^{-1}y'+qx^{-2}\\
+  =&\sum\limits_{n=0}(n+r)(n+r-1)a_nx^{n+r-2}+p\sum\limits_{n=0}(n+r)a_nx^{n+r-2}+q\sum\limits_{n=0}^\infty a_nx^{n+r-2}\\
+  =&\sum\limits_{n=0}[(n+r)(n+r-1)+p(n+r)+q]a_nx^{n+r-2}.
+\end{aligned}  
+\]
+
+Therefore, $y$ is a solution if
+\[[(n+r)(n+r-1)+p(n+r)+q]a_n=0\qquad\text{for }~ n=0, 1, 2, \dots.\]
+
+A sufficient condition is that
+\[r(r-1)+pr+q=0
+\quad\text{and } a_n=0 \text{for} n=1, 2, \dots.\]
+
+The equation
+\[r(r-1)+pr+q=0\]
+or equivalently,
+\[ar(r-1)+br+c=0\]
+is called the indicial equation of the differential equation
+\[ax^2y''+bxy'+cy=0.\]
+
+\begin{example}
+Find the general solution of
+\[x^2y''-xy'-8y=0\]
+on $(0,\infty)$.
+\end{example}
+\begin{solution}
+The indicial equation is
+\[r(r-1)-r-8=0.\]
+Equivalently,
+\[r^2-2r-8=0\]
+Solving the equation yields
+$r=-2$ or $r=4$.
+Then $y_1=x^4$ and $y_2=x^{-2}$ are solutions of the equation on $(0,\infty)$.
+
+Because the Wronskian is
+\[W(y_1, y_2)=y_1y_2'-y_1'y_2=x^4\cdot(x^{-2})'-(x^4)'\cdot x^{-2}=-6x\not\equiv 0.\]
+Therefore, $y_1$ and $y_2$ are linearly independent and the general solution on $(0,\infty)$ is
+\[y=c_1x^4+\frac{c_2}{x^2}.\]
+\end{solution}
+
+\begin{exercise}
+Find the general solution of
+\[6x^2y''+5xy'-y=0\]
+on $(0,\infty)$.
+\end{exercise}
+\begin{exersol}
+The indicial equation is
+\[6r(r-1)+5r-1=0.\]
+Solving the equation yields
+\[r=\frac12 \qquad\text{or}\qquad r=-\frac13.\]
+
+Therefore, the general solution is
+\[y=c_1x^{1/2}+c_2x^{-1/3}.\]
+\end{exersol}
+
+When the indicial equation has a repeated solution or complex solutions, to find the general solution, we can using the Wronskian (see Proposition \ref{prop:WronskianNewSol}) and Euler's formula 
+\[x^{i \omega}=e^{\mathrm{i}\omega\ln x}=\cos(\omega\ln x) + \mathrm{i}\sin(\omega\ln x).\]
+
+The general result is summarized in the following theorem.
+
+\begin{theorem}
+Suppose the roots of the indicial equation
+\[ar(r-1)+br+c=0\]
+are $r_1$ and $r_2$. Then the general solution of the Euler equation
+\[ax^2y''+bxy'+cy=0\]
+on $(0,\infty)$ is
+\begin{itemize}
+  \item 
+  \[y= c_1x^{r_1}+c_2x^{r_2}\]
+  if $r_1$ and $r_2$ are distinct real numbers;
+  \item 
+  \[y= x^{r}(c_1+c_2\ln x)\]
+  if $r_1=r_2=r$;
+  \item 
+  \[y=x^{\lambda}\left[c_1\cos\left(\omega\ln x\right)+ c_2\sin\left(\omega\ln x \right)\right]\] 
+  if $r_1,r_2=\lambda\pm \mathrm{i}\omega$ with $\omega>0$.
+\end{itemize}
+\end{theorem}
+Here we present a shorter proof using the substitution $z=\ln x$.
+\begin{proof}
+  Let $z=\ln x$, or equivalently $x=e^z$.
+  Let $u(z)=y(e^z)$. By the chain rule, we get
+  \[
+    u'(z)=y'(e^z)e^z=xy'(x),
+  \]
+  \[
+    u''(z)=(y'(e^z)e^z)'=y''(e^z)(e^z)^2+y'(e^z)e^z=x^2y''(x)+xy'(x)
+  \]
+
+Therefore,
+\[ax^2y''(x)+bxy'(x)+cy(x)=au''(z)+(b-a)u'(z)+cu(z).
+\]
+
+The equation
+\[
+  au''+(b-a)u'+cu=0
+\]
+has the characteristic equation
+\[ar^2+(b-a)r+c=ar(r-1)+br+c=0.\]
+Because $r_1$ and $r_2$ are solutions of this characteristic equation. 
+
+If $r_1$ and $r_2$ are two distinct real root, then the general solution of the Euler equation is
+\[y(x)=u(z)=c_1e^{r_1 z}+c_2e^{r_2 z}=c_1x^{r_1}+c_2x^{r_2}.\]
+
+If $r_1=r_2=r$, then the general solution of the Euler equation is
+\[y(x)=u(z)=e^{r z}(c_1+c_2z)=x^{r}(c_1+c_2\ln x).\]
+
+If $r_1,r_2=\lambda+\mathrm{i}\omega$, then the general solution of the Euler equation is
+\[y(x)=u(z)=e^{\alpha z}(c_1\cos(\omega z)+c_2\sin(\omega z))=x^{\alpha}(c_1\cos(\omega\ln x)+c_2\sin(\omega \ln x)).\]
+
+\end{proof}
+
+\begin{example}
+  Find the general solution of
+\[x^2y''-5xy'+9y=0\]
+on $(0,\infty)$.
+\end{example}
+\begin{solution}
+The indicial equation is
+\[r(r-1)-5r+9=0\]
+which has a repeated root $r=3$.
+
+Therefore, the general solution of the equation on $(0,\infty)$ is
+\[y=x^3(c_1+c_2 \ln x).\]
+\end{solution}
+
+\begin{example}
+  Find the general solution of
+  \[x^2y''+3xy'+2y=0\]
+  on $(0,\infty)$.
+\end{example}
+\begin{solution}
+The indicial equation is
+\[r(r-1)+3r+2=0\]
+which has two complex solutions
+$r_1, r_2=-1\pm\mathrm{i}$
+
+Therefore, the general solution is
+\[y=\frac{1}{x}\left[c_1\cos(\ln x)+c_2\sin(\ln x)\right].\]
+\end{solution}
+
+
+\begin{exercise}
+  Find the general solution of
+\[x^2y''+5xy'+4y=0\]
+on $(0,\infty)$.
+\end{exercise}
+\begin{exersol}
+The indicial equation is
+\[r(r-1)+5r+4=0\]
+which has a repeated root $r=-2$.
+
+Therefore, the general solution of the equation on $(0,\infty)$ is
+\[y=x^{-2}(c_1+c_2 \ln x).\]
+\end{exersol}
+
+\begin{exercise}
+  Find the general solution of
+  \[x^2y''+xy'+4y=0\]
+  on $(0,\infty)$.
+\end{exercise}
+\begin{exersol}
+The indicial equation is
+\[r(r-1)+r+4=0\]
+which has two complex solutions
+$r_1, r_2=\pm 2\mathrm{i}$
+
+Therefore, the general solution is
+\[y=\left[c_1\cos(2\ln x)+c_2\sin(2\ln x)\right].\]
+\end{exersol}

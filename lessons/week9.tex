@@ -1,0 +1,769 @@
+% !TEX root = ../main.tex
+\chapter{Introduction to Laplace Transforms}
+\chapterdate{11/08--11/11}
+
+\section{Laplace Transform}
+
+Using infinite series to solve differential equations provides an new idea. Transforming a solution into a series can reduce the differential equation into algebraic equations of coefficients which are much easier to solve. From calculus, we know that power series are closely related to improper integrals. Indeed, the improper integrals $\int_0^\infty a(t)x^t\D t=\int_0^\infty a(t)e^{-st}\D t$ may be considered a continuous analogue of the power series $\sum\limits_{n=0}^\infty a_nx^n$, where $-s=\ln x$ and $t$ plays the role of $n$. The interested reader may watch \href{https://www.youtube.com/watch?v=sZ2qulI6GEk}{the youtube video by Professor Arthur Mattuck} for a detailed explanation. This observation suggests an idea of applying an integral transformation to reduce a differential equation to algebraic equations. One of such integral transformations is the Laplace transformation which transform function $f(t)$ in real variable is another 
+function depending on a new variable $s$ that can be a complex number in general. 
+
+\subsection*{Definition of the Laplace Transform}
+
+\begin{definition}
+Let $f(t)$ be a function in a real varaiable $t$. The Laplace transform $\mathcal{L}f$ of $f$ is a function of $s$ defined by
+\[\mathcal{L}(f)(s):=\int_0^\infty f(t)e^{-st}\mathrm{d} t,\]
+whose domain consists of all values of $s$ such that the improper integral converges.
+\end{definition}
+
+In the definition, the value $s$ may be taken to be complex. For simplicity, we assume that $s>0$. We often denote $\mathcal{L}(f)(s)$ by $F(s)$.
+
+By the definition of the improper integral,
+\[F(s)=\int_0^\infty f(t)e^{-st}\D t=\lim\limits_{N\to \infty}\int_0^N f(t)e^{-st}\D t.\]
+
+\begin{example}
+Find the Laplace transform for the function $f(t)=1$.
+\end{example}
+\begin{solution}
+By a substitution $u=-st$, the improper integral is
+\[
+\mathcal{L}(1)=\int_0^\infty e^{-st}\D t = \lim\limits_{N\to\infty} \int_0^N e^{-st}\D t
+=\lim\limits_{N\to \infty}\int_0^{-sN}\frac{1}{-s}e^u\D u
+=-\frac1s\lim\limits_{N\to \infty}\left(e^{-sN}-e^0\right)
+=\frac1s
+\]
+if $s>0$.
+\end{solution}
+
+\begin{example}
+  Find the Laplace transform for the function $f(t)=t^n$.
+\end{example}
+\begin{solution}
+Applying integration by parts iteratedly, the indefinite integral $\int t^ne^{-st}\D t$ is
+\[
+\begin{aligned}
+\mathcal{L}(t^n)=&\int t^n e^{-st}\D t\\
+ =& -\frac{1}{s}t^ne^{-st}+\frac1s\int nt^{n-1}e^{-st}\D t\\ 
+=& -\frac{1}{s}t^ne^{-st}-\frac{1}{s^2} nt^{n-1}e^{-st}+\frac{1}{s^2}\int n(n-1)t^{n-2}e^{-st}\D t\\
+&\vdots\\
+=& -\frac{1}{s}t^ne^{-st}-\frac{1}{s^2} nt^{n-1}e^{-st}-\cdots-\frac{n\cdot~\cdots~\cdot 2}{s^{n}}t e^{-st}-\frac{n!}{s^{n+1}}e^{-st}. 
+\end{aligned}
+\]
+Since $\lim\limits_{N\to \infty}\frac{t^k}{e^{-st}}=0$ for any finite $k$, the improper integral is
+\[
+\int_0^\infty  t^n e^{-st}\D t = \lim\limits_{N\to \infty}\int_0^N t^n e^{-st}\D t=\frac{n!}{s^{n+1}}
+\]
+if $s>0$.
+\end{solution}
+
+\begin{exercise}
+  Find the Laplace transform for the function $f(t)=e^{rt}$.
+\end{exercise}
+\begin{exersol}
+  By the definition,
+  \[\mathcal{L}(e^{rt})=\int_0^\infty e^{rt}e^{-st}\D t=\int_0^\infty e^{(r-s)t}\D t.\]
+  From the first example, we know that
+  \[\int_0^\infty e^{(r-s)t}\D t=\frac{1}{s-r}\]
+  if $s>r$.
+\end{exersol}
+
+\begin{exercise}
+  Find the Laplace transforms of $f(t)=\sin(\omega t)$ and $g(t)=\cos(\omega t)$ where $\omega$ is a constant.
+\end{exercise}
+\begin{exersol}
+  Let $F(s)=\mathcal{L}(f)(s)$ and $G(s)=\mathcal{L}(g)(s)$.
+Assume $s>0$. Applying integration by parts yields
+\[
+    F(s)=-\frac{e^{-st}}{s}\sin(\omega t)\Big|_0^\infty+\frac{\omega}{s} \int_0^\infty e^{-st}\cos(\omega t)\D t=\frac{\omega}{s}G(s).
+\]
+
+Similarly,
+\[G(s)=-\frac{e^{-st}\cos(\omega t)}{s}\Big|_0^\infty - \frac{\omega}{s} \int_0^\infty e^{-st}\sin(\omega t)\D t=\frac1s-\frac{\omega}{s}F(s).
+\]
+
+Therefore, 
+\[G(s)=\frac{1}{s} - \frac{\omega^2}{s^2} G(s).\]
+
+Solving for $G$ yields
+\[G(s)=\frac{s}{s^2+\omega^2},\quad s>0.\]
+
+Therefore,
+\[F(s)=\frac{\omega}{s}\cdot\frac{s}{s^2+\omega^2}=\frac{\omega}{s^2+\omega^2},\quad s>0.\]
+\end{exersol}
+
+\subsection*{Linearity of the Laplace Transform}
+
+Because integration is a linear operator, that is, integration of linear combination is the linear combination of integrations. The Laplace transform is also a linear operator.
+
+\begin{theorem}
+    Suppose $\mathcal{L}(f_i)$ is defined for $s>s_i,$ $1\le i\le 2$. Let $s_0$ be the largest of the numbers $s_1$ and $s_{2}$, and let $c_1$ and $c_2$ constants. Then
+    \[
+      \mathcal{L}(c_1f_1+c_2f_2)=c_1\mathcal{L}(f_1)+c_2\mathcal{L}(f_2)\qquad\text{ for } s>s_0.
+    \]
+\end{theorem}
+\begin{proof}
+  By the linear combination law of integration, we get
+  \[\mathcal{L}(c_1f_1+c_2f_2)=\int_0^\infty (c_1f_1+c_2f_2)e^{-st}\D t=c_1\int_0^\infty f_1 e^{-st}\D t + c_2\int_0^\infty f_2 e^{-st}\D t=c_1\mathcal{L}(f_1)+c_2\mathcal{L}(f_2).\]
+  The equalities hold if $s\ge s_0$. Because both improper integral converge if $s$ is no less than $s_0=\max\{s_1, s_2\}$. 
+\end{proof}
+
+Recall the the hyperbolic trigonometric functions $\sinh x$ and $\cosh x$ are
+\[\sinh x=\frac{e^x-e^{-x}}{2}\qquad \cosh x \frac{e^x+e^{-x}}{2}.\]
+
+\begin{example}
+  Find the $\mathcal{L}(\sinh(bt))(s)$.
+\end{example}
+\begin{solution}
+  By the linearity and definitions, we get
+  \[
+    \mathcal{L}(\sinh(bt))(s)=\mathcal{L}\left(\frac{e^{bt}-e^{-bt}}{2}\right)=\frac12\left(\mathcal{L}(e^{bt})-\mathcal{L}(e^{-bt})\right)=\frac12\left(\frac{1}{s-b}-\frac{1}{s+b}\right)=\frac{b}{s^2-b^2}.
+  \]
+  if $s>b$.
+\end{solution}
+
+\begin{exercise}
+  Find the $\mathcal{L}(\cosh(bt))$.
+\end{exercise}
+\begin{exersol}
+  By the linearity and definitions, we get
+  \[
+    \mathcal{L}(\cosh(bt))(s)=\mathcal{L}\left(\frac{e^{bt}+e^{-bt}}{2}\right)=\frac12\left(\mathcal{L}(e^{bt})+\mathcal{L}(e^{-bt})\right)=\frac12\left(\frac{1}{s-b}+\frac{1}{s+b}\right)=\frac{s}{s^2-b^2}.
+  \]
+  if $s>b$.
+\end{exersol}
+
+\subsection*{$s$-shifting property}
+
+From the definition of Laplace transform, it is not hard to see that the Laplace transform of the product $e^{rt}f(t)$ is a shift of the Laplace transform of $f$.
+
+\begin{theorem}[$s$-Shifting Property]
+Suppose the Laplace transform 
+  \[\mathcal{L}(f)(s)=\int_0^\infty f(t)e^{-st} \D t\]
+  is defined for $s>s_0$. Then
+  $\mathcal{L}(f)(s-r)$ is the Laplace transform of $e^{rt}f(t)$ for $s >s_0+r$.
+\end{theorem}
+\begin{proof}
+  By the definition,
+  \[\int_0^\infty e^{rt}f(t)e^{-st}\D t=\int_0^\infty f(t)e^{-(s-r)t}\D t=\mathcal{L}(f)(s-r).
+  \]
+\end{proof}
+
+\begin{example}
+Find
+\[\mathcal{L}(t^ne^{rt}).\]
+\end{example}
+\begin{solution}
+  By the shifting theorem,
+  \[\mathcal{L}(t^ne^{rt})(s)=\mathcal{L}(t^n)(s-r)=\frac{n!}{(s-r)^{n+1}}.\]
+\end{solution}
+
+\begin{exercise}
+  Find 
+  \[\mathcal{L}(sin(\omega t)e^{rt})\qquad\text{and}\qquad \mathcal{L}(cos(\omega t)e^{rt})\]
+\end{exercise}
+\begin{exersol}
+  By the shifting theorem,
+  \[\mathcal{L}(sin(\omega t)e^{rt})(s)=\mathcal{L}(sin(\omega t))(s-r)=\frac{\omega}{(s-r)^2+\omega^2},\]
+  \[\mathcal{L}(cos(\omega t)e^{rt})(s)=\mathcal{L}(cos(\omega t))(s-r)=\frac{s}{(s-r)^2+\omega^2}.\]
+\end{exersol}
+
+
+\begin{remark}
+Using the identities
+\[\cos t=\frac{e^{it}+e^{-it}}{2}\qquad\text{and}\qquad \sin t=\frac{e^{it}-e^{-it}}{2}\]
+and the linearity theorem, one can also find the Laplace transforms of $\cos(\omega t)$ and $\sin(\omega t)$ using the shifting theorem.  
+\end{remark}
+
+\subsection*{Change of scale}
+
+By a linear substitution $u=at$, one can find the Laplace transform $\mathcal{L}(f(at))$ in terms of $\mathcal{L}(f(t))$.
+
+\begin{theorem}[Change of Scale]
+  Suppose the Laplace transform 
+    \[\mathcal{L}(f(t))(s)=\int_0^\infty f(t)e^{-st}\D t\]
+    is defined for $s>s_0$. Then
+   \[\mathcal{L}(f(at))(s)=\frac1a\mathcal{L}(f)\left(\frac{s}{a}\right)\]
+    for $s >as_0$.
+\end{theorem}
+\begin{proof}
+  Let $u=at$. Then
+  \[
+    \mathcal{L}(f(at))(s)=\int_0^\infty f(at)e^{-st}\D t=\frac1s\int_0^\infty f(u)e^{-\frac{su}{a}}\D u=\frac1s\mathcal{L}(f)\left(\frac sa\right).
+  \]
+\end{proof}
+
+\subsection*{Transform of derivatives}
+
+The most important property of Laplace transform for differential equations may be the relation between $\mathcal{L}(f')$ and $\mathcal{L}(f)$.
+
+\begin{theorem}[Transform of the first derivative]
+  Suppose the Laplace transform 
+    \[\mathcal{L}(f(t))(s)=\int_0^\infty f(t)e^{-st} \D t\]
+    is defined for $s>s_0$. Then
+   \[\mathcal{L}(f'(t))(s)=s\mathcal{L}(f)(s)-y(0)\]
+    for $s >s_0$.
+\end{theorem}
+\begin{proof}
+  The definition implies
+  \[\mathcal{L}(f'(t))(s)=\int_0^\infty f'(t)e^{-st} \D t=-f(t)e^{-st}\Big|_0^\infty+s\int_0^\infty f(t)e^{-st}\D t=s\mathcal{L}(f)(s)-f(0)\]
+  for $s>s_0$.
+
+  Note in the third equality, we used the fact that $\lim\limits_{N\to \infty} f(t)e^{-st}=0$ if $\int_0^\infty f(t)e^{-st}\D t$ converges.
+\end{proof}
+
+\begin{example}
+  Suppose the Laplace transform 
+    $\mathcal{L}(f)(s)$
+    is defined for $s>s_0$. 
+  Find the Laplace transform $\mathcal{L}(f'')$ in terms of $\mathcal{L}(f)$, $f'(0)$ and $f(0)$.
+\end{example}
+\begin{solution}
+Applying the above theorem repeatedly yields
+\[
+  \mathcal{L}(f'')
+  =s\mathcal{L}(f')-f'(0)=s^2\mathcal{L}(f)-sf(0)-f'(0).
+\]
+\end{solution}
+
+
+\section{Existence and Additional Properties*}
+
+\subsection*{Existence of Laplace transforms}
+
+Not every function has a Laplace transform. For example, 
+\[\int_0^\infty e^{-st}e^{t^2} dt\]
+diverges for all $s$ because $\lim\limits_{t\to\infty}e^{-st}e^{t^2}=\infty$.
+Since definite integrals define for functions that are continuous with at most jumping or removable discontinuities, Laplace transform may be defined for piece-wise continuous function. 
+
+\begin{definition}
+A function $f$ is \dfn{piecewise continuous} on a finite closed interval $[a,b]$ if $f(a+)$ and $f(b-)$ are finite and $f$ is continuous on the open interval $(a,b)$ except possibly at finitely many points where $f$ may have jump discontinuities or removable discontinuities.
+
+A function $f$ is \dfn{piecewise continuous} on the infinite interval $[a,\infty)$ if it is piecewise continuous on $[a,b]$ for every $b>a$.
+\end{definition}
+
+\begin{example}
+  The \dfn{unit step function} or \dfn{Heaviside step function} defined as follows
+  \[
+    u(t)=\begin{cases}
+    0 & \text{for }~ t<0,\\
+    1 & \text{for }~ t\ge 0.
+  \end{cases}
+  \]
+  is piecewise continuous over the infinite interval $(-\infty, \infty)$
+\end{example}
+
+However, piecewise continuity alone does not guarantee the existence of Laplace transform. An addition sufficient condition is that the function grows slower that $e^{-st}$ for some $s=s_0$ as $t$ goes to infinity.
+
+\begin{definition}
+  A function $f$ is of \dfn{exponential order} $s_0$ if there are constants $M$ and $t_0$ such that
+\[|f(t)|\le Me^{s_0t},\quad t\ge t_0.\]
+\end{definition}
+
+When value of $s_0$ is irrelevant, we simply say that $f$ is of exponential order.
+
+\begin{theorem}[Existence of Laplace Transform]
+  If $f$ is piecewise continuous on $[0,\infty)$ and of exponential order $s_0,$ then $\mathcal{L}(f)$ is defined for $s>s_0$.
+\end{theorem}
+\begin{proof}
+  Since $f$ is piecewise continuous on $[0, \infty)$, the integral $\int_0^Nf(t)e^{-st}\D t$ is defined for all $N$, so is the improper integral $\int_0^\infty f(t)e^{-st}\D t$ as long as it converges.
+
+  Since $f$ is of exponential order $s_0$, we know that
+  \[|f(t)|\le Me^{s_0t}.\]
+  Note that the improper integral
+  \[\int_0^\infty Me^{s_0t}e^{-st}\D t=M\int_0^\infty e^{-(s-s_0)t}\D t=\frac{M}{s-s_0}.\]
+for $s>s_0$.
+  By the comparison test, $|F(s)|=\int_0^\infty |f(t)|e^{-st}\D t$ converges for $s>s_0$ and so is $\int_0^\infty f(t)e^{-st}\D t$. 
+ 
+  Therefore, as long as $f$ is piecewise continuous and of exponential order, the Laplace transform of $f$ exists.
+\end{proof}
+
+From the proof, we see that $\lim\limits_{s\to \infty}F(s)=0$. Indeed, as long as the Laplace transform of $f$ exists, it always true that $\lim\limits_{s\to \infty}F(s)=0$.
+\begin{corollary}
+  Suppose that the Laplace transform $F(s)$ of $f(t)$ exists for $s>s_0$. Then 
+  \[\lim\limits_{s\to \infty}F(s)=0.\]
+\end{corollary}
+% Ref: Doetsch, G., Introduction to the Theory and Application of the Laplace Transform
+\begin{proof}
+  It suffice to show that $F(s)$ cam be expressed as a Laplace transform of a bounded function. 
+
+  Let $g(t)=\int_{0}^{t}e^{-s_{1}x}f(x)\D x$, where $s_1>s_0$. Then $g'(t)= e^{-s_{1}t}f(t)$ and $g(t)$ is bounded because $|g(t)|<|F(s_1)|$.
+  By integrating by parts,
+\[
+  \begin{aligned}
+    F(s)=&\int_{0}^{\infty}e^{-st}f(t)\D t\\
+    =&\int_{0}^{\infty}e^{-(s-s_1)t}e^{-s_{1}t}f(t)\D t\\
+    =&\int_{0}^{\infty}e^{-(s-s_1)t}\D g(t)\\
+    =&e^{-(s-s_1)t}g(t)\Big|_0^\infty+(s-s_1)\int_{0}^{\infty}e^{-(s-s_1)t}g(t)\D t\\
+    =&(s-s_{1})\int_{0}^{\infty }e^{-(s-s_{1})t}g(t)\D t.
+  \end{aligned}
+\]
+\end{proof}
+
+From the corollary, we know that $s^n$, $\sin s$, $\cos s$, $e^s$ and $\ln s$ can not be Laplace transforms.
+
+\begin{remark}
+  The identity $F(s)=(s-s_{1})\int_{0}^{\infty }e^{-(s-s_{1})t}g(t)\D t$ can also be used to show that $F(s)$ is analytic \autocite[see, for example,][Chapter 6]{Doetsch1974}. 
+\end{remark}
+
+
+\begin{example}
+  Find the Laplace transform of the delayed unit step function $u_a(t)=u(t-a)$ with $a>0$, that is
+  \[
+    u_a(t)=\begin{cases}
+    0 & \text{for }~ t<a,\\
+    1 & \text{for }~ t\ge a.
+  \end{cases}
+  \]
+\end{example}
+
+\begin{solution}
+  The improper integral can be calculated directly:
+  \[
+    \int_0^\infty u_a(t)e^{-st}\D t=\int_0^a 0\cdot e^{-st}\D t+\int_a^\infty 1\cdot e^{-st}\D t=-\frac1s e^{-st}\Big|_a^\infty=\frac{1}{se^{sa}}.
+  \]
+\end{solution}
+
+\subsection*{Transforms of piecewise functions}
+
+Using the unit step function, a piecewise function
+\[
+f(t)=\begin{cases}
+  f_1(t) & 0\le t <t_1\\
+  f_2(t) & t_1\le t <t_2\\
+  \vdots\\
+  f_n(t) & t_{n-1}\le t
+\end{cases}  
+\]
+can be expresses as
+\[f(t)=(u(t-t_1)-u(t))f_1(t)+(u(t-t_1)-u(t-t_1))f_2(t)+\cdots + u(t-t_{n-1})f_n(t).\]
+
+\begin{theorem}[$t$-Shifting Theorem]
+  Let $f$ be a function such that $\mathcal{L}(f(t+b))(s)$ exist for $s>s_0$. Then the Laplace transform of the product function $u(t-a)f(t-a)$, where $u$ is the unit step function, is
+  \[\mathcal{L}(u(t-a)f(t-a))=e^{-as}\mathcal{L}(f(t))(s).\]
+\end{theorem}
+\begin{proof}
+  By the definition of the unit step function,
+  \[
+    \begin{aligned}
+      \int_0^\infty u(t-a)f(t-a)e^{-st}\D t=&\int_a^\infty f(t-a)e^{-st}\D t\\
+      =&e^{-as}\int_a^\infty f(t-a)e^{-s(t-a)}\D (t-a)\\
+      =&e^{-as}\int_0^\infty f(x)e^{-sx}\D x\\
+      =&e^{-as}\mathcal{L}(f(t))(s).
+    \end{aligned}
+    \]
+\end{proof}
+
+\begin{example}
+  Find the Laplace transform
+  \[\mathcal{L}(u(t-a)f(t+b))(s).\]
+\end{example}
+\begin{solution}
+  Let $g(t)=f(t+a+b)$. Then
+  \[\mathcal{L}(u(t-a)f(t+b))(s)=\mathcal{L}(u(t-a)g(t-a))(s)=e^{-as}\mathcal{L}(g(t))(s)=e^{-as}\mathcal{L}(f(t+a+b))(s).\]
+\end{solution}
+
+\begin{example}
+  Find the Laplace transform
+  \[\mathcal{L}(u(t-1)t^2)(s).\]
+\end{example}
+\begin{solution}
+  Let $g(t)=(t+1)^2=t^2+2t+1$. Then $g(t-1)=t^2$ and 
+  \[\mathcal{L}(u(t-1)t^2)(s)=e^{-s}\mathcal{L}(t^2+2t+1)(s)=e^{-s}\left(\frac{2}{s^3}+\frac{1}{s^2}+\frac1s\right).\]
+\end{solution}
+
+\begin{example}
+  Find the Laplace transform of the function
+\[
+  f(t)=
+\begin{cases} t+2, & 0\le t<2,\\[4pt]3t,&t\ge 2.
+\end{cases}
+\]
+\end{example}
+\begin{solution}
+  Using the unit step function $u$, the function $f$ can be written as
+  \[f(t)=u(t)(t+2)-u(t-2)(t+2)+3t u(t-2)=u(t)(t+2)+u(t-2)(2t-2).\]
+  Then
+  \[
+  \begin{aligned}
+    \mathcal{L}(f(t))(s)
+    =&\mathcal{L}(u(t)(t+2))(s)+\mathcal{L}(u(t-2)(2t-2))(s)\\
+    =&\mathcal{L}(t+2)(s) + e^{-2s}\mathcal{L}(2(t+2)-2)(s) \\
+    =&\mathcal{L}(t+2)(s) + 2e^{-2s}\mathcal{L}(t+1)(s) \\
+    =&\left(\frac{1}{s^2}+\frac{2}{s}\right) + 2e^{-2s}\left(\frac{1}{s^2}+\frac{1}{s}\right).
+  \end{aligned}  
+  \]
+\end{solution}
+
+\subsection*{Transforms of integrals}
+
+For some differential equations, computing the Laplace transform of an integral may be necessary.
+
+\begin{theorem}
+  Let $f$ be piecewise continuous function of exponential order $s_0$ and $g(t)=\int_0^tf(x)\D x$. Then
+  \[\mathcal{L}(g)(s)=\frac1s\mathcal{L}(f)(s).\] 
+\end{theorem}
+\begin{proof}
+  Note that $g'(t)=f(t)$ and $g(0)=0$
+  By the existence theorem and the theorem of transform of derivative, we get
+  \[\mathcal{L}(f)(s)=s\mathcal{L}(g)(s)-g(0)=s\mathcal{L}(g)(s)\]
+  which implies
+  \[\mathcal{L}(g)(s)=\frac1s\mathcal{L}(f)(s).\]
+\end{proof}
+
+% \begin{example}
+  
+% \end{example}
+
+\subsection*{Tables of Laplace Transforms}
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{l|l}
+    \hline
+        $\mathcal{L}\left(t^{n}\right)(s)=\dfrac{n !}{s^{n+1}}$ &
+        $\mathcal{L}\left(e^{a t}t^n\right)(s)=\dfrac{1}{(s-a)^{n+1}}$ \\[0.5em]
+        $\mathcal{L}\left(e^{a t}\cos(b t)\right)(s)=\dfrac{s-a}{(s-a)^{2}+b^{2}}$ &
+        $\mathcal{L}\left(e^{a t}\sin(b t)\right)(s)=\dfrac{b}{(s-a)^{2}+b^{2}}$ \\[0.5em]
+        $\mathcal{L}\left(e^{a t}\cosh(b t)\right)(s)=\dfrac{s-a}{(s-a)^{2}-b^{2}}$ &
+        $\mathcal{L}\left(e^{a t}\sinh(b t)\right)(s)=\dfrac{b}{s^{2}-b^{2}}$ \\[0.5em]
+        \hline
+\end{tabular}
+    \caption{Table of Basic Laplace Transforms}
+    \label{tab:LaplaceBasic}
+\end{table}
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{l|l}
+    \hline
+        Linearity & $\mathcal{L}(c_1f_1+c_2f_2)=c_1\mathcal{L}(f_1) + c_2\mathcal{L}(f_2)$ \\[0.5em]
+        $s$-shifting & $\mathcal{L}(e^{at}f(t))(s)=\mathcal{L}(f(t))(s-a)$ \\[0.5em]
+        $t$-shifting & $\mathcal{L}(u(t-a)f(t-a))=e^{-as}\mathcal{L}(f(t))(s)$ \\[0.5em]
+        change of scale & $\mathcal{L}(f(at))(s)=\frac1a\mathcal{L}(f(t))\left(\frac ta\right)$\\[0.5em]
+        Transform of $f'$ & $\mathcal{L}(f')(s)=\mathcal{L}(f)(s)-f(0)$ \\[0.5em]
+        Transform of $f''$ & $\mathcal{L}(f'')(s)=\mathcal{L}(f)(s)-f'(0)s-f(0)$ \\[0.5em]
+        Transform of integral & $\mathcal{L}(\int_0^tf(x)\D x)(s)=\dfrac{\mathcal{L}(f)(s)}{s}$ \\[0.5em]
+        \hline
+\end{tabular}
+    \caption{Table of Rules of Laplace Transform}
+    \label{tab:LaplaceRules}
+\end{table}
+
+\subsection*{Derivatives of Transforms}
+
+Since Laplace transforms are analytic, the derivatives exists.
+
+\begin{theorem}
+  Let $f$ be a piecewise continuous function of exponential order $r$. Then
+  \[\frac{\D }{\D s}\mathcal{L}(f)(s)=\mathcal{L}\left(-tf(t)\right)(s), \quad\text{for }~ s>r\]
+\end{theorem}
+\begin{proof}
+  Since $f$ is of exponential order, the improper integral converges absolutely. Hence, the derivative and the integral are interchangeable:
+  \[
+  \begin{aligned}
+    F'(s)=&\frac{\D }{\D s}\int_0^\infty f(t)e^{-st}\D t\\
+    =&\int_0^\infty \frac{\D }{\D s} f(t)e^{-st}\D t\\
+    =&\int_0^\infty -tf(t)e^{-st}\D t\\
+    =&\mathcal{L}(-tf(t))(s).
+  \end{aligned}  
+  \]
+\end{proof}
+
+The above theorem holds true without the assumption that $f$ is of exponential order. In this cae, one needs to express $F(s)$ in terms of a transform of a bounded function $g(t)=\int_0^t f(x)e^{-s_1x}\D x$. We refer the interested read to \autocite[Chapter 6]{Doetsch1974} for this generality.
+
+\begin{example}
+  Find the Laplace transform 
+  \[\mathcal{L}(t\cos t).\]
+\end{example}
+\begin{solution}
+  Applying the theorem of derivative of transform to $f(t)=-\cos t$ yields
+  \[\mathcal{L}(t\cos t)=\frac{\D }{\D s}\mathcal{L}(-\cos t)=-\frac{\D }{\D s}\left(\frac{1}{s^2+1}\right)=\frac{2s}{(s^2+1)^2}.\]
+\end{solution}
+
+\subsection*{Integrals of Transforms}
+
+The integral of a Laplace transform can be calculated using the derivative.
+
+\begin{theorem}
+  Let $f$ be a piecewise continuous function of exponential order $r$ such that $\lim_{t\to 0^+}\frac{f(t)}{t}$ exists. Then
+  \[\int_s^\infty \mathcal{L}(f)(x)\D x=\mathcal{L}\left(\frac{f(t)}{t}\right)(s).\]
+\end{theorem}
+\begin{proof}
+  Applying the theorem of derivative of transform to $\mathcal{L}\left(\frac{f(t)}{t}\right)(s)$ yields
+  \[\frac{\D }{\D s}\mathcal{L}\left(\frac{f(t)}{t}\right)(s)=\mathcal{L}\left(-t\left(\frac{f(t)}{t}\right)\right)(s)=-\mathcal{L}(f)(s).\]
+  Then by the fundamental theorem of calculus,
+  \[\mathcal{L}\left(\frac{f(t)}{t}\right)(s)=-\int_a^s \mathcal{L}(f)(x)\D x.\]
+  Since $\lim_{s\to\infty}\mathcal{L}(f)(s)=0$, taking $a=\infty$ yields the equality
+  \[\mathcal{L}\left(\frac{f(t)}{t}\right)(s)=\int_s^\infty \mathcal{L}(f)(x)\D x.\]
+\end{proof}
+
+
+% The above clever proof can be found in Simmons book.
+% \begin{proof}
+%   Since $f$ is of exponential order, the improper integral converges absolutely. Hence, the order of integration can be changed:
+%   \[
+%   \begin{aligned}
+%     \mathcal{L}\left(\frac{f(t)}{t}\right)(s)
+%     =&\int_0^\infty \frac{f(t)}{t}\cdot e^{-st}\D t\\
+%     =&\int_0^\infty f(t)\cdot\int_s^\infty e^{-sx}\D x\D t\\
+%     =&\int_0^\infty \left(\int_s^\infty f(t)e^{-sx}\D x\right)\D t\\
+%     =&\int_s^\infty\left(\int_0^\infty f(t)e^{-sx}\D t \right)\D x\\
+%     =&\int_s^\infty\mathcal{L}\left(\frac{f(t)}{t}\right)(x)\D x.
+%   \end{aligned}  
+%   \]
+% \end{proof}
+
+\begin{example}
+  Find the Laplace transform
+  \[\mathcal{L}\left(\frac{\sin t}{t}\right).\]
+\end{example}
+\begin{solution}
+  \[
+%   \begin{aligned}
+    \mathcal{L}\left(\frac{\sin t}{t}\right)
+    =\int_s^\infty\mathcal{L}(\sin t)(s)\D s
+    =\int_s^\infty\frac{1}{s^2+1}\D s
+    =\frac{\pi}{2}-\tan^{-1}(s)
+    =\cot^{-1}(s)
+    =\tan^{-1}\left(\frac1s\right).
+%   \end{aligned}  
+  \]
+\end{solution}
+
+\section{Inverse Laplace Transforms}
+
+In order to solve differential equations using Laplace transforms, inverse Laplace transforms must exist and be unique.
+
+\begin{definition}
+  Given a function $F(s)$, the \dfn{inverse Laplace transform} of $F$, denoted by $\mathcal{L}^{-1}(F)$, is a function $f$ such that $\mathcal{L}(f)(s)=F(s)$.
+\end{definition}
+
+For example, $\mathcal{L}^{-1}\left(\frac{1}{s-1}\right)=e^{t}$ because $\mathcal{L}(e^t)(s)=\frac{1}{s-1}$.
+
+
+The uniqueness in general may not be true because two functions with different discontinuities may have the same Laplace transform. For example, $\mathcal{L}(1)(s)=\mathcal{L}(u)(s)$, where $u$ is the unit step function.
+
+Fortunately, discontinuities are the only differences that two functions can have if they have the same Laplace transform. This result is known as Lerch's theorem.
+
+\begin{theorem}[Lerch's Theorem]
+  Let $f$ and $g$ be two functions having the same Laplace transform: $\mathcal{L}(f)(s)=\mathcal{L}(g)(s)$. 
+  If $f$ and $g$ are piecewise continuous, then $f(t)=g(t)$ for any $t$ where $f$ and $g$ are continuous.
+  In particular, if $f$ and $g$ are continuous, then $f=g$.
+\end{theorem}
+
+We refer the reader to \autocite[Chapter 5]{Doetsch1974} for a proof.
+
+\subsection*{Properties of inverse Laplace transforms}
+
+Like calculating antiderivatives, some inverse Laplace tranforms can be calculated using those basic Laplace transforms and properties of inverse Laplace transforms. 
+
+By the uniqueness theorem and linearity of Laplace transform, we see that the inverse Laplace transform is also a linear operator.
+
+\begin{theorem}
+  Suppose the inverse Laplace transforms for $F(s)$ and $G(s)$ exist. Then
+  \[\mathcal{L}^{-1}(c_1F_1(s)+c_2F_2(s))=c_1\mathcal{L}^{-1}(F_1(s))+c_2\mathcal{L}^{-1}(F_2(s)).\]
+\end{theorem}
+
+\begin{example}
+  Find the inverse transform
+  \[\mathcal{L}^{-1}\left(\frac{1}{s-1}+\frac{1}{s-2}\right)\]
+\end{example}
+\begin{solution}
+  \[
+  \begin{aligned}
+    \mathcal{L}^{-1}\left(\frac{1}{s-1}+\frac{1}{s-2}\right)
+    =& \mathcal{L}^{-1}\left(\frac{1}{s-1}\right)+\mathcal{L}^{-1}\left(\frac{1}{s-2}\right)\\ 
+    =& e^t + e^{2t}\\ 
+  \end{aligned}
+  \]
+\end{solution}
+
+\begin{exercise}
+  Find the inverse transform
+  \[\mathcal{L}^{-1}\left(\frac{1}{s}+\frac{2}{s^2}\right)\]
+\end{exercise}
+\begin{exersol}
+  \[
+  \begin{aligned}
+    \mathcal{L}^{-1}\left(\frac{1}{s}+\frac{2}{s^2}\right)
+    =& \mathcal{L}^{-1}\left(\frac{1}{s}\right)+\mathcal{L}^{-1}\left(\frac{2}{s^2}\right)\\ 
+    =& 1 + 2t. 
+  \end{aligned}
+  \]
+\end{exersol}
+
+\begin{theorem}[Shifting Inverse Transforms]
+  If $f(t)=\mathcal{L}^{-1}(F(s))$, then
+  \begin{enumerate}
+    \item \[\mathcal{L}^{-1}(F(s-a))=e^{at}f(t),\]
+    \item \[\mathcal{L}^{-1}(e^{-as}F(s))=u(t-a)f(t-a).\]
+  \end{enumerate} 
+\end{theorem}
+
+\begin{example}
+  Find the inverse transform
+  \[\mathcal{L}^{-1}\left(\frac{1}{(s+1)^2}\right).\]
+\end{example}
+\begin{solution}
+  \[\mathcal{L}^{-1}\left(\frac{1}{(s+1)^2}\right)=e^{-t}\mathcal{L}^{-1}\left(\frac{1}{s^2}\right)=te^{-t}.\]
+\end{solution}
+
+\begin{example}
+  Find
+  \[\mathcal{L}^{-1}\left(\frac{s}{s^2+2s+2}\right).\]
+\end{example}
+\begin{solution}
+  \[
+  \begin{aligned}
+    \mathcal{L}^{-1}\left(\frac{s}{s^2+2s+2}\right)=&\mathcal{L}^{-1}\left(\frac{s}{(s+1)^2+1}\right)\\
+    =&\mathcal{L}^{-1}\left(\frac{s+1}{(s+1)^2+1}\right)-\mathcal{L}^{-1}\left(\frac{1}{(s+1)^2+1}\right)\\
+    =&e^{-t}\mathcal{L}^{-1}\left(\frac{s}{s^2+1}\right)-e^{-t}\mathcal{L}^{-1}\left(\frac{1}{s^2+1}\right)\\
+    =&e^{-t}\cos(st)-e^{-t}\sin(st).
+  \end{aligned}  
+  \]
+\end{solution}
+
+\subsection*{The method of partial fractional decomposition}
+
+Using the Laplace transform to solve differential equations often requires finding the inverse transform of a rational function
+\[F(s)=\frac{P(s)}{Q(s)}.\]
+
+By the fundamental theorem of algebra, a rational expression $\frac{P(s)}{Q(s)}$, where $P(s)$ and $Q(s)$ are polynomials and $\deg P(s)<\deg Q(s)$, can always be written as the sum of rational expressions whose denominator are powers of linear or irreducible quadratic polynomials.
+
+\begin{theorem}
+Let $P$ and $Q$ are nonzero polynomials. Assume that $\deg P<\deg Q$. Write $Q$ as a produce of powers of distinct irreducible polynomials of degree at most two:
+\[Q(s)=\prod\limits_{i}^n p_i^{n_i}.\]
+Then there are unique polynomials $a_{ij}$ with $\deg a_{ij}<\deg p_i$ such that
+\[\frac{P}{Q}=\sum\limits_i^n\sum\limits_j^{n_i}\frac{a_{ij}}{p_i^j}.\]
+\end{theorem}
+
+
+\begin{example}
+  Find the inverse Laplace transform of
+  \[F(s)=\frac{s}{s^2-s-2}.\]
+\end{example}
+\begin{solution}
+  Factoring the denominator yeilds
+  \[F(s)=\frac{s}{(s+1)(s-2)}.\]
+  By the partial fraction decomposition theorem, $F$ has an expression
+  \[F(s)=\frac{A}{s+1}+\frac{B}{s-2}.\]
+  Note that 
+  \[A=(s+1)F(s)-\frac{B(s+1)}{s-2}=\frac{s}{s-2}-\frac{B(s+1)}{s-2},\]
+  \[B=(s-2)F(s)-\frac{A(s-2)}{s+1)}=\frac{s}{s+1}-\frac{A(s-2)}{s+1)}.\]
+  Because the equities should hold true for all $s$. Taking $s=-1$ implies \[A=\frac{-1}{-1-2}=\frac13.\]
+  Taking $s=2$ implies \[B=\frac{2}{2+1}=\frac23.\]
+  Therefore,
+  \[F(s)=\frac13\frac{1}{s+1}+\frac23\frac{1}{s-2}.\]
+  By linearity,
+  \[\mathcal{L}^{-1}(F(s))=\frac13\mathcal{L}^{-1}\left(\frac{1}{s+1}\right)+\frac23\mathcal{L}^{-1}\left(\frac{1}{s-2}\right)=\frac13e^{-t}+\frac23e^{2t}.\]
+\end{solution}
+
+\begin{example}
+  Find the inverse transform of 
+  \[F(s)=\frac{1}{s(s-1)^2}.\]
+\end{example}
+\begin{solution}
+  The function $F$ can be decomposed at
+  \[F(s)=\frac{A}{s}+\frac{B}{s-1}+\frac{C}{(s-1)^2}.\]
+  Applying the evaluation method as in the above example yields
+  \[A=sF(s)\Big|_{s=0}=\frac{1}{(s-1)^2}\Big|_{s=0}=1,\]
+  \[C=(s-1)^2F(s)\Big|_{s=1}=\frac{1}{s}\Big|_{s=1}=1.\]
+  Subtracting $\frac{C}{(s-1)^2}$ from the decomposition and then applying the evaluation method yields
+  \[B=\left((s-1)F(s)-\frac{1}{s-1}\right)\Big|_{s=1}=\frac{1-s}{s(s-1)}\Big|_{s=1}=-\frac1s\Big|_{s=1}=-1.\]
+  Therefore,
+  \[F(s)=\frac1s-\frac1{s-1}+\frac{1}{(s-1)^2}.\]
+  The inverse transform is
+  \[\mathcal{L}^{-1}(F(s))=1-e^t-t e^t.\]
+\end{solution}
+
+\begin{example}
+  Find the inverse Laplace transform of
+  \[F(s)=\frac{s^2+1}{s(s^2+2s+2)}\]
+\end{example}
+\begin{solution}
+  The function $F$ can be written as the decomposition
+  \[F(s)=\frac{A}{s}+\frac{Bs+C}{s^2+2s+2}.\]
+  Then
+  \[A=sF(s)\Big|_{s=0}=\frac{s^2+1}{s^2+2s+2}\Big|_{s=0}=\frac12.\]
+  Note that $s^2+2s+2=(s+1)^2+1$ which has two roots $s=-1\pm \mathrm{i}$.
+  Then
+  \[B(-1+\mathrm{i})+C=(s^2+2s+2)F(s)\Big|_{s=-1+\mathrm{i}}=\frac{s^2+1}{s}\Big|_{s=-1+\mathrm{i}}=-\frac32+\frac12\mathrm{i}\tag{1}\]
+  \[B(-1-\mathrm{i})+C=(s^2+2s+2)F(s)\Big|_{s=-1-\mathrm{i}}=\frac{s^2+1}{s}\Big|_{s=-1-\mathrm{i}}=-\frac32+\frac12\mathrm{i}.\tag{2}\]
+  Solving the liner system implies
+  \[B=\frac12\qquad C=-1.\]
+  Therefore,
+  \[F(s)=\frac{1}{2}\cdot\frac{1}{s}+\frac12\frac{s-2}{(s+1)^2+1}.\]
+  To get the inverse transform using the table, the second term needs to be rewritten as
+  \[\frac12\frac{s-2}{(s+1)^2+1}=\frac12\frac{s+1}{(s+1)^2+1}-\frac32\cdot\frac{1}{(s+1)^2+1}.\]
+  Then
+  \[
+  \begin{aligned}
+    \mathcal{L}^{-1}(F(s))
+    =&\frac12\mathcal{L}^{-1}\left(\frac1s\right)+\frac12\mathcal{L}^{-1}\left(\frac{s+1}{(s+1)^2+1}\right)-\frac32\mathcal{L}^{-1}\left(\frac{1}{(s+1)^2+1}\right)\\
+    =&\frac12+\frac12e^{-t}\cos(t)-\frac32e^{-t}\sin(t).
+  \end{aligned}  
+  \]
+\end{solution}
+
+% \subsection{Convolutions*}
+
+% Let $F(s)=\mathcal{L}(f(t))(s)$ and $G(s)=\mathcal{L}(g(t))(s)$. The inverse transform $\mathcal{L}^{-1}(F(s)G(s))$ can be calculated by an integral of $f$ and $g$.
+
+% \begin{theorem}
+%   Let $F(s)=\mathcal{L}(f(t))(s)$ and $G(s)=\mathcal{L}(g(t))(s)$. Then
+%   \[\mathcal{L}^{-1}(F(s)G(s))=\int_0^t f(t-x)g(x)\D x.\] 
+% \end{theorem}
+% \begin{proof}
+% Since changing the dummy variable of integration won't change the integral, the function $F(s)G(s)$ is determined by
+% \[F(s)G(s)=\int_0^\infty e^{-sx}f(x)\D x\int_0^\infty e^{-st}g(y)\D y.\]
+% By \href{https://en.wikipedia.org/wiki/Fubini\%27s_theorem}{Fubini's theorem}, the \href{https://en.wikipedia.org/wiki/Order_of_integration_(calculus)}{order of integration} in this case is interchangeable. Together with change of coordinates, it implies that 
+% \[
+%   \begin{aligned}
+%     \int_0^\infty e^{-sx}f(x)\D x\int_0^\infty e^{-sy}g(y)\D y
+%     =&\int_0^\infty \int_0^\infty e^{-s(x+y)}f(x)g(y)\D x\D y\\
+%     =&\int_0^\infty \left(\int_0^\infty e^{-s(x+y)}f(x)\D x\right) g(y)\D y\\
+%     =&\int_0^\infty \left(\int_y^\infty e^{-su}f(u-y)\D u\right) g(y)\D y\qquad \text{where }~ u=x+y \\
+%     =&\int_0^\infty\int_y^\infty\left(e^{-sx}f(x-y)g(y)\right)\D x \D y\\
+%     =&\int_0^\infty\int_0^x\left(e^{-sx}f(x-y)g(y)\right)\D y \D x \quad \text{change of coordinates}\\
+%     =&\int_0^\infty e^{-s(x)}\left(\int_0^x f(x-y)g(y)\D y\right)\D x \\
+%     =&\mathcal{L}\left(\int_0^y f(x-y)g(y)\D x\right)(s).
+%   \end{aligned}
+%   \]
+%   That completes the proof.
+% \end{proof}
+
+% This theorem motivates the definition of convolution.
+
+% \begin{definition}
+%   The \dfn{convolution} $f*g$ of two functions $f$ and $g$ is defined by
+% \[(f*g)(t)=\int_0^t f(x)g(t-x)\D x.\]
+% \end{definition}
+
+% Applying a substitution $u=t-x$ and changing the dummy variable $u$ back to $x$ implies
+% \[(f*g)(t)=\int_0^t f(x)g(t-x)\D x=-\int_t^0 f(t-u)g(u)\D u=\int_0^t g(x)f(t-x)\D x=(g*f)(t).\]
+
+% \begin{example}
+% Let $f(t)=e^{at}$ and $g(t)=e^{bt}$. Find $\mathcal{L}(f*g)$.
+% \end{example}
+% \begin{solution}
+% By the theorem of convolution,
+% \[\mathcal{L}(f*g)=\mathcal{L}(e^{at})\mathcal{ L}(e^{bt})=\frac{1}{(s-a)(s-b)}.\]
+% \end{solution}
+
+% \begin{example}
+%   Find $\mathcal{L}^{-1}\left(\frac{1}{s(s-1)^2}\right)$.
+%   \end{example}
+%   \begin{solution}
+%   From the table of Laplace transform $\frac1s=\mathcal{L}(1)(s)$ and $\frac{1}{s^2}=\mathcal{L}(t)(s)$. By the $s$-shifting theorem, 
+%   \[\frac{1}{(s-1)^2}=\mathcal{L}(t)(s-1)=\mathcal{L}(te^t)(s).\]
+%   Therefore, by the theorem of convolution,
+%   \[\mathcal{L}^{-1}\left(\frac{1}{s(s-1)^2}\right)=(1)*(te^t)=\int_0^t1*xe^x\D x=xe^x-e^x+1.\]
+% \end{solution}
+
+% \begin{exercise}
+%   Find $\mathcal{L}^{-1}\left(\frac{1}{s^2(s^2+1)}\right)$.
+% \end{exercise}
+% \begin{exersol}
+%   Note that $\frac{1}{s^2}=\mathcal{L}(t)(s)$ and $\mathcal{L}(\sin(t))(s)$. Therefore,
+%   \[\mathcal{L}^{-1}\left(\frac{1}{s^2(s^2+1)}\right)=\int_0^t(t-x)\sin x\D x=((x-t)\cos x)|_0^t-\sin x|_0^t=t-\sin t.\]
+% \end{exersol}
+

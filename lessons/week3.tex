@@ -1,0 +1,422 @@
+% !TEX root = ../main.tex
+\chapter{Substitution Methods and Exact Equations}
+\chapterdate{9/20--9/26}
+
+\section{Substitution Methods}
+\subsection{Homogeneous Equations}
+
+\begin{definition}
+  A function $f$ is said to be \dfn{homogeneous of degree $m$} if $f(tx, ty)=t^mf(x, y)$ for any nonzero constant $t$.
+\end{definition}
+
+\begin{example}
+  The functions $z=\frac{y}{x}$ and $z=\frac{x}{y}$ are homogeneous of degree $0$.
+  
+  The function $z=\frac{xy}{x^2+y^2}$ is also homogeneous of degree $0$.
+
+  But the function $z=x^2+xy-y^2$ is homogeneous of degree $2$.
+\end{example}
+
+From the example, you may conjecture that a homogeneous functions of degree $0$ is  a function of the single variable $v=xy$. 
+Indeed, the following theorem confirms that.
+
+\begin{theorem}\label{thm:homegeneity}
+  A function $f(x, y)$ is homogeneous of degree zero if and only if it depends on $\frac yx$ only.
+\end{theorem}
+\begin{proof}
+  If $f(x, y)$ is homogeneous of degree zero, then \[f(x, y)=f\left(\frac{1}x\cdot x, \frac{1}{x}\cdot y\right)=f\left(1, \frac{y}{x}\right)\]
+  where the right hand side is a function depends only on $\frac yx$.
+
+  Conversely, if $f(x, y)=g\left(\frac yx\right)$, where $g$ is a single variable function, then
+  \[f(tx, ty)=g\left(\frac{ty}{tx}\right)=g\left(\frac yx\right)=f(x, y).\]
+\end{proof}
+
+\begin{definition}
+  The differential equation $\frac{\operatorname{d} y}{\operatorname{d} x}=f(x, y)$ is called a \dfn{homogeneous first order differential equation} if $f$ is homogeneous of degree $0$.
+\end{definition}
+
+ To solve a homogeneous first order differential equation, we substitute $y$ by $xv$, where $v=\frac{y}{x}$. Then 
+ \[\frac{\operatorname{d} y}{\operatorname{d} x}=v+x\frac{\operatorname{d} v}{\operatorname{d} x}.\]
+ By Theorem \ref{thm:homegeneity}, the homogeneous first order differential equation $\frac{\operatorname{d} y}{\operatorname{d} x}=f(x, y)$ can be reduced to the following separable equation
+ \[x\frac{\operatorname{d} v}{\operatorname{d} x}=q(v)-v,\]
+ where $q$ is a single variable function such that $f(x, y)=q(\frac xy)$.
+
+\begin{example}
+  Solve 
+  \[ y'=e^{-\frac{y}{x}}+ \frac{y}{x}.\]
+\end{example}
+\begin{solution}
+  \begin{steps}
+  \item
+  Since $\frac{t y}{t x}=\frac yx$ for any nonzero number $t$, the function $z=e^{-\frac{y}{x}}+ \frac{y}{x}$ is homogeneous of degree $0$ and the differential equation is a homogeneous first order equation.
+  
+  \item
+  Consider the new unknown function $v=\frac{y}{x}$. The function $z$ can be re-written as
+  \[z=e^{-\frac{y}{x}}+ \frac{y}{x}=e^{-v}+v.\]
+  
+  \item Differentiating the equation $y=xv$ with respect to $x$ using the product rule implies that
+   \[y'=v+xv'.\]
+
+   \item Then the original equation can be transformed into
+   \[
+     \begin{aligned}
+      v+xv'=&e^{-v}+v\\
+      xv'=&e^{-v}
+     \end{aligned}
+  \]
+
+  \item Note that the equation $xv'=e^{-v}$ is a separable equation which can be re-written as
+  \[e^{v}v' = \frac{1}{x}\]
+  Integrating both side yields
+  \[e^{v} = \ln|x| +c.\]
+  Therefore, 
+  \[v= \ln(\ln |x|+c),\] 
+
+  \item Substituting $v$ by $\frac{x}{y}$ and solving for $y$ yields the general solution
+  \[y = x  \ln(\ln |x|+c).\]
+\end{steps}
+\end{solution}
+
+\begin{exercise}
+  Find the general solution of
+  \[
+  y'  =  \frac{y+x}{x}
+  \]
+\end{exercise}
+
+\begin{exersol}
+  \begin{steps}
+    \item 
+  The equation is homogeneous of first order. Because 
+  \[\frac{(ty)+(tx)}{tx}=\frac{t(y+x)}{tx}=\frac{y+x}{x}.\]
+
+  \item Set $y=xv$. The right-hand side function can be  rewritten as the follows
+  \[\frac{y+x}{x}=\frac{xv+x}{x} =v+1.\]
+  
+  \item Applying the product rule to $y=xv$ with respect to $x$ yields
+  \[y' = v+xv'.\]
+
+  \item The original equation is transformed into
+  the following separable equation
+\[
+  \begin{aligned}
+    v+xv' =&v+1\\
+    xv'=&1.
+  \end{aligned}
+  \]
+  
+  \item Solving the resulting equation yields
+  \[
+  \begin{aligned}
+    v' =& \frac{1}{x}\\
+    v  =& \ln |x| +c
+  \end{aligned}
+  \]
+  
+  \item Solving for $y$ gives the general solution
+  \[y = x(\ln |x|+c).\]
+\end{steps}
+\end{exersol}
+
+\begin{exercise}
+  Solve
+  \[
+  y'=\frac{xy-y^2}{x^2} .
+  \]
+\end{exercise}
+\begin{exersol}
+  \begin{steps}
+    \item
+  The equation is homogeneous of first order because
+  \[\frac{(tx)(ty)-(ty)^2}{(tx)^2}=\frac{t^2(xy-y^2)}{t^2x^2}=\frac{xy-y^2}{x^2}.\]
+
+\item 
+  Set $y=xv$. Rewriting the function by substitution implies
+  \[\frac{xy-y^2}{x^2}=\frac{x(xv)-(xv)^2}{x^2}=\frac{x^2v-x^2v^2}{x^2}=v-v^2.\]
+  
+  \item Differentiating $y=xv$ with respect to $x$ gives
+  \[y' = v+xv'.\]
+  
+  \item The original equation can be transformed into
+  \[v+xv' = v-v^2.\]
+
+\item Solving the equation for $v$ yields
+   \[
+   \begin{aligned}
+    v+xv' =& v-v^2\\
+    xv'= & -v^2\\
+    -\frac{v'}{v^2}=&\frac1x\\
+    \left(\frac{1}{v}\right)'=&\frac1x\\
+    \frac1v=&\ln|x|+c\\
+    v=&\frac1{\ln|x|+c}.
+    \end{aligned} 
+   \]
+
+   
+   \item Substituting $v=\frac xy$ and solving for $y$ gives the general solution.
+  \[y = \frac{x}{\ln |x| +c}.\]
+\end{steps}
+\end{exersol}
+
+\subsection{Linear substitution*}
+
+For a first order differential equation $F(x, y, y')=0$, sometimes, a substitution $y=u(x, v)$, where $v=v(x, y)$ is a function that is linear in $y$, may reduce the equation into a new equation that is much easier to solve.
+
+Here are a few classes of equations that can be reduced to separable equations using a linear substitution.
+
+If the equation is in the form $y'=f(ax+by+c)$, then the substitution $v=ax+by+c$ reduces the equation into a separable equation $v'=f(v)-a$.
+
+\begin{example}
+  Solve the equation
+  \[y'= (2x+y-3)^2.\]
+\end{example}
+\begin{solution}
+  Let $v=2x+y-3$. Differentiating it with respect to $x$ yields
+\[v'=2+y',\]
+or equivalently
+\[y'=v'- 2.\]
+Then substituting $2x+y-3$ by the function $v$ yields
+\[v'-2=v^2\]
+or equivalently,
+\[\frac{v'}{v^2+2}=1.\]
+Integrating both sides yields
+\[
+  \begin{aligned}
+    \frac{1}{\sqrt{2}}\arctan(\frac{v}{\sqrt{2}})=&x+C\\
+    \arctan(\frac{v}{\sqrt{2}}=&x\sqrt{2} + C\sqrt{2}\\
+    \frac{v}{\sqrt{2}}=&\tan(x\sqrt{2} + C\sqrt(2))\\
+    v=&\sqrt{2}\tan(x\sqrt{2} + C\sqrt{2}).
+\end{aligned}
+  \]
+ Replacing $C\sqrt{2}$ by $c$ and $v$ by $x+y-3$, and solving for $y$ gives the general solution
+\[
+y= \sqrt{2}\tan(x\sqrt{2} + c) - 2x + 3.
+\]
+\end{solution}
+
+If the equation is in the form $xy'=yF(xy)$, then the substitution $v=xy$ reduces the equation into a separable equation $v'=\frac{v}{x}(F(v)+1).$
+
+\begin{example}
+  Solve the equation
+  \[xy'=xy^2-y.\]
+\end{example}
+\begin{solution}
+  Let $v=xy$. Then $xy'=v'-y$. Substituting $y=\frac{v}{x}$ yields
+  \[
+  \begin{aligned}
+    v'-y=&vy-y\\
+    v'=&vy\\
+    v'=&\frac{v^2}{x}\\
+    \frac{v'}{v^2}=&\frac1x.
+  \end{aligned}  
+  \]
+  Integrating both sides gives a solution
+  \[
+  -\frac1v=\ln(|x|)+c.  
+  \]
+  
+  Replacing $v$ by $xy$ implies
+  \[y=-\frac1{x(\ln|x|+c)}.\]
+\end{solution}
+
+
+\section{Exact Equations}
+
+Using implicit differentiation, one can show that $F(x, y)=c$ (with  c  as a constant) is an implicit solution of the differential equation
+\[\frac{\partial}{\partial x} F(x,y)\D x +\frac{\partial}{\partial y} F(x, y)\D y=0.\]
+
+This observation suggests an approach to solve so-called exact equations. 
+
+\begin{definition}
+  A first order differential equation 
+  \[M(x,y)\D x+N(x,y)\D y=0\]
+  is said to be \dfn{exact} if there is a function $F(x, y)$ such that 
+\[
+\begin{aligned}
+\frac{\partial}{\partial x} F(x,y)=\frac{\partial}{\partial x}F(x, y)&=M(x,y)\\
+\frac{\partial}{\partial y} F(x,y)=\frac{\partial}{\partial y}F(x, y)&=N(x,y).
+\end{aligned}
+\]
+\end{definition}
+
+The above definition not only defines exact functions but also gives solutions. However, it is not a very practical criterion. Given an equation of the form
+\[M(x,y) \D x +  N(x,y) \D y=0,\]
+how do we know it is exact? Knowing the equation is exact, how do we find $F$?
+
+The first question is answered by the following theorem. The proof of the theorem will also answer the second question.
+
+\begin{theorem}[Exactness Condition]\label{thm:exactness}
+  Suppose that $M$ and $N$ are continuous and have partial derivatives $M_y=\frac{\partial M}{\partial y}$ and $N_x=\frac{\partial N}{\partial x}$ on an open rectangle $R$. Then the equation 
+  \[M(x,y) \D x +  N(x,y) \D y=0\]
+	is exact if and only if 
+	\[N_x(x,y) = M_y(x,y).\]
+  on $R$.
+\end{theorem}
+\begin{proof}
+  If the equation is exact, then there exists a function $F(x, y)$ such that $\frac{\partial F}{\partial x}=M$ and $\frac{\partial F}{\partial y}=N$. Therefore, by the fact that 
+  \[\frac{\partial}{\partial y}\frac{\partial}{\partial x}F=\frac{\partial}{\partial y}\frac{\partial}{\partial x}F,\]
+  we know that $N_x(x,y) = M_y(x,y)$.
+
+  Conversely, suppose that $N_x(x,y) = M_y(x,y)$. We can find a $F$ such that $\frac{\partial F}{\partial x}=M$ and $\frac{\partial F}{\partial y}=N$.
+  Integrating both sides of the equation $\frac{\partial F}{\partial x}=M$ yields that
+  \[F(x, y)=\int M \D x+g(y),\]
+  where $g$ is a single variable function.
+  Because $\frac{\partial F}{\partial y}=N$. The function $g$ must satisfies the equation
+  \[
+    \begin{aligned}
+      \frac{\partial F}{\partial y}=&\frac{\partial }{\partial y}\left(\int M \D x+g(y)\right)\\
+      N=&\frac{\partial}{\partial y}\int M \D x + g'(y)
+    \end{aligned}
+    \].
+   This yields 
+    \[g(y)=N-\frac{\partial}{\partial y}\int M \D x.\]
+  Because 
+  \[\frac{\partial}{\partial y}\int M \D x=\int \frac{\partial M}{\partial y} \D x.\]
+  Then 
+  \[\frac{\partial F}{\partial y}=\int \frac{\partial M}{\partial y}\D x=\int \frac{\partial N}{\partial x}\D x=N(x, y).\]
+  This shows that 
+  \[M\D x + N\D x=\D F =\frac{\partial F}{\partial x}\D x+\frac{\partial F}{\partial y}\D y.\]
+  Hence, $M\D x + N\D x=0$ is exact. 
+\end{proof}
+
+The definition of exact equations suggests the following approach to find $F$ such that $F(x, y)=c$ is the general solution.
+\begin{steps}
+  \item Integrating both sides of the equation $\frac{\partial F}{\partial x}=M$ yields
+  \[F(x, y)=\int M\D x + g(y),\]
+  where $g$ is a singular variable function.
+  \item The equation $\frac{\partial F}{\partial y}=N$ together with $F(x, y)=\int M\D x + g(y)$ implies that $g$ satisfies the following equation to obtain a function
+  \[\frac{\partial}{\partial y}\int M\D x+g'(y)=N.\] Solve for $g$.
+  \item The equation $F(x, y)=c$ gives the general solution of $M\D x + N\D y=0$.
+\end{steps}
+
+% Because partial derivatives for functions on $R$ commutes. If the equation $M(x,y) \D x +  N(x,y) \D y=0$ is exact, then
+% \[N_x(x,y)  = \frac{\partial}{\partial x}\frac{\partial}{\partial y} F(x,y) = \frac{\partial}{\partial y} \frac{\partial}{\partial x} F(x,y) = \frac{\partial}{\partial y} M(x,y),\]
+% where $F$ is the general implicit solution.
+
+\begin{example}
+	Check whether the equation 
+	\[(\sin x +y)\D x + ( e^y +x)\D y=0\]
+	is exact.
+\end{example}
+\begin{solution}
+  The coefficient function of $\D x$ is $M(x,y)=\sin x+ y$. Taking its partial derivative with respect to $y$ yields
+  \[\frac{\partial}{\partial y} M(x,y)=1.\]
+  The coefficient function of $\D x$ is $N(x,y)= e^y+x$. Taking its partial derivative with respect to $x$ yields
+  \[\frac{\partial}{\partial x} N(x,y)=1.\]
+  Because $\frac{\partial}{\partial y} M(x,y)=\frac{\partial}{\partial x} N(x,y)$. By Theorem \ref{thm:exactness}, the equation is exact.
+\end{solution}
+
+\begin{exercise}
+	Check whether the equation 
+	\[ ( \sin x +xy)\D x + ( e^y +xy)\D y=0 \]
+	is exact.
+\end{exercise}
+\begin{exersol}
+Because  
+	\[
+	\begin{aligned}
+    \frac{\partial}{\partial y} M(x, y)=&\frac{\partial}{\partial y} (\sin x+ xy)&= x,\\
+	\frac{\partial}{\partial x} N(x, y)=&\frac{\partial}{\partial x} (e^y+xy)&= y,
+	\end{aligned}
+	\]
+	and they are not equal. The equation is \textbf{NOT} exact.
+\end{exersol}
+
+The inverse direction will become clear after we answer the second question: How to find $F(x, y)$?
+
+The definition of exactness suggests that $F$ is a solution for both $\frac{\partial}{\partial x} F = M$ and $\frac{\partial}{\partial_ F} =N$. So the idea to solve is to integrate on the those two equations for $F$ and plug in the other to determined the undetermined single variable function.
+
+\begin{example}
+  Solve
+\[(4x^3y^3+3x^2)\D x+(3x^4y^2+6y^2)\D y=0.\]
+\end{example}
+\begin{solution}
+  \begin{enumerate}[label={Step \arabic*:}, leftmargin=*]
+    \item Check exactness.
+  
+    Because 
+  \[M(x,y)=4x^3y^3+3x^2, N(x,y)=3x^4y^2+6y^2.\]
+  Then 
+  \[\frac{\partial}{\partial y} M(x,y)=\frac{\partial}{\partial x} N(x,y)=12 x^3y^2\] 
+  for all $(x,y)$. Therefore, by the exactness condition theorem, there’s a function $F$ such that
+  \[F_x(x,y)=M(x,y)=4x^3y^3+3x^2\]
+  and  
+  \[F_y(x,y)=N(x,y)=3x^4y^2+6y^2\]
+  for all $(x,y)$.
+  
+  \item Integrate $F_x$ or $F_y$.
+  
+  To find $F$, we integrate Equation $F_x(x,y)=4x^3y^3+3x^2$ with respect to $x$ to obtain
+  \[F(x,y)=x^4y^3+x^3+g(y),\]
+  where $g(y)$ is the ``constant term" of integration with respect to $x$.
+
+  \item Differentiate $F$.
+  
+  To determine $g$ so that $F$ also satisfies the equation $F_y(x,y)=3x^4y^2+6y^2$, assume that $g$ is differentiable and differentiate $F(x,y)=x^4y^3+x^3+g(y)$ with respect to $y$. That gives
+  \[F_y(x,y)=3x^4y^2+g'(y).\]
+
+  \item Determine the equation for $g'$.
+  
+  Comparing this equation with the equation $F_y(x,y)=3x^4y^2+6y^2$ shows that
+  \[g'(y)=6y^2.\]
+
+  \item Integrate $g'$.
+  
+  Integrating this equation with respect to $y$ yields
+  \[g(y)=2y^3.\]
+  \emph{Note that here we take the constant of integration to be zero because adding a constant won't change the general implicit solution $F(x, y)=c$.}
+
+  \item Find the general implicit solution.
+  
+  Substituting $g$ in $F(x, y)$ using this equation yields
+  \[F(x,y)=x^4y^3+x^3+2y^3+C.\]
+  Now Theorem \ref{thm:exactness} implies that \[x^4y^3+x^3+2y^3=c\] is an implicit solution of Equation.
+  
+  \item Find the explicit solution(s).
+  
+  Solving this for $y$ yields the explicit solution
+  \[y=\left(\frac{c-x^3}{2}+x^4\right)^{1/3}.\]
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    Consider the equation
+    \[(2x+y )\D x + (2y+ x ) \D y =0.\]
+    \begin{enumerate}
+      \item Verify the equation is exact,
+      \item Find the general solution.
+    \end{enumerate}
+\end{exercise}
+\begin{exersol}
+  Here $M(x,y)=2x+y$ and $N(x)=2y+x$.
+  Taking partial derivatives yields that
+    \[\frac{\partial}{\partial y} M = 1 = \frac{\partial}{\partial x} N.\]
+    Hence, by the exactness condition theorem, the equation is exact.
+
+    To find $F(x,y)$, integrating $M=2x+y$ with respect to $x$ to get 
+    \[\int M(x, y) \D x = x^2+ yx.= \int (2x + y) \D x = x^2+ yx.\]
+    Note that $y$ is treated as a number in the above integral since the left hand side is partial derivative of $x$. 
+    
+    Hence
+    \[F(x, y)= x^2 + xy + g(y),\]
+    where $g(y)$ is the constant with respect to $x$. 
+    
+    Differentiating $F$ with respect to $y$ and equating with $N(x, y)$ yields
+    \[     
+    \frac{\partial}{\partial y}  F = x + g'(y) = 2y+x.
+    \]
+
+    Hence 
+    \[
+    g'(y) =2y,
+    \]
+    and a particular solution
+    \[
+    g(y)= y^2.
+    \]
+
+    Therefore, $F$ can be taken to be $F(x,y)= x^2+ xy + y^2$ and the general solution is
+    \[
+    x^2 + xy + y^2= c.
+    \]
+\end{exersol}

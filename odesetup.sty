@@ -1,0 +1,171 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{odesetup}[2021/08/22 Packages for the ODE Book]
+
+% \RequirePackage[utf8]{inputenc}
+\RequirePackage{comicneue}
+\RequirePackage[default]{lato}
+\RequirePackage{libertinust1math}
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage[protrusion=true,expansion=true]{microtype}
+
+\RequirePackage{float}
+\RequirePackage{parskip}
+% \RequirePackage[english]{babel}
+% \RequirePackage{indentfirst,bm}
+% \RequirePackage[inline]{enumitem}
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=newest}
+\RequirePackage{pgfmath}
+\RequirePackage{pgffor}
+\RequirePackage{pgfplotstable}
+\usetikzlibrary{
+	calc,
+	arrows.meta,
+	math,
+	decorations.pathmorphing,
+	patterns,
+  backgrounds,
+  fit
+}
+\RequirePackage{import}
+\RequirePackage[verbose]{wrapfig}
+\RequirePackage{textcomp}
+\RequirePackage{longtable}
+\RequirePackage{bookmark}
+\RequirePackage[export]{adjustbox}
+\RequirePackage{lipsum}
+\RequirePackage{makeidx}
+\makeindex
+
+\RequirePackage{cleveref}
+% \RequirePackage{relsize}
+\RequirePackage{appendix}
+\RequirePackage{empheq}
+\RequirePackage{siunitx}
+\sisetup{per-mode = symbol}
+
+\ExecuteBibliographyOptions{
+  hyperref=true,
+  url=false,
+  isbn=false,
+  backref=true,
+  sorting=nyt,
+  block=space
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\fancyheadoffset{0cm}
+\fancyfoot[L]{\raisebox{-0.6\baselineskip}{
+\includegraphics[height=1.2\baselineskip, valign=c]{pics/by-nc-sa.eps}}}
+
+\fancyfoot[R]{\raisebox{-0.6\baselineskip}{\hfill \scriptsize \sffamily Lecture Notes for MA451}\hspace{-1ex}}
+
+\setlength\parindent{2em}
+\setcounter{tocdepth}{1}
+
+\hypersetup{
+  pageanchor=true,
+  breaklinks=true
+}
+
+\definecolor{greenbean}{RGB}{144,237,204}
+\def\gray{\color{gray}}
+\def\black{\color{black}}
+\def\blue{\color{blue}}
+\def\red{\color{red}}
+\def\green{\color{green}}
+\def\yellow{\color{yellow}}
+\def\cyan{\color{cyan}}
+\def\brown{\color{brown}}
+\def\purple{\color{purple}}
+\def\olive{\color{olive}}
+\def\lime{\color{lime}}
+\def\darkgray{\color{darkgray}}
+
+\newcommand\blankpage{%
+\null
+    \thispagestyle{empty}%
+    \newpage
+}
+
+% \addto\captionsenglish{%
+	\renewcommand{\chaptername}{Week \thechapter:}
+% }
+
+\makeatletter
+\newcommand{\chapterdate}[1]{%
+\vspace*{-1em}
+  \begin{center}
+    \linespread{1.1}\Large #1%
+  \end{center}
+  \par\nobreak\vspace*{1em}
+  \@afterheading%
+}
+\makeatother
+
+\renewenvironment{example}[1][]{
+  \refstepcounter{exam}
+  \par\noindent\textbf{\color{main}{\examplename} \theexam ~~#1}}{
+  \par\ignorespacesafterend}
+
+\renewenvironment{exercise}[1][]{
+  \refstepcounter{exer}
+  \par\noindent\makebox[-3pt][r]{
+    \scriptsize\color{red!90}\HandPencilLeft\quad}
+    \comicneueangular
+    \textbf{\color{main}{\exercisename} \theexer ~~ #1}}{
+    \par\ignorespacesafterend}
+
+\renewenvironment{problem}[1][]{
+  \refstepcounter{prob}
+  \par\noindent
+  \comicneueangular
+  \textbf{\color{main}{\problemname} \theprob ~~#1}}{
+  \par\ignorespacesafterend}
+  
+\newenvironment{exersol}{\par\noindent
+\comicneueangular
+\textbf{\color{main}Solution} \citshape}{\hfill\text{\Large\color{blue}$\blacksquare$}\quad\par}
+
+
+\newlist{steps}{enumerate}{1}
+\setlist[steps]{label={Step \arabic*:}, leftmargin=*, align=left}
+
+\makeatletter
+\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+\newcommand*\widebar[1]{%
+\begingroup
+\def\mathaccent##1##2{%
+\rel@kern{0.8}%
+\overline{\rel@kern{-0.8}\macc@nucleus\rel@kern{0.2}}%
+\rel@kern{-0.2}%
+}%
+\macc@depth\@ne
+\let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+\mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+\macc@set@skewchar\relax
+\let\mathaccentV\macc@nested@a
+\macc@nested@a\relax111{#1}%
+\endgroup
+}
+\renewcommand{\bar}{\widebar}
+
+\newcommand{\D}{\operatorname{d}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\dfn}[1]{\emph{\textbf{#1}}\index{#1}}
+
+\renewenvironment{proof}{
+  \par\noindent\textbf{\color{second}\proofname\;}
+  \color{black!90}\cfs}{
+  \hfill\text{\Large\color{blue}$\blacksquare$}\quad
+  \par}
+
+\renewenvironment{solution}{\par\noindent\textbf{\color{main}\solutionname} \citshape}{
+  \hfill\text{\Large\color{blue}$\blacksquare$}\quad\par}

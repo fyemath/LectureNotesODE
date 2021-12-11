@@ -1,0 +1,678 @@
+% !TEX root = ../main.tex
+\chapter{Introduction}
+\chapterdate{8/26--9/1}
+
+\section{Motivating Examples}
+\subsection{What is a Differential Equation}
+
+\begin{definition}{}{}
+  A \dfn{differential equation} is an equation that contains one or more derivatives of an unknown function.
+
+  A differential equation is an \dfn{ordinary differential equation} (ODE) if it involves an unknown function of only one variable.
+\end{definition}
+
+In this course, we will consider only ordinary differential equations and simply call them differential equations.
+
+\begin{example} Which one is a differential equation?
+  \begin{enumerate}
+    \item $y' = y + x$ is a differential equation. The unknown function is $y$ depending on the variable $x$ and the derivative of $y$ is involved in the equation.
+    \item $\sin (x) =1$ is not a differential equation. There is no unknown \emph{function}.
+    \item $y= 5 + x$ is not a differential equation. There is a function $y$ in the equation but the derivative is not involved.
+  \end{enumerate}
+\end{example}
+
+\begin{exercise}
+  Determine whether the followings are differential equations.
+  \begin{enumerate}
+    \item $y' = y$.
+    \item $(\sin x)' =\cos x$.
+    \item $g''(x) - 2 g'(x) + g(x) = x^2$
+  \end{enumerate}
+\end{exercise}
+\begin{exersol}
+  \begin{enumerate}
+    \item $y' = y$ is a differential equation. The unknown function is $y$ depending on the variable $x$ and the derivative of $y$ is involved in the equation.
+    \item $(\sin (x))' =\cos x$ is not a differential equation. There is no unknown function.
+    \item $g''(x) - 2 g'(x) + g(x) = x^2$ is a differential equation. The unknown function is $g(x)$ depending on the variable $x$ and the derivatives of $g(x)$ are involved in the equation.
+  \end{enumerate}
+\end{exersol}
+
+From the above equations and exercise, you see that ordinary differential equations are usually in the form
+$$
+  y^{(n)}=f(x, y, y', \dots, y^{(n-1)}).
+$$
+
+\subsection{Where to Find Them}
+
+In physical and many real life problems, we want to study relations between changing quantities. To apply mathematical methods to such a problem, we need to formulate the problem using mathematical concepts and construct a mathematical model to describe it. The process of developing a mathematical model is known as mathematical modeling.
+
+Comparing rates of change often helps to model relations by sufficiently simple mathematical equations. Those equations often involve functions and their derivatives. They are called differential equations. The focus of this course is to study how to solve differential equations.
+
+A good the mathematical model should have, but not limited to, the following qualities:
+\begin{enumerate}
+  \item It’s sufficiently simple so that the mathematical problem can be solved.
+  \item It should fit the actual situation sufficiently well so that it can be used to make predictions that are verifiable by experimental data.
+\end{enumerate}
+
+Now let's see some examples of mathematical models involving differential equations. You will learn how to solve the various types of differential equations in those examples later.
+
+In this course, we will use the prime notation $y'$ and the Leibniz notation $\dfrac{\D y}{\D t}$ interchangeably.
+
+\begin{example}[Population Growth and Decay~~]
+  The number $P$ of members of a population (people in a given country, bacteria in a laboratory culture, etc.) at any given time $t$ can be modeled using differential equations. In most models, it is assumed that the differential equation takes the form
+  \begin{equation}
+    P'(t) = a(P)P(t),
+    \label{eq:1.1}
+  \end{equation}
+  where $a$ is a continuous function of the population $P(t)$ that represents the relative rate of change per unit time, known as the growth rate.
+
+  In the Malthusian model, the growth rate $a$ is assumed to be a constant $r$, and the equation \ref{eq:1.1} becomes
+  \begin{equation}
+    P'(t) = rP(t).
+    \label{eq:1.2}
+  \end{equation}
+  From Calculus, we know that the equation \ref{eq:1.2} has a solution $P(t)=P(0)e^{rt}$.
+
+  \href{https://en.wikipedia.org/wiki/Malthusian_growth_model}{The Malthusian model} has the limitation. Suppose that we are modeling the population of a country. Starting from a time $t=0$, as time goes, the population might either be 0 if $a<0$ or infinity if $a>0$ which is not reasonable. Indeed, the population breaks the country's limit of resources, the model will no longer be valid. Because of the limitation of space and resources, the relative population growth rate should decrease as the population increase.
+
+  Another model that reflects the above mentioned phenomenon is \href{https://en.wikipedia.org/wiki/Logistic_function#In_ecology:_modeling_population_growth}{the Verhulst Model}:
+  \begin{equation}
+    P'(t)=rP(t)(1-\alpha P(t)),
+    \label{eq:1.3}
+  \end{equation}
+  where $r$ is the growth rate and $1/\alpha$ is the carrying capacity. As long as $P$ is relatively small compared to $1/\alpha$, in other words, $\alpha P$ is approximately 0, the growth is approximately exponential because the ratio $\frac{P'(t)}{P(t)}$ is approximately $r$. However as $P$ increases, the growth rate decrease.
+
+  Equation \ref{eq:1.3} is known as the logistic equation. It can be re-written as
+  $$
+    \frac{\D}{\D t}\Big(\ln(P(t)\Big)-\frac{\D}{\D t}\Big(\ln(1-\alpha P(t)\Big)=r.
+  $$
+  Integrating both sides implies that the logistic equations has the solution
+  $$
+    P(t)=\dfrac{P(0)}{\alpha P(0)+(1-\alpha P(0))e^{-rt}}.
+  $$
+
+  Note that $\lim\limits_{t\to\infty}P(t)=\frac{1}{\alpha}$ and $\frac{1}{\alpha}$ is independent of $P(0)$.
+
+  The following figure shows the solutions of the logistic equation for various $P_0$.
+  \begin{figure}[hbt!]
+    \centering
+    \begin{tikzpicture}[domain=0:60, scale=0.15]
+      \draw [-Latex,very thick] (0,25) -- (0,62) node [above] {$P(t)$};
+      \draw [-Latex,very thick] (0,25) -- (60,25) node [right] {$t$};
+      \foreach \P in {28, 32, 38, 45, 50, 60}
+      \draw [samples=100,color=blue] plot (\x,{\P/(0.025*\P+(1-0.025*\P)*exp(-0.05*\x))});
+      \draw [very thick, color=red, dashed] plot (\x, 40);
+      \node [left] at (0, 40) {$1/\alpha$};
+    \end{tikzpicture}
+    \caption{Solutions to a logistic equation}
+  \end{figure}
+\end{example}
+
+\begin{example}[Newton’s Law of Cooling~~]
+  According to \href{https://en.wikipedia.org/wiki/Newton\%27s_law_of_cooling}{Newton’s law of cooling}, the temperature of a body changes at a rate directly proportional to the difference in the temperatures between the temperature of the body and the temperature of its surroundings. If $T_m$ is the temperature of the surrounding and $T = T(t)$ is the temperature of the body at time $t$, then
+  \begin{equation}
+    T'(t) = -k(T(t) - T_m(t)),
+    \label{eq:1.4}
+  \end{equation}
+  where $k$ is a positive constant and the minus sign indicates that heat will transfer from hot to cold objects.
+
+  When the surrounding temperature $T_m(t)=T_m$ is constant, the equation \ref{eq:1.4} has a solution
+  $$
+    T(t)= T_m + (T_0 - T_m)e^{-kt},
+  $$
+  where $T_0=T(0)$ is the initial temperature of the body. As you can imagine, the temperature will be approximately balanced as time goes. A mathematical explanation is that $\lim\limits_{t\to \infty} T(t) = T_m$.
+
+
+  The following figure shows typical graphs of the function $T(t)$ with various values of $T_0$ and a fixe $T_m$.
+  \begin{figure}[hbt!]
+    \centering
+    \begin{tikzpicture}[domain=0:40, scale=0.2]
+      \draw [-Latex,very thick] (0,25) -- (0,50) node [above] {$T(t)$};
+      \draw [-Latex,very thick] (0,25) -- (40,25) node [right] {$t$};
+      \foreach \tzero in {26, 30, 32, 38, 42, 45}
+      \draw [samples=100,color=blue] plot (\x, {35+(\tzero-35)*exp(-0.1*\x)});
+      \draw [very thick, color=red, dashed] plot (\x, 35);
+      \node [left] at (0, 35) {$T_m$};
+    \end{tikzpicture}
+    \caption{Functions from Newton's Law of Cooling}
+  \end{figure}
+
+  Assuming that the surrounding remains at constant temperature seems reasonable in some situations such as cooling a cup of hot coffee in a room. In this case, the heat transferred to the room won't increase its temperature much. However, if we cool down the cup of hot coffee in a small pot of water, you will find the water temperature increases as time goes. In this situation, to model the temperature changes more accurate, we must consider the heat exchanges. Suppose energy is conserved, that is, the total heat in the object and its surrounding remain constant.
+
+  In physics, it is known that the heat transfer is directly proportional the change of temperature. Then we have an extra equation in addition to Equation \ref{eq:1.4}:
+  $$
+    a(T(t)-T_0)=a_m(T_m(t)-T_{m_0}),
+  $$
+  where $T_{m_0}=T_m(0)$ is the initial temperature of the surrounding.
+  Solving $T_m(t)$ and plug in Equation \ref{eq:1.4}, we get
+  \begin{align*}
+    T'(t) = & -k(T(t)-T_m(t))                                                                           \\
+    =       & -k\left(\left(1 + \frac{a}{a_m}\right)T(t) -\left(\frac{a}{a_m} T_0+T_{m_0}\right)\right) \\
+    =       & -k\left(1 + \frac{a}{a_m}\right)\left(T(t) -\frac{a T_0 + a_mT_{m_0}}{a+a_m}\right)       \\
+  \end{align*}
+  Again, the equation can be rewritten in the form $\ln(F(t))=C$ form (Can you find the $F(t)$ and $C$?).
+  Using Calculus, you will find that it has a solution
+  $$
+    T(t) = \frac{ a T_{0} + a_{m} T_{m_0} }{ a + a_{m} } + \frac{ a_{m} ( T_{0} - T_{m_0}) } { a + a_{m} } e^{ - k ( 1 + \frac{a}{a_{m}}) t }.
+  $$
+\end{example}
+
+\begin{remark}
+  In the above examples, the differential equations can be re-written in the form
+  \begin{equation}
+    \frac{F'(t)}{F(t)}=C,
+    \label{eq:1.5}
+  \end{equation}
+  where $F(t)$ is a function and $C$ is a constant.
+  Note that
+  $$
+    \frac{F'(t)}{F(t)}=\Big(\ln(F(t))\Big)'.
+  $$
+  Integrate both sides of Equation \ref{eq:1.5}, you will find that $F(t)=F(0)e^{cT}$.
+\end{remark}
+
+
+\begin{example}[Newton’s Second Law of Motion~~]
+  For an object with a constant mass $m$, \href{https://phys.libretexts.org/Bookshelves/College_Physics/Book\%3A_College_Physics_(OpenStax)/04\%3A_Dynamics-_Force_and_Newton's_Laws_of_Motion/4.03\%3A_Newtons_Second_Law_of_Motion-_Concept_of_a_System}{Newton’s second law of motion} states that the force $F$ acting on the object and the instantaneous acceleration $a$ of an object are related by the equation $F = ma$.
+
+  In many applications, there are multiple forces that may act on the object.
+
+  Assume that the motion of an object with the mass $m=1$ is moving along a vertical line above the surface of the Earth. Let $y$ be the displacement of the object from some reference point above the surface. The following type of forces normally act:
+  \begin{itemize}
+    \item The gravity $g(y)$ that depends only on the position $y$, where $g(y) < 0$.
+    \item The atmospheric resistance $-r(y,y')y'$ that depends on the position and velocity of the object, where $r$ is a nonnegative function. The $-y'$ “outside” of the function is used to indicate that the resistive force is always in the direction opposite to the velocity $y'$.
+    \item The force $f = f(t)$ from other external sources (such as a towline from a helicopter) which depends only on $t$.
+  \end{itemize}
+
+  In this case, Newton’s second law implies that
+  $$y'' = -r(y,y')y' - g(y) + f(t),$$
+  which is usually rewritten as
+  $$y'' + r(y,y')y' + g(y) = f(t).$$
+
+  Since the second order derivative of $y$ occurs in this equation and no more higher order derivative, we say that this equations is a second order differential equation.
+\end{example}
+
+\begin{example}[Interacting Species: Competition]
+  Let $P=P(t)$ and $Q=Q(t)$ be the populations of two species at time $t$. Assume that each population would grow exponentially by the Malthusian model if the other did not exist; that is, in the absence of competition we would have
+  \begin{equation}
+    P'=aP \quad \text{and} \quad Q'=bQ \label{eq:1.6}
+  \end{equation}
+  where $a$ and $b$ are positive constants.
+
+  To model the effect of competition, one way is to assume that the growth rate per individual of each population is reduced by an amount proportional to the other population, so Equation \ref{eq:1.6} is replaced by
+  \begin{align*}
+    P' & = aP-\alpha Q  \\
+    Q' & = -\beta P+bQ,
+  \end{align*}
+  where $\alpha$ and $\beta$ are positive constants.
+  The relation between the populations of the competing species can be described by the following figure.
+  \begin{figure}[hbt!]
+    \centering
+
+    \begin{tikzpicture}[scale=0.07]
+      \def\xmax{50} \def\xmin{-50}
+      \def\ymax{50} \def\ymin{-50}
+      \def\nx{10}
+      \def\ny{10}
+      \pgfmathsetmacro{\hx}{(\xmax-\xmin)/\nx}
+      \pgfmathsetmacro{\hy}{(\ymax-\ymin)/\ny}
+      \foreach \i in {0,...,\nx}
+      \foreach \j in {0,...,\ny}{
+          \pgfmathsetmacro{\vx}{0.05*(\xmin+\i*\hx)-0.06*(\ymin+\j*\hy)}
+          \pgfmathsetmacro{\vy}{-0.04*(\xmin+\i*\hx)+0.05*(\ymin+\j*\hy)}
+          \draw[blue, -Latex, very thick, shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}]
+          (0,0)--(\vx,\vy);
+        }
+      \draw[-Latex] (\xmin-.5,0)--(\xmax+.5,0) node[below right] {$P$};
+      \draw[-Latex] (0,\ymin-.5)--(0,\ymax+.5) node[above left] {$Q$};
+      \draw[domain=\xmin:\xmax, ultra thick, dashed, variable=\x, red] plot (\x, {sqrt(2/3)*\x});
+    \end{tikzpicture}
+
+    % \begin{tikzpicture}
+    % \begin{axis}[
+    %   % axis equal,
+    %   axis lines=middle,
+    %   axis line style={-latex, very thick},
+    %   % tick style={color=black},
+    %   view={0}{90},
+    %   domain=1:20,
+    %   % y domain=0:15,
+    %   % xmax=15,
+    %   % ymax=15,
+    %   ticks=none,
+    %   x label style={anchor=west},
+    %   y label style={anchor=south},
+    %   xlabel={$P$},
+    %   ylabel={$Q$},
+    %   samples=15
+    % ]
+    % \addplot3[
+    %   cyan,
+    %   quiver={
+    %     u={0.05*x-0.06*y}, 
+    %     v={-0.04*x+0.05*y}, 
+    %     % scale arrows=1.5,
+    %     every arrow/.append style={-latex}
+    %     }
+    %   ] (x,y,0);
+    % \addplot[ultra thick, dashed, red] (x, {sqrt(2/3)*x});
+    % \end{axis}
+    % \end{tikzpicture}
+    \caption{A model for populations of competing species}
+  \end{figure}
+  The arrows indicate direction of rates of change of populations with increasing $t$.
+  The dashed line $L$ through the origin depends only on $a$, $b$, $\alpha$ and $\beta$.
+  If $(P_0,Q_0)$ is above $L$, then the species with population $P$ will extinct, but if $(P_0,Q_0)$ is below $L$, the species with population $Q$ will extinct.
+
+  In the example, we are dealing with a homogeneous system of differential equations with constant coefficients. The slope of the dashed line is related to a eigenvector of the coefficient matrix of the system. For more information, you may read Section 10.4 of Trench's book.
+\end{example}
+
+\section{Basic Concepts}
+\subsection{What is the Order}
+
+\begin{definition}{}{}
+  The \dfn{order} of a differential equation is the order of the highest derivative that it contains.
+\end{definition}
+
+\begin{example}[What's the order of the differential equation?]
+  \begin{enumerate}
+    \item $y'- x^2=0$ is a first order differential equation.
+    \item $y' + xy^2=y^3$ is also a first order differential equation.
+    \item $y'' - xy' + y = xy^2$ is a second order differential equation.
+    \item $xy^{(4)}+y^2=\sin x$ is a fourth order differential equation.
+          % \item $\frac{\partial f(x, y)}{\partial x} + \frac{\partial f(x, y)}{\partial y} = x$ is a first order differential equation.
+  \end{enumerate}
+\end{example}
+
+\begin{exercise}
+  Determine the order of each differential equation.
+  \begin{enumerate}
+    \item $y' = x$.
+    \item $y''\cdot y' + y =\cos x$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exersol}
+  \begin{enumerate}
+    \item $y' = x$ is a first order differential equation.
+    \item $y''\cdot y' + y =\cos x$ is a second order differential equation.
+  \end{enumerate}
+\end{exersol}
+
+\subsection{What is a Solution}
+\begin{definition}{}{}
+  A \dfn{solution} of a differential equation is a \emph{function} that satisfies the differential equation on some open interval.
+\end{definition}
+
+\begin{example}[Is the function a solution?~~]
+  \begin{enumerate}
+    \item $y = e^x$ is a solution of $y' - y  = 0$ on the interval $(-\infty, \infty)$.
+
+          If $y = e^x$, then $y'=e^x$ and
+          $$y' - y = e^x -e^x = 0.$$
+
+          In fact, for any number $c$, $y= ce^x$ is a solution.
+
+    \item $y = \sin (x)$ is a solution of $y'' + y =0$.
+
+          If $y= \sin (x)$, then $y' = \cos(x)$ and $y'' = - \sin(x)$ and
+          $$y'' + y =  - \sin(x)+   \sin(x)= 0.$$
+          So $y$ is a solution of $y'- y  = 0$ on the interval $(-\infty, \infty)$
+
+    \item $y= \sin (x)$  is not a solution of $y'  - y =0$.
+
+          If $y= \sin (x)$, then $y' = \cos(x)$ and
+          $$y' - y = \sin(x) - \cos(x) \ne 0.$$
+  \end{enumerate}
+\end{example}
+
+\begin{example}
+  Show that for any constants $c_1$ and $c_2$ the function
+  $$y=c_1\sin x + c_2\cos x$$
+  is a solution of
+  $$y'' + y = 0$$
+  on $(-\infty,\infty)$.
+\end{example}
+\begin{solution}
+
+  Differentiating function twice yields
+  $$y'=c_1\cos x - c_2\sin x,$$
+  $$y''=-c_1\sin x - c_2\cos x.$$
+  Therefore $y$ is a solution of the differential equation on $(-\infty,\infty)$.
+\end{solution}
+
+\begin{exercise}
+  Determine whether the following functions are solutions of $y' =  y^2$
+  \begin{enumerate}
+    \item $y = -\frac{1}{x}$.
+    \item $y = x$.
+  \end{enumerate}
+\end{exercise}
+\begin{exersol}
+  If $y = -\frac{1}{x}$, then $y' = \frac{1}{x^2}$ and
+  $y^2 = \left(-\frac1x\right)^2=\frac{1}{x^2}$.
+  So, $y = -\frac{1}{x}$ is a solution.
+
+  If $y = x$, then $y' = 1$. But $y^2 = x^2\ne 1=y'$.
+  Thus, $y = x$ is not a solution.
+\end{exersol}
+
+\subsection{What is an Initial Value Problem}
+
+We've seen that a differential equation may have an infinite family of solutions. To specifies one solution, extra constants will be needed. Those constants are initial conditions.
+
+\begin{definition}{}{}
+  An \dfn{initial value problem} (IVP for short) for an $n$-th order differential equation requires $y$ and its first $n-1$ derivatives to have specific values at a point. Such a specific value is called an \dfn{initial condition}.
+
+  A \dfn{solution of an initial value problem} is a function which satisfies both the differential equation and initial conditions.
+\end{definition}
+
+\begin{example} The following is an initial value problem for a first order differential equation.
+  $$
+    \begin{cases}
+       & y ' = y.      \\
+       & y(0)   =  3 .
+    \end{cases}
+  $$
+  The initial condition is $y(0)=3$.
+
+  To solve this initial value problem, we first find the general solution and then determine the parameter.
+
+  Note that the equation is equivalent to $(\ln y)'=1$.
+  Integrating both sides yields the general solution $y = c e^x$.
+  The initial condition to determine the value of the constant $c=y(0)=3$
+  Hence $y = 3 e^x$ is the solution of the initial value problem.
+\end{example}
+
+\begin{exercise}
+  Consider the ordinary differential equation $y'  - 2y  + e^{x} =0 $.
+  \begin{enumerate}
+    \item Show that $y =  c e^{2x}  + e^{x}$ is the general solution.
+    \item Solve the initial value problem
+          $$
+            \begin{cases}
+               & y'  -2y  + e^{x} =  0 \\
+               & y(0)   =   2.
+            \end{cases}
+          $$
+  \end{enumerate}
+\end{exercise}
+
+\begin{exersol}
+  \begin{enumerate}
+    \item If $y =  c e^{2x}  +  e^{x}$, then $y' = 2 c e^{2x} + e^x$ and
+          $$ y' - 2 y + e^x  =  2 c e^{2x} + e^x - 2 (c e^{2x}  +  e^{x})  + e^x =  0.  $$
+          Hence,  $y =  c e^{2x}  +  e^{x}$ is the general solution.
+    \item We use the initial condition to determine the choice of $c$.  For $y =  c e^{2x}  +  e^{x}$ we have $y(0) = c+1$. We match it with the initial condition and we have
+          $$  c+1  =2 $$
+          or simply $c=1$. Hence $y= e^{2x} + e^x$ is the  solution of the initial value problem.
+  \end{enumerate}
+\end{exersol}
+
+\subsection{What is a General Solution}
+In the above example, the solution is a particular solution of the differential equation.
+
+Like antiderivatives, without any constraint, a differential equation may have a family of solutions. Such a family parametrizes all solutions of the differential equation.
+\begin{definition}{}{}
+  A \dfn{general solution} consists of all solutions of a differential equation.
+\end{definition}
+
+\begin{example}
+  Show that $y= c_1 e^x + c_2 e^{-x}$ is the general solution of
+  $$y'' - y =0$$
+  on $(-\infty,\infty)$,
+  where $c_1$ and $c_2$ can be any numbers.
+\end{example}
+\begin{solution}
+  Differentiating the function $y$ yields
+  $$y'= c_1 e^{x} - c_2 e^{-x},$$
+  $$y''= c_1 e^{x} + c_2 e^{-x}.$$
+  Then
+  $$y'' - y=   c_1 e^{x} + c_2 e^{-x}  - ( c_1 e^{x} + c_2 e^{-x} ) = 0.$$
+  So the function $y$ is a solution. The fact that any solution can be written in this form is equivalent to the uniqueness of a solution to the initial value problem with the general initial conditions $y(x_0)=y_0$ and $y'(x_0)=y'_0$. The proof of the uniqueness is above the level of this course. However, one can also argue using Calculus. The differential equation can be re-written as follows
+  $$
+    \begin{aligned}
+      (y'-y)'+(y'-y)=       & 0  \\
+      \frac{(y'-y)'}{y'-y}= & -1 \\
+      \Big(\ln(y'-y)\Big)'= & -1
+    \end{aligned}
+  $$
+  Integrating the equation $\Big(\ln(y'-y)\Big)'=-1$ yields the general solution $y' - y = ce^{-x}$.
+  Similarly, the equation may be re-written as
+  $$\Big(\ln(y-c_2e^{-x})\Big)'=1,$$
+  where $c_2=-\frac{c}{2}$.
+  Integrating the equation yields that $y=c_1e^x+c_2e^{-x}$.
+\end{solution}
+
+\begin{exercise}
+  Find the general solution to the differential equation
+  $$
+    y'''= \sin x.
+  $$
+\end{exercise}
+
+\begin{exersol}
+  Integrating the differential equation repeatedly yields
+  $$y''=-\cos x + c_1,$$
+  $$y'=-\sin x + c_1x + c_2,$$
+  $$y=\cos x + c_1x + c_2x + c_3,$$
+  where $c_1$, $c_2$ and $c_3$ are arbitrary constants. Since $y''$ and $y'$ are both general solutions by Rolle's theorem, so is $y$.
+\end{exersol}
+
+\subsection{Solving Differential Equations by Direct Integration}
+
+To solve a general differential equation is usually difficult. In this course, we will only focus on some special types of differential equations. For example, some differential equations can be solved by simply integrating both sides using techniques from Calculus. We call them \dfn{direct integration problem}.
+
+\begin{example} 
+  Solve the initial value problem.
+  $$y'= \frac{1}{x^2+x}, \qquad y(1)=0.$$
+	\end{example}
+\begin{solution}
+  Using partial fraction expansion, the differential equation can be written as
+  $$y'=\frac1x-\frac1{x+1}.$$
+Integrating both sides yields
+$$\begin{aligned}
+  y=&\int \frac{3}{x^3+x} \D x \\
+  =&\int \left(\frac{1}{x}-\frac{1}{x+1}\right) \D x\\ 
+  =& \ln |x| - \ln(|x+1|) + c 
+\end{aligned}
+$$
+
+Now using the initial condition $ y(1)=0$ to determine $C$:
+$$0= \ln 1 - \ln 2 + c$$
+Since $\ln 1=0$, we get $c= \ln 2$. 
+The solution of this initial value problem is
+$$y = \ln|x| - \ln(|x+1|) + \ln 2.$$
+
+Note that the domain of the solution function is $(-\infty, -1)\cup (-1,0)\cup (0, \infty)$.
+\end{solution}
+
+In order to solve direct integral problems, you will need to review integrations of some elementary functions and various methods of integrations such as integration by parts, integration by substitution, partial fraction expansion.
+
+\begin{exercise}
+  Solve the initial value problem.
+  $$y'= xe^x, \qquad y(0)=1.$$
+\end{exercise}
+\begin{exersol}
+  Using integration by parts, one will find that
+  $$y=xe^x-e^x+c.$$
+  The initial condition $y(0)=1$ implies that $c=2$.
+  So the solution of this initial value problem is $y=xe^x-e^x+2$.
+\end{exersol}
+
+
+\subsection{Integral Curve*}
+\begin{definition}{}{}
+  The graph of a solution of a differential equation is called a \dfn{solution curve}.
+
+  A curve  $C$  is called an \dfn{integral curve} of a differential equation if every solution curve is a part of it.
+\end{definition}
+
+From the definition, we see that any solution curve of a differential equation is an integral curve, but an integral curve need not be a solution curve.
+
+\begin{example}\label{eg:1.1}
+  For any positive constant $a$, consider the circle defined by $x^2+y^2=a^2$. Verify the circle is an integral curve of $y'=-\frac x y$ but not a solution curve.
+\end{example}
+\begin{solution}
+  The circe is made of two solution curves defined by $y=\sqrt{a^2-x^2}$ and $y=-\sqrt{a^2-x^2}$. But the circle is not a function. Note that the differential equation can be re-written as $yy'=x$. Integrate both sides, you will see that all solutions of $y'=-\frac x y$ satisfy the equation $x^2+y^2=a^2$ for some $a$. Thus, the circle is an integral curve.
+\end{solution}
+
+\begin{exercise}
+  Verify that the cuspidal curve defined by $y^2=x^3+c$ is an integral curve for $y'=-\frac{3x^2}{2y}$ but not a solution curve.
+\end{exercise}
+\begin{exersol}
+  The equation $y'=-\frac{3x^2}{2y}$ has two solution curves defined by $y=\sqrt{x^3+c}$ and $y=-\sqrt{x^3+c}$. Apply the same method as in the above example, one can verify that the equation $y^2=x^3+c$ defines an integral curve.
+\end{exersol}
+
+\subsection{Direction Fields for First Order Equations}
+
+When finding an explicit formula for the solution of a differential equation is impossible or the formula is too complicated, we may use graphical or numerical methods to investigate how the solution behaves.
+
+In this section, we consider a graphical method for first order differential equations $y'=f(x, y)$.
+
+The idea is to sketch the integral curve using the first derivative $y'$. To be specific, the slope $y'_0$ of an integral curve of the equation $y'=f(x, y)$. through a given point $(x_0,y_0)$ is given by the number $f(x_0,y_0)$. Through the point $(x_0, y_0)$, we may draw a small line segment with the slope $y'_0$.
+
+\begin{definition}{}{}
+  Let $f$ be a function defined on a set $R\in \mathbb{R}^2$.
+  The graph consists of line segments through every point $(x, y)$ in $R$ with the slope $f(x, y)$ is called the \dfn{direction filed} (also called the \dfn{slope field}) for $y'=f(x, y)$ in $R$.
+\end{definition}
+
+In practice, we can't actually draw line segments through very points in $R$ if $R$ is an infinite set. Instead, we select a finite subset of $R$ and draw line segments through points in it. For example, we may create a rectangular grid and draw line segments through grid points.
+
+\begin{example}
+  Consider the differential equation $y'=-\frac{x}{y}$.
+
+  Given a grid, the direction field (Figure \ref{fig:dirf} can be constructed by calculating $y'$ at grid points and drawing a short line segment with the slope $y'$ and trough $(x, y)$.
+
+  From the direction field, you may guess what does an integral curve look like (see Figure \ref{fig:dirfc}). It's a circe (see Example \ref{eg:1.1})!
+
+  \begin{figure}[hbt!]
+    \centering
+    \begin{minipage}[t]{0.45\linewidth}
+      \begin{tikzpicture}[declare function={f(\x,\y)=-\x/\y;}, scale=.12]
+        \def\xmax{20} \def\xmin{-20}
+        \def\ymax{20} \def\ymin{-20}
+        \def\nx{10}
+        \def\ny{10}
+
+        \pgfmathsetmacro{\hx}{(\xmax-\xmin)/\nx}
+        \pgfmathsetmacro{\hy}{(\ymax-\ymin)/\ny}
+
+        \foreach \i in {0,...,\nx}
+        \foreach \j in {0,...,\ny}{
+            \pgfmathsetmacro{\denom}{int(100*abs(\ymin+\j*\hy))}
+            \ifnum\denom>0
+              \pgfmathsetmacro{\yprime}{
+                f({\xmin+\i*\hx},{\ymin+\j*\hy})
+              }
+              \draw[blue, very thick, shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}]
+              ($(0,0)!10mm!(-2,-2*\yprime)$)--($(0,0)!10mm!(2,2*\yprime)$);
+            \else
+              \draw[blue, very thick, shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}]
+              ($(0,0)!10mm!(0,-2)$)--($(0,0)!10mm!(0,2)$);
+            \fi
+            % \fill[black] ({\xmin+\i*\hx},{\ymin+\j*\hy}) circle (0.3);
+          }
+
+        \draw[-Latex] (\xmin-5,0)--(\xmax+5,0) node[below right] {$x$};
+        \draw[-Latex] (0,\ymin-5)--(0,\ymax+5) node[above left] {$y$};
+      \end{tikzpicture}
+      \caption{The direction field for $y'=-\frac xy$.}
+      \label{fig:dirf}
+    \end{minipage}
+    \quad
+    \begin{minipage}[t]{0.45\linewidth}
+      \begin{tikzpicture}[declare function={f(\x,\y)=-\x/\y;}, scale=.12]
+        \def\xmax{20} \def\xmin{-20}
+        \def\ymax{20} \def\ymin{-20}
+        \def\nx{10}
+        \def\ny{10}
+
+        \pgfmathsetmacro{\hx}{(\xmax-\xmin)/\nx}
+        \pgfmathsetmacro{\hy}{(\ymax-\ymin)/\ny}
+
+        \foreach \i in {0,...,\nx}
+        \foreach \j in {0,...,\ny}{
+            \pgfmathsetmacro{\denom}{int(100*abs(\ymin+\j*\hy))}
+            \ifnum\denom>0
+              \pgfmathsetmacro{\yprime}{
+                f({\xmin+\i*\hx},{\ymin+\j*\hy})
+              }
+              \draw[blue, very thick, shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}]
+              ($(0,0)!10mm!(-2,-2*\yprime)$)--($(0,0)!10mm!(2,2*\yprime)$);
+            \else
+              \draw[blue, very thick, shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}]
+              ($(0,0)!10mm!(0,-2)$)--($(0,0)!10mm!(0,2)$);
+            \fi
+            % \fill[black] ({\xmin+\i*\hx},{\ymin+\j*\hy}) circle (0.3);
+          }
+
+        \pgfmathsetmacro{\ra}{4*\hy}
+
+        \draw[red, very thick] plot[domain=-\ra:\ra, samples=300] (\x,{sqrt(\ra^2-(\x)^2)});
+        \draw[red, very thick] plot[domain=-\ra:\ra, samples=300] (\x,{-sqrt(\ra^2-(\x)^2)});
+
+        \draw[-Latex] (\xmin-5,0)--(\xmax+5,0) node[below right] {$x$};
+        \draw[-Latex] (0,\ymin-5)--(0,\ymax+5) node[above left] {$y$};
+      \end{tikzpicture}
+      \caption{The direction field with an integral curve for $y'=-\frac xy$.}
+      \label{fig:dirfc}
+    \end{minipage}
+  \end{figure}
+\end{example}
+
+\begin{exercise}
+  Consider the differential equation $y'=\frac{x}{y}$.
+  Sketch the direction field and guess a solution.
+\end{exercise}
+
+\begin{exersol}
+  The direction field for $y'=\frac{x}{y}$ suggests a solution curve is a piece of hyperbola.
+  The general solutions of the differential equations satisfy the equation $y^2-x^2=c$ (see Figure \ref{fig:dirfc}).
+  If $c>0$, then an integral curve will look like the red curve in Figure \ref{fig:dirfc}.
+  If $c<0$, then an integral curve will look like the green curve in Figure \ref{fig:dirfc}.
+
+  \begin{figure}[hbt!]
+    \centering
+    \begin{tikzpicture}[declare function={f(\x,\y)=\x/\y;}, scale=0.2]
+      \def\xmax{20} \def\xmin{-20}
+      \def\ymax{20} \def\ymin{-20}
+      \def\nx{10}
+      \def\ny{10}
+      \def\xstep{2}
+
+      \pgfmathsetmacro{\hx}{(\xmax-\xmin)/\nx}
+      \pgfmathsetmacro{\hy}{(\ymax-\ymin)/\ny}
+
+      \foreach \i in {0,...,\nx}
+      \foreach \j in {0,...,\ny}{
+          \pgfmathsetmacro{\denom}{int(100*abs(\ymin+\j*\hy))}
+          \ifnum\denom>0
+            \pgfmathsetmacro{\yprime}{
+              f({\xmin+\i*\hx},{\ymin+\j*\hy})
+            }
+            \draw[blue, very thick, shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}]
+            ($(0,0)!10mm!(-\xstep,-\xstep*\yprime)$)--($(0,0)!10mm!(\xstep,\xstep*\yprime)$);
+          \else
+            \draw[blue, very thick, shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}]
+            ($(0,0)!10mm!(0,-\xstep)$)--($(0,0)!10mm!(0,\xstep)$);
+          \fi
+          % \fill[black] ({\xmin+\i*\hx},{\ymin+\j*\hy}) circle (0.3);
+        }
+
+      \pgfmathsetmacro{\ra}{2*\hx}
+
+      \draw[red, ultra thick] plot[domain=\xmin:\xmax, samples=300] (\x,{sqrt(\ra^2+(\x)^2)});
+      \draw[red, ultra thick] plot[domain=\xmin:\xmax, samples=300] (\x,{-sqrt(\ra^2+(\x)^2)});
+
+      \draw[orange, ultra thick, variable=\y] plot[domain=\ymin:\ymax, samples=300, ] ({sqrt(\ra^2+(\y)^2)}, \y);
+      \draw[orange, ultra thick, variable=\y] plot[domain=\ymin:\ymax, samples=300] ({-sqrt(\ra^2+(\y)^2)}, \y);
+
+      \draw[-Latex] (\xmin-5,0)--(\xmax+5,0) node[below right] {$x$};
+      \draw[-Latex] (0,\ymin-5)--(0,\ymax+5) node[above left] {$y$};
+    \end{tikzpicture}
+
+    \caption{The direction field with an integral curve for $y'=\frac xy$.}
+    \label{fig:dirfc.2}
+  \end{figure}
+\end{exersol}

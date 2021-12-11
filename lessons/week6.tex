@@ -1,0 +1,918 @@
+% !TEX root = ../main.tex
+\chapter{Linear Second Order Equations II}
+\chapterdate{10/12--10/21}
+
+\section{The Method of Undetermined Coefficients}
+
+In this section, we will study how to solve some linear second order constant coefficient nonhomogeneous equations
+\[y''+ay'+by=f(x).\]
+
+Recall that the general solution of the equation can be written as
+$$y=c_1y_1+c_2y_2+y_p,$$
+where $y_1$ and $y_2$ are non-proportional solutions of the complementary equation $y''+ay'+by=0$, and $y_p$ is a particular solution of the nonhomogeneous equation.
+
+We already knew how to find a general solution $c_1y_1+c_2y_2$ of the complementary equation. A particular solution may be found by guessing. The method of undetermined coefficients provides an approach to find a particular solution.
+
+Because the derivative a polynomial function is still a polynomial, the derivative of an exponential function is still an exponential, and the derivative of a trigonometric function is still a trigonometric function, we often expect a same type of function as a particular solution.  
+
+\subsection{Non-linear with basic functions}
+
+\subsubsection{General cases}
+
+\begin{itemize}
+  \item If $f(x)$ is a polynomial, then a particular solution is often a polynomial of the same degree.
+  \item If $f(x)=Pe^{\alpha x}$, then a particular solution is often of the form $Ae^{\alpha x}$.
+  \item If $f(x)=P\sin\beta x + Q\cos\beta x$, then a particular solution is often of the form: $A\sin\beta x+B\cos\beta x$.
+\end{itemize}
+
+\begin{example}
+  Find the general solution of the equation
+  \[y'' - y = x^2\]
+\end{example}
+\begin{solution}
+  We first find the general solution of the complementary equation $y''- y=0$.
+  Since the characteristic equation
+  \[r^2-1=0\]
+has two distinct solutions $r_1=-1$ and $r_2=1$. The general solution of the complementary equation is
+\[y_h=c_1e^{-x}+c_2e^{x}.\]
+
+Since the differentiations of a function remains of the same type, and the right-hand side is an polynomial function, we expect a particular solution
+\[y_p=ax^2+bx+c.\]
+
+Plugging it into the equation yields
+\[
+\begin{aligned}
+  (ax^2+bx+c)''-(ax^2+bx+c)=& x^2\\
+  2a - (ax^2+bx+c) =& x^2\\
+  -ax^2-bx+(a-c)=& x^2.
+\end{aligned}  
+\]
+Comparing coefficients of powers of $x$, we see that $a=-1$, $b=0$ and $c=a=-1$.
+
+Therefore, a particular solution is $y_p=-x^2-1$ and the general solution is
+\[
+y= c_1e^{-x}+c_2e^{x}-x^2-1. 
+\]
+\end{solution}
+
+\begin{example}
+  Find the general solution of the equation
+  \[y'' - y' - 2y = 7 e^{3x}\]
+\end{example}
+\begin{solution}
+  We first find the general solution of the complementary equation $y'' - y' - 2y$.
+  Since the characteristic equation
+  \[r^2-r-2=0\]
+has two distinct solutions $r_1=-1$ and $r_2=2$. The general solution of the complementary equation is
+\[y_h=c_1e^{-x}+c_2e^{2x}.\]
+
+Since the differentiations of a function remains of the same type, and the right-hand side is an exponential function, we expect a particular solution
+\[y_p=ce^{3x}.\]
+
+Plugging it into the equation yields
+\[
+\begin{aligned}
+  (ce^{3x})''-(ce^{3x})+ce^{3x}=&7e^{3x}\\
+  (3ce^{3x})'-3ce^{3x}+ce^{3x}=&7e^{3x}\\
+  9ce^{3x}-2ce^{3x}=&7e^{3x}\\
+  7ce^{3x}=&7e^{3x}\\
+  c=&1.
+\end{aligned}  
+\]
+
+Therefore, a particular solution is $y_p=e^{3x}$ and the general solution is
+\[
+y= c_1e^{-x}+c_2e^{2x}+e^{3x}. 
+\]
+\end{solution}
+
+\begin{example}
+  Find the general solution of the equation
+  \[y''-3y'+2y=\sin x.\]
+\end{example}
+\begin{solution}
+Since the characteristic equation $r^2-3r+2$ has two solutions $r_1=1$ and $r_2=2$. Then the general solution of the complementary equation is
+\[y_h=c_1e^{-x}+c_2e^x.\]
+
+Since the right-hand side is $\sin x$ whose higher derivatives are either $\sin x$ or $\cos x$, we expect a particular solution
+\[y_p=A\cos x+B\sin x.\]
+Since $(\sin x)''=-\sin x$ and $(\cos x)''=-\cos x$
+Plugging it into the equation yields
+\[
+\begin{aligned}
+  (A\cos x+B\sin x)''-3(A\cos x+B\sin x)'+2(A\cos x+B\sin x)=&\sin x\\
+  (-A\cos x-B\sin x)-3(-A\sin x+B\cos x)+2(A\cos x+B\sin x)=&\sin x\\
+ (3A+B)\sin x+(A-3B)\cos x=&\sin x.
+\end{aligned}  
+\]
+Then $A$ and $B$ satisfy the following system of equations
+\[
+\begin{cases}
+  3A+B=1\\
+  A-3B=0.
+\end{cases}  
+\]
+Solving the equation by elimination method yields
+\[A=\frac{3}{10}\qquad\text{and}\qquad B=\frac{1}{10}.\]
+
+Therefore, a particular solution is
+\[y_p=\frac{3}{10}\cos x+\frac{1}{10}\sin x\]
+and the general solution is
+\[y=c_1e^{-x}+c_2e^x+\frac{3}{10}\cos x+\frac{1}{10}\sin x.\]
+\end{solution}
+
+\subsubsection{Exceptional cases}
+
+In  the above examples, the right-hand side function contains no factor which is a solution of the complementary equation. In some exceptional cases, we can adjust the particular solution to be used.
+
+\begin{example}
+Find a particular solution $y_p$ of 
+\[  y'' + 2 y' - 3 y = 4e^x.\]
+\end{example}
+\begin{solution}
+  Since the characteristic equation $r^2+2r-3=0$ has two distinct root, the complementary equation has a general solution
+  \[y_h=c_1e^x+c_2e^{-3x}.\]
+
+  Since $e^x$ is a solution, plugging $Ae^x$ into the equation will give
+  \[0=e^x.\]
+  So $Ae^x$ can not be a particular solution for any $A$.
+
+  Remember, when the characteristic equation has a repeated root, an extra solution can be taking in the form $xe^{rx}$. Here, we can try
+  \[y_p=Axe^x.\]
+
+  Plugging $y_p$ into the equation yields
+  \[
+  \begin{aligned}
+    (Axe^x)''+2(Axe^x)'-3Axe^x=&4e^x\\
+    A(e^x+xe^x)'+2A(e^x+xe^x)-3Axe^x=&4e^x\\
+    A(e^x+e^x+xe^x)+2A(e^x+xe^x)-3Axe^x=&4e^x\\
+    4Ae^x=&e^x\\
+    A=&1
+  \end{aligned}  
+  \]
+  Therefore, a particular solution is $y_p=xe^x$, and the general solution is
+  \[y=c_1e^x+c_2e^{-3x}+xe^x.\]
+\end{solution}
+
+Indeed, there is no surprise that the $xe^{rx}$ terms disappear. The $n$-th derivatives has exactly one term with a factor $x$, the term is $r^nxe^{rx}$. Because $r$ is a root of the equation $r^2+ar+b=0$, then the sum of those terms equals zero.
+
+What if $xe^{rx}$ is also a solution? Well, we raise the power of $x$ by $1$.
+
+\begin{example}
+  Find the general solution of the equation
+  \[y''-2y'+y=2e^x.\]
+\end{example}
+\begin{solution}
+  The characteristic equation $r^2-2r+1=0$ has a repeated root $r=1$. Then the complementary equation has a general solution
+  \[y_h=c_1e^x+c_2xe^x.\]
+
+  Since both $e^x$ ane $xe^x$ are solutions, we try $y_p=Ax^2e^x$.
+
+  Plugging $y_p=Ax^2e^x$ into the equation yields
+  \[
+  \begin{aligned}
+    (Ax^2e^x)''-2(Ax^2e^x)'+Ax^2e^x=&2e^x\\
+    A(2xe^x+x^2e^x)'-2A(2xe^x+x^2e^x)+Ax^2e^x=&2e^x\\
+    A(2e^x+2xe^x+2xe^x+x^2e^x)'-2A(2xe^x+x^2e^x)+Ax^2e^x=&2e^x\\
+    A(x^2e^x-2x^2e^x+x^2e^x)+A(4xe^x-4xe^x)+2Ae^x=&2e^x\\
+    2Ae^x=&2e^x\\
+    A=&1\\
+  \end{aligned}  
+  \]
+  Therefore, a particular solution is $y_p=2x^2e^x$, and the general solution is
+  \[y=c_1e^x+c_2xe^x+x^2e^x.\]
+\end{solution}
+
+When the characteristic equation has complex roots, the methods shown in the above examples still work.
+
+\begin{example}
+Find a particular solution $y_p$ of 
+\[y'' + y = 2\sin x\]
+\end{example}
+\begin{solution}
+Since the characteristic equation is $r^2+1=0$ which has two conjugate roots $\pm\mathbb{i}$, the general solution of the complementary equation is $y_h=c_1\cos x+c_2\sin x$.
+Taking $y_p =A \sin x + B\cos x$ won't work because plugging it into the left-hand side of the equation yields
+\[y_p'' +  y_p = 0.\]
+However, the right-hand sides is $2\sin x$. So $A \sin x + B\cos x$ can not be a solution.
+
+Let's try
+\[y_p = x(A \sin x + B\cos x).\]
+Differentiating $y_p$ yields
+\[
+\begin{aligned}
+  y_p' = & Ax \cos x + A \sin x - Bx \sin x + B \cos x\\
+  y_p''= & -A x \sin x + 2A \cos x - B x \cos x - 2B \sin x,
+\end{aligned}  
+\]
+and 
+\[
+\begin{aligned} 
+  & y_p'' +  y_p \\
+=&  -A x \sin x + 2A \cos x - B x \cos x - 2B \sin x +  Ax \sin x + Bx\cos x\\
+= &2A \cos x  -  2B \sin x
+\end{aligned}
+  \]
+Hence, $y_p =  Ax \sin x + Bx\cos x$ is a solution if 
+\[2A \cos x  -  2B \sin x  = 2\sin x.\]
+Equivalently, 
+\[
+  \begin{cases}
+	2A &=  0\\
+	-2B&= 2 
+\end{cases}
+\]
+Solving this system of equations yields $A=0$ and $B = -1$. 
+Therefore, a particular solution is
+\[y_p =  -x \cos x.\]
+The general solutions is
+\[y=c_1\cos x+c_2\sin x-x\cos x.\]
+\end{solution}
+
+You will find that a particular solution of $y''+ay'=f(x)$ should also have a higher degree than the polynomial $f(x)$. This is because, if $y_p$ has the same degree as of $f$, then the left-hand side will have the degree 1 less due to the differentiation.
+
+\begin{example}
+  Find a general solution of the equation 
+  \[y'' + y' = 2x\]
+\end{example}
+\begin{solution}
+The characteristic equation $r^2+r=0$ has two distinct roots $r_1=0$ and $r_2=1$. So the general solution of the complementary equation is
+\[y_h=c_1+c_2e^x.\]
+
+We are looking for a polynomial as a particular solution. Since differentiating polynomials decrease it degree by $1$ and there is no $y$-term in the equation, a particular solution should be $1$ degree bigger than $f(x)=2x$. Indeed, one will find that taking $y_p=ax+b$ won't work.
+
+Let's try
+\[y_p =x(ax + b)=a x^2 + bx.\]
+The first and second derivatives are
+\[y_p' = 2ax + b\qquad\text{and}\qquad y_p'' = 2a .\]
+Then 
+\[y_p'' +  y_p '= 2a + 2ax + b = 2a x + (2a+b).\]
+Hence, $y_p =  a x^2 + bx$ is a solution given that 
+\[2a x + (2a+b) = 2x.\]
+So $a$ and $b$ satisfy
+\[
+  \begin{cases}
+    2a  =  1\\
+    2a+b=  0 
+  \end{cases}
+\]
+Solving the system yields $a=1$ and $b = -2$ and 
+\[y_p =  x^2 - 2x\]
+is a particular solution.
+Therefore, the general solution is
+\[y=c_1+c_2e^x+x^2-2x.\]
+\end{solution}
+
+\begin{exercise}
+  Find the general solution of 
+  \[ y ''- 4 y  = 10e^{3x}. \]
+\end{exercise}
+\begin{exersol}
+  Since the equation $r^2-4=0$ has two distinct roots $r_1=-2$ and $r_2=2$, the general solution of the complementary equation $y ''- 4 y  = 0$ is 
+\[y_h= c_1 e^{-2x} + c_2 e^{2x}.\]
+
+We expect a particular solution of the form 
+\[y_p= c e^{3x}.\]
+Differentiating the function implies $y_p' = 3 ce^{3x}$, $y_p'' = 9 c e^{3x}$,
+and 
+\[y ''- 4 y  = 5c e^{3x}.\]
+Therefore, 
+\[5c e^{3x}= 10e^{3x}\]
+which implies $c=2$. A particular solution is  $y_p= 2e^{3x}$ and the general solution is 
+\[y=  2e^{3x} +  c_1 e^{2x} + c_2 e^{-2x}.\]
+\end{exersol}
+
+\begin{exercise}
+  Find a general solution of the equation
+\[y''-7y'+12y=2e^{4x}.\]
+\end{exercise}
+\begin{exersol}
+  Since the characteristic polynomial $r^2-7r+12=0$ has two distinct real solution $r_1=3$ and $r_2=4$, the complementary equation has the general solution
+  \[y_h=c_1e^{3x}+c_2e^{4x}.\]
+
+  Because $e^{4x}$ is a solution of the complementary equation and right-hand side is $2e^{4x}$. We may take a particular solution $y_p=Axe^{4x}$.
+
+  Plugging $y_p$ into the equation yields
+  \[
+  \begin{aligned}
+    (Axe^{4x})''-7(Axe^{4x})'+12Axe^{4x}=&2e^{4x}\\
+    A(e^{4x}+4xe^{4x})'-7A(e^{4x}+4xe^{4x})+12Axe^{4x}=&2e^{4x}\\
+    A(e^{4x}+4e^{4x}+16xe^{4x})-7A(e^{4x}+4xe^{4x})+12Axe^{4x}=&2e^{4x}\\
+    -2Ae^{4x}=&2e^{4x}\\
+    A=&-1\\
+  \end{aligned}  
+  \]
+
+  Therefore, a particular solution is 
+  \[y_p=-xe^{4x}\]
+  and the general solution is
+  \[y=c_1e^{3x}+c_2e^{4x}-xe^{4x}.\]
+\end{exersol}
+
+
+\subsection{The Principle of Superposition}
+
+When the function $f(x)$ in the equation $y''+p(x)y'+q(x)y=f(x)$ is a sum of several functions, 
+we can solve the equation by break it into several equation with few terms on the right-hand side. 
+Indeed, Theorem \ref{thm:generalsol2ndlinear} is such an application: 
+if $y_h$ is a solution of $y''+p(x)y'+q(x)y=0$ and $y_p$ is a solution of the equation $y''+p(x)y'+q(x)y=f(x)$, 
+then $y_p+y_h$ is a solution of the equation $y''+p(x)y'+q(x)y=0+f(x)$. 
+In general, we have the principle of superposition which has analogous in linear algebra.
+
+\begin{theorem}[Principle of Superposition]\label{thm:superposition}
+  Suppose \(y_{p_1}\) is a particular solution of
+\[y''+p(x)y'+q(x)y=f_1(x)\]
+and \(y_{p_2}\) is a particular solution of
+\[y''+p(x)y'+q(x)y=f_2(x).\] 
+Then
+\[y_p=y_{p_1}+y_{p_2}\]
+is a particular solution of
+\[y''+p(x)y'+q(x)y=f_1(x)+f_2(x).\]
+\end{theorem}
+\begin{proof}
+  Since 
+  \[
+  \begin{aligned}
+    y_{p_1}''+p(x)y_{p_1}'+q(x)y_{p_1}=&f_1(x)\\
+    y_{p_2}''+p(x)y_{p_2}'+q(x)y_{p_2}=&f_2(x),
+  \end{aligned}  
+  \]
+  taking the sum of those two equations yields
+  \[
+    (y_{p_1}+y_{p_2})''+p(x)(y_{p_1}+y_{p_2})'+q(x)(y_{p_1}+y_{p_2})=f_1(x)+f_2(x).
+  \]
+  Therefore, $y_p=y_{p_1}+y_{p_2}$ is a solution of the equation $y''+p(x)y'+q(x)y=f_1(x)+f_2(x)$.
+\end{proof}
+
+
+\begin{example}
+  Find a particular solution $y_p$ of 
+\[y'' + y' +  y = \cos x + x + 1.\]
+\end{example}
+\begin{solution}
+  To find a particular solution, we may first find particular solutions for
+  \[y'' + y' +  y = \cos x\]
+  and
+  \[y'' + y' +  y = x+1.\]
+
+  For the equation $y'' + y' +  y = \cos(x)$, since the derivation of $\cos x$ is $-\sin x$, we may assume a solution is $y_{p_1}=a\sin x +b\cos x$. Then $a$ and $b$ satisfy the equation
+  \[(-a\sin x-b\cos x)+(a\cos x-b\sin x)+ (a\sin x+b\cos x)=\cos x\]
+  for all $x$.
+  Hence, $a=1$, $b=0$ and $y_{p_1}=\sin x$ is a particular solution.
+
+  For the equation $y'' + y' + y=x$, we may assume a solution is $y_{p_2}=cx+d$. Then $c$ and $d$ satisfy
+  \[c+cx+d=x+1\]
+  for all $x$.
+  Hence, $c=1$, $d=0$, and $y_{p_2}=x$ is a solution.
+
+  Therefore, by Theorem \ref{thm:superposition}, a particular solution of the original equation is
+  \[y=y_{p_1}+y_{p_2}=\sin x + x.\]
+\end{solution}
+
+\begin{exercise}
+  Find a particular solution $y_p$ of 
+\[y'' - y' +  y = e^x + x.\]
+\end{exercise}
+\begin{exersol}
+  To find a particular solution, we may first find particular solutions for
+  \[y'' - y' +  y = e^x\]
+  and
+  \[y'' - y' +  y = x.\]
+
+  For the equation $y'' - y' +  y = e^x$, we may assume a solution is $y_{p_1}=ce^x$. Then $c$ satisfies the equation
+  \[ce^x-ce^x+ce^x=e^x\]
+  for all $x$.
+  Hence, $c=1$ and $y_{p_1}=e^x$ is a particular solution.
+
+  For the equation $y''-y'+y=x$, we may assume a solution is $y_{p_2}=ax+b$. Then $a$ and $b$ satisfy
+  \[-a+ax+b=x\]
+  for all $x$.
+  Hence, $a=1$, $b=1$, and $y_{p_2}=x+1$ is a solution.
+
+  Therefore, by Theorem \ref{thm:superposition}, a particular solution of the original equation is
+  \[y=y_{p_1}+y_{p_2}=e^x+x+1.\]
+\end{exersol}
+
+\subsection{Nonlinear with Product Functions}
+
+When the function $f(x)$ is a product of those basic functions, we can expect a same type of function as a particular solution.
+
+\begin{example}
+Find a general solution of the equation 
+\[y'' + 2 y = e^x \sin x.\]
+\end{example}
+\begin{solution}
+The general solution of the complementary equation is $y_h=c_1+c2e^{-2x}$
+
+We try $y_p = A e^x \cos x + B e^x \sin x$. The derivatives of $y_p$ are
+\[ 
+\begin{split}
+y_p' =& A e^x \cos x - A e^x \sin x + B e^x \sin x  + B e^x \cos x  \\
+= &(A+B) e^x \cos x  + (B-A) e^x \sin x
+\end{split}
+\]
+and
+\[  y_p'' = 2B e^x \cos x -2A e^x \sin x.\]
+Plugging $y_p$ into the left-hand side of the equation implies
+\[ 
+\begin{split}
+  & y_p'' + 2 y_p \\
+= & 2B e^x \cos x -2A e^x \sin x   + 2 A e^x \cos x +2 B e^x \sin x \\
+=&  (2B+ 2A) e^x \cos x  + (2B- 2A) e^x \sin x
+\end{split}
+\]
+Hence, $y_p$ is a solution if 
+\[ (2B+ 2A) e^x \cos x  + (2B- 2A) e^x \sin x = e^x \sin x\]
+or if
+\[
+\begin{cases}
+2B+2A =0\\
+2B-2A =1.
+\end{cases}
+\]
+Solving the system yields
+$A= -\frac{1}{4} $ and $B= \frac{1}{4}$.
+Hence, a particular solution is
+\[y_p =  -\frac{1}{4} e^x \cos x +  \frac{1}{4} e^x \sin x.\]
+
+The general solution is
+\[y=c_1+c_2e^{-2x}-\frac{1}{4} e^x \cos x +  \frac{1}{4} e^x \sin x.\]
+\end{solution}
+
+\begin{example}
+  Find the general solution of the equation 
+	\[  y'' -  y = x \sin x \]
+\end{example}
+\begin{solution}
+The general solution of the complementary equation is
+\[y_h=c_1+c_2e^{-x}.\]
+
+For a particular solution, we try 
+\[y_p = Ax\sin x+Bx\cos x+C\sin x+D\cos x.\]
+The derivatives of $y_p$ are
+\[
+\begin{aligned}
+  y_p' = &Ax \cos x + A \sin x - Bx \sin x + B \cos x+C\cos x-D\sin x\\
+  = &Ax \cos x + (A-D)\sin x - Bx \sin x + (B+C)\cos x,
+\end{aligned}  
+\]
+and
+\[
+\begin{aligned}
+  y_p' = &A\cos x-Ax\sin x + (A-D)\cos x - B\sin x -Bx\cos x - (B+C)\sin x\\
+  = &-Ax\sin x + (2A-D)\cos x -Bx\cos x - (2B+C)\sin x,
+\end{aligned}  
+\]
+
+Therefore, 
+	\[ 
+	\begin{split}
+	& y_p'' - y_p \\
+	= &  -Ax\sin x + (2A-D)\cos x -Bx\cos x - (2B+C)\sin x\\
+	&-(Ax \cos x + (A-D)\sin x - Bx \sin x + (B+C)\cos x)\\
+	=& -2Ax\sin x+(-A-B-2C+D)\sin x+(2A-B-C-D)\cos x
+	\end{split}
+	\]
+	Hence, $y_p$ is a solution if 
+	\[  -2Ax\sin x+(-A-B-2C+D)\sin x+(2A-B-C-D)\cos x = x \sin x\]
+	or if
+	\[\begin{cases}
+	A=1\\
+	B=0\\
+	2A+D=0\\
+	-2B+C=0
+	\end{cases}
+	\]
+	Consequently, $A=1,B=0,C=0,D=-2$
+	and
+	\[y_p =  x \sin x-2\cos x\]
+	is a particular solution.
+
+  The general solution is
+  \[y=c_1+c_2e^x\]
+\end{solution}
+
+\begin{exercise}
+Find a particular solution of
+\[y''-3y'+2y=e^{3x}(2x+1).\]
+\end{exercise}
+\begin{exersol}
+We can try a particular solution $y_p=e^{3x}(ax+b)$.
+Differentiating $y_p$ yields
+\[
+\begin{aligned}
+  y_p'=&3e^{3x}(ax+b)+ae^{3x}\\
+  =& 3axe^{3x}+(a+3b)e^{3x}\\[0.5em]
+  y_p''=&3ae^{3x}+9axe^{3x}+3(a+3b)e^{3x}\\
+  =&9axe^{3x}+(6a+9b)e^{3x}.
+\end{aligned}  
+\]
+Plugging $y_p$ into the equation implies
+\[
+\begin{aligned}
+  9axe^{3x}+(6a+9b)e^{3x}-3(3axe^{3x}+(a+3b)e^{3x})+2(axe^{3x}+be^{3x})=&e^{3x}(2x+1)\\
+  9axe^{3x}+(6a+9b)e^{3x}-9axe^{3x}-(3a+9b)e^{3x})+2axe^{3x}+2be^{3x}=&e^{3x}(2x+1)\\
+  (2ax+(3a+2b))e^{3x}=&e^{3x}(2x+1)\\
+  2ax+(3a+2b)=&(2x+1)
+\end{aligned}  
+\]
+So $y_p$ is a solution if 
+\[
+  \begin{cases}
+    2a=&2\\
+  3a+2b=&1
+\end{cases}
+\]
+Solving the system yields $a=1$ and $b=-1$.
+
+Therefore, a particular solution is
+\[y_p=e^{3x}(x-1).\]
+\end{exersol}
+
+More generally, the method of undetermined coefficients can be applied to
+\[y''+ay'+by=P(x)e^{\alpha x}\]
+and
+\[y''+ay'+by=e^{\alpha x}(P(x)\cos(\beta x)+Q(x)\sin(\beta x).\]
+
+\begin{theorem}
+  Consider the equation 
+  \[y''+ay'+by=P(x)e^{\alpha x}\]
+  where $G$ a polynomial of degree $k$. Let $A(x)=a_kx^k+\cdots+a_1x+a_0$ be a polynomial of degree $k$.
+  \begin{itemize}
+    \item If $e^{\alpha x}$ is not a solution of the complementary equation, then a particular root is \[y_p=A(x)e^{\alpha x}.\]
+    \item If $e^{\alpha x}$ is a solution but $xe^{\alpha x}$ is not a solution of the complementary equation, then a particular solution is \[y_p={\color{blue}x}A(x)e^{\alpha x}.\]
+    \item If $e^{\alpha x}$ and $xe^{\alpha x}$ are both solutions of the complementary equation, then a particular solution is \[y_p={\color{red}x^2}A(x)e^{\alpha x}.\]
+  \end{itemize}
+\end{theorem}
+
+\begin{theorem}
+  Consider the equation 
+  \[y''+ay'+by=e^{\alpha x}\left(P(x)\cos \beta x+Q(x)\sin \beta x\right)\] with $P(x)$ and $Q(x)$ polynomials such that the larger degree is ${\color{blue} k}$. 
+
+  \begin{itemize}
+    \item If $\alpha+\mathbb{i}\beta$ is not a root of the characteristic polynomial $p(r)=r^2+ar+b$, then a particular solution is \[y_p=e^{\alpha x}\left(A(x)\cos\beta x+B(x)\sin\beta x\right),\]
+    where $A(x)=a_{\color{blue} k}x^{\color{blue} k}+\cdots+a_1x+a_0$ and $B(x)=b_{\color{blue} k}x^{\color{blue} k}+\cdots+b_1x+b_0$.
+    \item If $\alpha+\mathbb{i}\beta$ is not a root of the characteristic polynomial, then a particular solution is \[y_p=e^{\alpha x}\left(A(x)\cos\beta x+B(x)\sin\beta x\right),\]
+    where $A(x)=a_{\color{red} k+1}x^{\color{red} k+1}+\cdots+a_1x+a_0$ and $B(x)=b_{\color{red} k+1}x^{\color{red} k+1}+\cdots+b_1x+b_0$.
+  \end{itemize}
+\end{theorem}
+
+Using substitution $y_p=u(x)e^{\alpha x}$, where $\alpha$ is allowed to be a complex number,  the proof of the theorem can be reduced to the case that $f(x)$ is a polynomial. For example, the equation $y''+ay+by=P(x)e^{\alpha x}$ can be reduced to $u''+(a+2r)u'+(r^2+ar+b)u=P(x)$. Further more, by the principle of superposition, we may assume that $f(x)=a_nx^n$. We can even take $a_n=\frac{1}{n!}$. Taking derivatives of both sides $n$ times, we get an equations.
+\[y^{(n+2)}+ay^{(n+1)}+by^{(n)}=1.\]
+Let $u=y^{n}$, then 
+\[u''+au'+bu=1.\]
+If $b\ne 0$, then a particular solution is $u_p=1$.
+If $b=0$ but $a\ne 0$, then a particular solution is $u_p=\frac{x}{a}$.
+If $a=0$ and $b=0$, then a particular solution is $u_p=\frac{x^2}{2}$.
+Then a particular solution $y_p$ such that $y_p^{n}=u_p$ is a polynomial of $n$ terms with degree $n$, $n+1$ or $n+2$. 
+
+Two useful references can be found at the following webpages:
+\href{https://mathoverflow.net/questions/124694/reference-for-a-nice-proof-of-undetermined-coefficients}{\nolinkurl{https://mathoverflow.net/questions/124694/reference-for-a-nice-proof-of-undetermined-coefficients}} and \href{http://www.math.utah.edu/~gustafso/undetermined-coeff.pdf}{\nolinkurl{http://www.math.utah.edu/~gustafso/undetermined-coeff.pdf}}.
+
+\section{Variation of Parameters}
+
+The method of variation of parameters for first order differential equations can also be applied to second order equations.
+
+Consider the equation
+\[y''+ p(x)y' + q(x)y = f(x).\]
+Assume that $y_h=c_1y_1+c_2y_2$ is a general solutions of  
+\[y''+ p(x)y' + q(x)y = 0.\]
+We assume that the equation
+	\[y''+ p(x)y' + q(x)y = f(x)\]
+has a solution $y$ in the form 
+	\[y=v_1y_1+v_2y_2,\]
+where $v_1$ and $v_2$ are undetermined functions of $x$. 
+Computing the derivative of $y$ yields
+\[y'=(v_1'y_1+v_1y_1')+(v_2'y_2+v_2y_2').\]
+The second derivative is
+\[y''=(v_1'y_1)'+v_1'y_1'+v_1y_1'')+((v_2'y_2)'+v_2'y_2+v_2y_2'').\]
+Plugging $y_1v_1+y_2v_2$ into the left hand side of the nonhomogeneous equation yields
+\[
+\begin{aligned}
+  &y''+p(x)y'+q(x)y\\
+  =&((v_1'y_1)'+v_1'y_1'+{\color{blue} v_1y_1''}))+((v_2'y_2)'+v_2'y_2'+{\color{red} v_2y_2''})\\
+  &+p(x)(v_1'y_1+{\color{blue} v_1y_1'})+p(x)(v_2'y_2+{\color{red} v_2y_2'})\\
+  &+q(x)({\color{blue} v_1y_1}+{\color{red} v_2y_2})\\
+  =&((v_1'y_1)'+p(x)v_1'y_1+ v_1'y_1')\\
+  &+(v_2'y_2)'+p(x)v_2'y_2+ v_2'y_2'\\
+  =& (v_1'y_1+v_2'y_2)'+p(x)(v_1'y_1+v_2'y_2)+(v_1'y_1'+v_2'y_2').
+\end{aligned}  
+\]
+
+\subsection{Variation of Parameter}
+
+Compare with the right hand side of the nonhomogeneous equation, we may assume that $v_1$ and $v_2$ satisfy the following system of equations.
+	\[\begin{cases}
+	\red{v_1'}\blue{y_1}+\red{v_2'}\blue{y_2}&=\blue{0} ~\quad (1)\\
+	\red{v_1'}\blue{y_1'}+\red{v_2'}\blue{y_2'}&=\blue{f(x)} \quad (2)
+	\end{cases}
+	\] 
+Solving for $v_1'$ and $v_2'$ yields
+\begin{equation}
+\begin{cases}
+  v_{1}'=\dfrac{-y_{2} f(x)}{W(y_{1}, y_{2})}\\[1em]
+  v_{2}'=\dfrac{y_{1} f(x)}{W(y_{1}, y_{2})},
+\end{cases}  
+  \label{eq:5-3-3-1}
+\end{equation}
+where $W(y_1, y_2)=y_1y_2'-y_2y_1'$ is the Wronskian of $y_1$ and $y_2$.
+
+Therefore, 
+\[
+\begin{cases}
+  \displaystyle v_{1}'= \int \left(\frac{-y_{2} f(x)}{W(y_{1}, y_{2})}\right)\D x\\[1em]
+  \displaystyle v_{2}'=\int \left(\frac{y_{1} f(x)}{W(y_{2}, y_{1})}\right)\D x,
+\end{cases}  
+\]
+and a particular solution of $y''+p(x)y'+q(x)=f(x)$ is
+\[
+y=y_1 \int \left(\frac{-y_{2} f(x)}{W(y_{1}, y_{2})}\right)\D x + y_2 \int \left(\frac{y_{1} f(x)}{W(y_{2}, y_{1})}\right)\D x.
+\]
+
+The method of variation of parameters can be generalized to higher order equations.
+
+\begin{example}
+  Find a particular solution of the equation
+\[y''-3y'+2y=\frac{e^{3x}}{1+e^x}.\]
+\end{example}
+\begin{solution}
+  The characteristic polynomial of the complementary equation is
+  \[r^2-3r+2=(r-1)(r-2)=0\]
+  which has two distinct real roots, $r_1=1$ and $r_2=2$. So the complementary equation has two linearly independent solutions $y_1=e^{x}$ and \(y_2=e^{2x}\).
+  
+  A particular solution of non-homogeneous equations can be taken in the form
+  \[y_p=v_1e^{x}+v_2e^{2x},\]
+  where $v_1$ and $v_2$ are functions of $x$ that satisfy the following system of equations
+  \[
+    \begin{aligned} 
+      v_1'e^{x}+v_2'e^{2x}=&0\\ v_1'e^{x}+2v_2'e^{2x}=&\frac{e^{3x}}{1+e^x}.
+    \end{aligned}
+  \]
+  Subtracting the first equation from the second one implies 
+  \[v_2'e^{2x}=\frac{e^{3x}}{1+e^x}\]
+  So
+  \[
+    \begin{aligned}
+      v_2'=&\frac{e^x}{1+e^x}\\
+      v_2=&\int\left(\frac{e^x}{1+e^x}\right)\D x\\
+      v_2=&\ln(1+e^x)\\
+    \end{aligned}
+    \]
+  The first equation together with $v_2$ yields
+  \[
+    \begin{aligned}
+      v_1'=&-v_2'e^{x}\\
+      v_1'=&-\frac{e^{2x}}{1+e^x}\\
+      v_1=&-\int\left(\frac{e^{2x}}{1+e^x}\right)\D x\\
+      v_1=&-\int\left(e^x-\frac{e^x}{1+e^x}\right)\D x\\
+      v_1=&-e^x+\ln(1+e^x).
+    \end{aligned}
+  \]
+  Therefore
+  \[
+    \begin{aligned}
+      y_p&=v_1e^{x}+v_2e^{2x}\\
+      &=(e^x+\ln(1+e^x))e^{x}+\ln(1+e^x)e^{2x}.
+    \end{aligned}
+  \]
+\end{solution}
+
+\begin{example}
+    Find a particular solution of the equation
+    \[x(y''+ y')- 2(y'+y)=x^2\]
+\end{example}
+\begin{solution}
+  The complementary equation $x(y''+ y')- 2(y'+y)=0$ can be solved by substitution.
+  Plugging $u=y'+y$ into the complementary equation and solving for $u$ yields
+  \[
+  \begin{aligned}
+    x(y''+ y')- 2(y'+y)=&0\\
+    x u'- 2u=&0\\
+    \frac{u'}{u}=&\frac2x\\
+    \int\frac{u'}{u}\D x=&\int\frac2x\D x\\
+    \ln(u)=&\ln(x^2)+c\\
+    u=&c_1x^2\\
+  \end{aligned}  
+  \]
+  Then \[y'+y=c_1x^2.\]
+  The integrating factor is $r(x)=e^x$.
+  Therefore, applying the method of integration by parts implies
+  \[
+    \begin{aligned}
+      y_h=&\frac{1}{e^x}c_1\int\left(x^2e^x)\right)\D x\\
+      =&\frac{1}{e^x}(c_1e^x(x^2-2x+2)+c_2)\\
+      =&c_1(x^2-2x+2)+c_2e^{-x}
+    \end{aligned}
+  \]
+
+  Let $y_1=x^2-2x+2$ and $y_2=e^{-x}$. Both of them are solutions of the complementary equation. Since $y_1'=2x-2$, $y_2'=-e^{-x}$ and the Wronskian is 
+  \[
+  \begin{aligned}
+    W(y_1, y_2)=&y_1y_2'-y_1'y_2\\
+    =&-(x^2-2x+2)e^{-x}-(2x-2)e^{-x}\\
+    =&(-x^2-4x+2)e^{-x}\ne 0,
+  \end{aligned}  
+  \]
+  they are linearly independent.
+
+  A particular solution of non-homogeneous equations can be taken in the form
+  \[y_p=v_1(x^2-2x+2)+v_2e^{-x},\]
+  where $v_1$ and $v_2$ are functions of $x$ that satisfy the following system of equations
+  \[
+    \begin{aligned} 
+      v_1'(x^2-2x+2)+v_2'e^{-x}=&0\\ 
+      v_1'(2x-2)-v_2'e^{-x}=&x^2.
+    \end{aligned}
+  \]
+  The sum of the two equations yields
+  \[
+  \begin{aligned}
+    x^2v_1'=&x^2\\
+    v_1'=&1\\
+    v_1=&x\\
+  \end{aligned}  
+  \]
+  Then $v_2$ satisfies
+  \[
+    \begin{aligned}
+      v_2'e^{-x}=&-v_1'(x^2-2x+2)\\
+      v_2'=&-(x^2-2x+2)e^{x}\\
+      v_2=&-\int\left((x^2-2x+2)e^{x}\right)\D x\\
+      v_2=&-\int\left((x^2-2x+2)e^{x}\right)\D x\\
+      v_2=&-e^{-x}(x^2-4x+6).
+    \end{aligned}
+  \]
+
+  Therefore,
+  
+  Therefore,
+  \[y_p=x(x^2-2x+2)-e^{-x}e^x(x^2-4x+6)=x^3-3x^2+6x-6\]
+  is a particular solution.
+\end{solution}
+
+\begin{exercise}
+Find a particular solution of
+\[x^2 y'' -  x y' + y =x^3,\]
+using variation of parameter. It is known that  $y_1 = x$ and $y_2=x\ln x$ are linearly independent solutions of the complementary equation.\\
+\end{exercise}
+\begin{exersol}
+We first write the equation in standard form:
+\[y''-\frac{1}{x}y'+\frac{1}{x^2}y=x\]
+Since $y_1 = x$ and $y_2=x\ln x$ are linearly independent solutions of the complementary equation, a particular solution of the equation can be written as
+\[y_p=v_1x+v_2x\ln x,\]
+where $v_1$ and $v_2$ are functions of $x$.
+
+We will find $v_1$ and $v_2$ under the following conditions:
+\[
+  \begin{cases}
+v_1'x+v_2'x\ln x &=0 ~\quad (1)\\
+v_1'+v_2'(1+\ln x) &=x \quad (2)
+\end{cases}
+\] 
+The first derivatives $v_1'$ and $v_2'$ can be solved by the elimination method.
+Subtracting the product of Equation (1) with $(1+\ln x)$ from the product of Equation (2) with $x\ln x$ implies
+\[v_1'=-x\ln x\]
+Applying integration by parts yields 
+\[v_1=-\frac{1}{2}x^2\ln x+\frac{x^2}{4}.\]
+
+Plugging $v_1'$ into Equation (1) implies
+\[v_2'=x.\]
+Then 
+\[v_2=\frac12x^2.\]
+Therefore, a particular solution is
+\[y_p=(-\frac{1}{2}x^2\ln x+\frac{x^2}{4})x+\frac{1}{2}x^3\ln x=\frac{x^3}{4}.\]
+\end{exersol}
+
+\begin{exercise}
+  Find the general solution to
+  \[  y'' -  y =  e^x\]
+  using variation of parameter.
+\end{exercise}
+\begin{exersol}
+The complementary homogenous equation 
+\[y'' -  y =  0,\]
+has the general solution is
+\[y= {c_1} e^x + {c_2}e^{-x}.\]
+We look for a particular solution of the form \[y_p={v_1(x)}e^x+{v_2(x)}e^{-x}.\]
+
+Consider the following system of equations of $v_1$ and $v_2$:
+\[
+  \begin{cases}
+v_1'e^x+v_2'e^{-x}&=0\\
+v_1'e^x+(-1)v_2'e^{-x}&=e^x
+\end{cases}
+\]
+Solving for $v_1'$ and $v_2'$ yields
+\[v_1'=\frac{1}{2} \qquad\text{ and }\qquad v_2'=-\frac{1}{2}e^{2x}.\]
+Direct integrations implies that 
+\[v_1=\frac{1}{2}x \qquad\text{ and }\qquad v_2=-\frac{1}{4}e^{2x}.\]
+Therefore, a particular solution is
+\[y_p=\frac{1}{2}xe^x+(-\frac{1}{4}e^{2x})e^{-x}=\frac{1}{2}xe^x-\frac{1}{4}e^{x}.\]
+By Theorem \ref{thm:generalsol2ndlinear}, the general solution of the original equation is
+\[y= \frac{1}{2}xe^x-\frac{1}{4}e^{x}+ c_1 e^x + c_2 e^{-x}.\]
+\end{exersol}
+
+
+\subsection{Reduction of Order}
+You may wonder if there is another way to find $v_1$ and $v_2$ other than using the system of equation \eqref{eq:5-3-3-1}. The answer is yes.
+We may take $v_2=0$, then $v_1$ will be solution of the following equation
+\[(v_1'y_1)'+p(x)v_1'y_1+v_1'y_1'=f(x).\]
+Setting $z=v_1'$. The equation can be reduce to a linear first order equation of $z$:
+\[z'y_1 + z(p(x)y_1+2y_1')=f(x),\]
+or equivalently (assuming $y_1\not\equiv 0$)
+\[z'+z(p(x)+2\ln(y_1))=\frac{f(x)}{y_1}.\]
+By the method of integrating factor, 
+\[z=e^{-\int(p(x)+2\ln(y_1))\D x}\int\left(\left(\frac{f(x)}{y_1}\right)e^{\int(p(x)+2\ln(y_1))\D x}\right)\D x\]
+Hence,
+\[v_1=\int\left(e^{-\int(p(x)+2\ln(y_1))\D x}\int\left(\left(\frac{f(x)}{y_1}\right)e^{\int(p(x)+2\ln(y_1))\D x}\right)\D x\right)\D x.\]
+
+
+To summarize, we may use the variation of parameter with a particular solution of the complementary equation of a liner second order equation to find a particular solution. 
+
+However, this method only works for second order equations.
+
+\begin{example}
+  Find a particular solution of the equation
+  \[y'' + y = \tan x.\]
+\end{example}
+\begin{solution}
+  The complementary equation $y''+y=0$ has a solution $y=\cos x$.
+  Assume $y=u\cos x$ is a solution of $y'' + y = tan x$.
+  Then, the function $u$ of $x$ satisfies the following equation
+  \[
+  \begin{aligned}
+    (u\cos x)''+ u\cos x=&\tan x\\
+    (u'\cos x-u\sin x)' + u\cos x=&\tan x\\
+    (u''\cos x-u'\sin x) - (u'\sin x+u\cos x)+u\cos x=&\tan x\\
+    u''\cos x - 2u'\sin x =&\tan x
+  \end{aligned}  
+  \]
+  Let $z=u'$, then $z$ satisfies
+  \[z'\cos x - 2z\sin x=\tan x,\]
+or
+\[z' - 2z\frac{\sin x}{\cos x}=\frac{\sin x}{\cos^2 x}.\]
+
+As a linear first order equation, it can be solved by the method of integrating factor.
+Since the coefficient of $z$ is $-\frac{2\sin x}{\cos x}$, an integrating factor is
+\[r(x)=e^{\int \frac{-2\sin x}{\cos x}\D x}=\cos^2 x.\]
+Multiplying both sides of the equation of $z$ yields
+\[
+\begin{aligned}
+  (z\cos^2 x)'=&\cos^2x\cdot\frac{\sin x}{\cos^2 x}\\
+  z\cos^2 x=&\int \sin x \D x\\
+  z\cos^2 x=&-\cos x\\
+  z=-\frac{1}{\cos x}&
+\end{aligned}  
+\]
+Therefore,
+\[
+\begin{aligned}
+  u'=&z\\
+  u=&\int\left(-\frac{1}{\cos x}\right)\D x\\
+  u=&-\int \frac{1}{\cos^2 x}\D(\sin x)\\
+  u=&-\int \frac{1}{1-\sin^2 x}\D(\sin x)\\
+  u=&-\frac12\int\left(\frac{1}{1-\sin x}+\frac{1}{1+\sin x}\right)\D(\sin x)\\
+  u=&-\frac12\ln\left(\frac{1+\sin x}{1-\sin x}\right)\\
+\end{aligned}  
+\]
+Thus, the original equation has a solution
+\[y=-\frac12\cos x\ln\left(\frac{1+\sin x}{1-\sin x}\right).\]
+\end{solution}
+
+\begin{exercise}
+  Find a particular solution of the equation
+\[x^2 y'' -  x y' + y =x^3.\]
+\end{exercise}
+\begin{exersol}
+  The complementary equation 
+  \[x^2 y'' -  x y' + y=0\]
+  has a solution $y=x$. This can be found by guessing, or by a decomposition similar to the proof of Theorem \ref{thm:constcoef2ndorder}.
+
+  Suppose a particular solution is of the form
+\[y = x u.\] 
+Then
+\[y' = x u '+  u\]
+and 
+\[y'' = x u'' + 2 u'.\]
+Hence,
+\[x^2y'' - xy' + y = x^2 ( x u'' + 2 u')    - x (xu' + u) + xu = x^3 u''  + x^2 u'\]
+Therefore, $y= x u$ is a solution if 
+\[x^3 u''  + x^2  u' = x^3, \]
+or
+\[u''  + \frac{1}{x}  u' = 1.\]
+
+To solve this second order equation for $u$, set $v = u'$. The equation become a first order linear equation of $v$
+\[v' + \frac{1}{x} v =1.\]
+The integrating factor is 
+\[r(x)= e^{\int  \frac{1}{x} \D x} = e^{\ln x} = x.\]
+Then 
+\[v =\frac{1}{x}\int x \D x= \frac{x}{2} + c_1\frac{1}{x}\]
+Therefore,
+\[ 
+  \begin{aligned}
+    u' =&\frac{x}{2} + c_1\frac{1}{x}\\
+    u =& \frac{x^2}{4} + c_1 \ln x + c_2
+  \end{aligned}
+\]
+and 
+\[y = xu =  \frac{x^3}{4} + c_1 x \ln x+ c_2 x.\]
+\end{exersol}

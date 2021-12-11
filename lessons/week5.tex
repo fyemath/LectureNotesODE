@@ -1,0 +1,796 @@
+% !TEX root = ../main.tex
+\chapter{Linear Second Order Equations}
+\chapterdate{10/4--10/7}
+
+\section{Homogeneous Linear Second Order Equations}
+
+\subsection{Basic concepts}
+The standard form of a second order equation is 
+\[y''(x) = f(x,y(x),y'(x)).\]
+
+We often write it simply as 
+\[y''= f(x,y,y')\]
+when it is understood that $x$ is the variable and $y$ is the unknown.
+
+For a 2nd order equation, the initial value problem is of the form
+\[
+  \begin{cases}
+    & y''= f(x,y,y').\\
+    & y(x_0)   =   y_0.\\
+    & y'(x_0) = y_1
+  \end{cases}
+\]
+That is, in additional to the equation, the values of the function and its first derivative are given at a point.
+
+A second order differential equation is said to be \dfn{linear} if it can be written in the following form:
+\[y'' + p(x) y' + q(x) y = f(x).\]
+
+We say that a linear second order equation is \dfn{homogeneous} if $f\equiv0$, that is, the equation can be written in the following form.
+\[y'' + p(x) y' + q(x) y = 0.\]
+
+\begin{example}
+Determine the whether the following equations are linear and/or homogeneous: 
+\begin{enumerate}
+	\item $2xy''+x^2y'-(\sin x)y=x^3$;  
+	\item $yy''+xy'=x^2$;
+	\item $2e^xy''+y=0$.
+\end{enumerate}  
+\end{example}
+\begin{solution}
+  \begin{enumerate}
+    \item Linear but non-homogeneous;
+    \item Nonlinear;
+    \item Linear and homogeneous.
+  \end{enumerate}	
+\end{solution}
+
+\subsection{Existence and uniqueness of solutions}
+
+The good thing about linear equations is the existence and uniqueness question has a nice and simple answer.
+
+\begin{theorem}\label{thm:SeconOrderUniqueness}
+  Suppose $p$ and $q$ are continuous on an open interval $(a,b),$ let $x_0$ be any point in $(a,b),$ and let $k_0$ and $k_1$ be arbitrary real numbers$.$ Then the initial value problem
+\[y''+p(x)y'+q(x)y=f(x),\ y(x_0)=k_0,\ y'(x_0)=k_1\]
+has a unique solution on $(a,b).$
+\end{theorem}
+The proof of this theorem also relies on Picard’s method of successive approximations. 
+We refer the reader to \autocite[Chapter 13]{Simmons2016} for a proof.
+
+\begin{example}
+Consider the equation
+\[y''-y=0.\]
+
+\begin{enumerate}
+  \item Find the general solution.
+\item Given that $y(0)=1$ and $y'(0)=3$, find the specific solution to this initial value problem.
+\item Determine if this example verifies the existence and uniqueness theorem.
+\end{enumerate}
+\end{example}
+\begin{solution}
+  \begin{enumerate}
+    \item The equation can be solved using substitutions. First let $z=y'+y$, then
+    \[\begin{aligned}
+      y''-y=&0\\
+      z'-y'-y=&0 \qquad \text{where }~  z=y'+y\\
+      z'-z=&0\\
+      z'=&z\\
+      \frac{z'}{z}=&1\\
+      z=&2c_1e^{x}
+      \end{aligned}
+      \]
+      Here, we use $2c_1$ so that in the next substitution no fraction will appear.
+      Now, let $u = y- c_1e^{x}$, then
+      \[
+      \begin{aligned}
+      y'+y=&2c_1e^{x}\\
+      u'=&-u\qquad\text{where }~ u = y- c_1e^{x} \\
+      \frac{u'}{u}=&-1\\
+      u=&c_2e^{-x}\\
+      y-c_1e^x=&c_2e^{-x}\\
+      y=&c_1e^x+c_2e^{-x}
+    \end{aligned}
+    \]
+    So the general solution is $y=c_1e^x+c_2e^{-x}$.
+
+    \item The constants $c_1$ and $c_2$ are determined by the initial conditions $y(0)=1$ and $y'(0)=3$.
+    Setting $x=0$ in the functions $y$ and $y'$ yields
+    \[
+      \begin{aligned}
+        c_1+c_2&=1\\ c_1-c_2&=3.
+      \end{aligned}
+    \]
+    Solving the system of equations yields $c_1=2$ and $c_2=-1$. Therefore, $y=2e^x-e^{-x}$ is the unique solution of the equation $y''-y=0$ on $(-\infty,\infty)$.
+    
+    \item Because the coefficient of $y'$ and $y$ are constant, hence continuous on $(-\infty,\infty)$. The theorem asserts that there is an unique solution on $(-\infty, \infty)$ which is also confirmed by the above solution.
+  \end{enumerate}
+\end{solution}
+
+Note that in the above example, both $y=e^x$ and $y=e^{-x}$ are solution of the equation $y''-y=0$. This observation suggests an approach of solving linear second order equations.
+
+\subsection{The general solution}
+
+If you know linear algebra, you will find some similarity between solutions of linear systems and differential equations.
+
+
+\begin{theorem}
+  Let $y_1$ and $y_2$ be two solutions of the homogeneous and linear second order equation
+\[y'' + p(x) y' + q(x) y = 0.\]
+Then, for any real numbers $c_1$ and $c_2$, the linear combination $y= c_1 y_1 + c_2 y_2$ is also a solution. 
+\end{theorem}
+The theorem indeed follows from the fact that differentiations are linear.
+\begin{proof}
+By the linearity of differentiation, the first and second derivative of $y= c_1 y_1 + c_2 y_2$ are 
+\[
+\begin{aligned}
+y' = &c_1 y_1' + c_2 y_2'\\
+y'' = &c_1 y_1'' + c_2 y_2''.
+\end{aligned}
+\]
+Since $y_1$ and $y_2$ are solutions, the following equalities hold true
+\[
+  \begin{aligned}
+    y_1'' + p(x) y_1' + q(x) y_1 =& 0,
+    y_2'' + p(x) y_2' + q(x) y_2 =& 0.
+  \end{aligned}
+\]
+Therefore,
+\[  
+\begin{aligned}
+&y'' + p(x) y' + q(x) y \\
+= & c_1 y_1'' + c_2 y_2'' + p(x) (c_1 y_1' + c_2 y_2') + q(x) (c_1y_1 + c_2 y_2) \\
+= & c_1 (y_1'' + p(x) y_1' + q(x) y_1) + c_2( y_2'' + p(x) y_2' + q(x) y_2 ) \\
+= &0,
+\end{aligned}
+\]
+that is, $y=c_1 y_1 + c_2 y_2$ is a solution too.
+\end{proof}
+
+Bases on the above theorem, you may wonder whether every solution of $y'' + p(x) y' + q(x) y = 0$ can be written in the form $y=c_1 y_1 + c_2 y_2$. The answer is affirmative if $y_1$ and $y_2$ are linearly independent. Two functions $y_1$ and $y_2$ are said to be \dfn{linearly independent} if there is no constant number $c$ such that $y_1=cy_2$ or $y_2=cy_1$. 
+
+\begin{theorem}\label{thm:generalsolutionlinearsecondorder}
+If $y_1$ and $y_2$ are two linearly independent solutions of the homogeneous equation
+\[y'' + p(x) y' + q(x) y = 0,\]
+then the general solution of the above equation is of the form 
+\[y=c_1 y_1 + c_2 y_2\]
+\end{theorem}
+For a complete proof, the reader may read Section 15 in the book ``Differential equations with applications and historical notes" by George F. Simmons. 
+The following is a rough idea.
+
+By the uniqueness of the solution (Theorem \ref{thm:SeconOrderUniqueness}), to show that any solution $y$ can be written as $c_1y_1+c_2y_2$, it suffices to show that, for some $x_0$, the following system of equations for $c_1$ and $c_2$ is solvable
+  \[
+    \begin{cases}
+      c_{1} y_{1}(x_{0})+c_{2} y_{2}(x_{0})=y(x_{0})
+      \\
+      c_{1} y_{1}'(x_{0})+c_{2} y_{2}'(x_{0})=y'(x_{0}).
+    \end{cases}
+  \]
+  From linear algebra, or college algebra, we know that the system is solvable if the determinant
+  \begin{equation}
+  \begin{vmatrix}
+    y_{1}(x_{0}) & y_{2}(x_{0}) \\
+  y_{1}'(x_{0}) & y_{2}'(x_{0})
+  \end{vmatrix}
+  :=y_{1}(x_{0}) y_{2}'(x_{0})-y_{2}(x_{0}) y_{1}'(x_{0}) \label{eq:5-1-1}
+  \end{equation}
+  is nonzero.
+
+  To show that the linear independence implies the nonzero of the determinant, we will need to study the following function.
+
+The function of $x$ defined by
+\[W(y_1, y_2) = \begin{vmatrix}
+  y_{1} & y_{2} \\
+y_{1}' & y_{2}'
+\end{vmatrix} = y_1y_2'- y_2y_1'\]
+is called the \dfn{Wronskian determinant} or simply \dfn{Wronskian} of $y_1$ and $y_2$.
+
+Wronskians has the following properties.
+
+\begin{lemma}\label{lem:WronskianIntp}
+  Suppose $p$ and $q$ are continuous on $(a,b),$ let $y_1$ and $y_2$ be solutions of
+\[y''+p(x)y'+q(x)y=0\]
+on $(a,b)$.
+
+Let $x_0$ be any point in $(a,b)$. Then
+\[W(x)=W(x_0) e^{-\int^x_{x_0}p(t)\D t}, \quad a<x<b,\]
+which is called Abel's formula.
+
+Therefore, the Wronskian $W$ is either identically zero or never zeros on $(a,b)$.
+\end{lemma}
+\begin{proof}
+Let $y_1$ and $y_2$ be two solutions of the homogeneous and linear second order equation. Then
+\begin{equation}
+y_1''+p(x)y_1'+q(x)y_1=0, \label{eq:5-1-2}
+\end{equation}
+\begin{equation}
+y_2''+p(x)y_2'+q(x)y_2=0. \label{eq:5-1-3}
+\end{equation}
+Multiplying equation \ref{eq:5-1-2} by $y_2$ and equation \ref{eq:5-1-3} by $y_1$ and taking the difference of the resulting equations yields
+\[y_1''y_2-y_2''y_1+p(x)y_1'y_2-y_2'y_1=0.\]
+Note that 
+\[
+\begin{aligned}
+&(y_1'y_2-y_2'y_1)'\\
+=&(y_1''y_2+y_1'y_2')-(y_1''y_2+y_1'y_2')\\
+=&y_1''y_2-y_2''y_1.
+\end{aligned}
+\]
+Let $W=y_1y_2'-y_2y_1'$. Then
+\[-W'-p(x)W=0.\]
+Solving the equation yields that the general solution is
+\[W=e^{\int -p(x)\D x}.\]
+If $W(x_0)$ is given, then a specific solution is
+\[W=W(x_0)e^{\int_{x_0}^x -p(t)\D t}.\]
+
+Since $e^{\int_{x_0}^x p(t)\D t}$ in nonzero for all $x$, $W(x)$ is identically zero if $W(x_0)=0$, or $W(x)$ is never zero if $W(x_0)\ne 0$.
+\end{proof}
+
+The above lemma also implies the following useful result.
+
+\begin{corollary}
+The following are equivalent
+\begin{enumerate}
+    \item $W(x)$ is identically zero.
+    \item $W(x_0)$ is zero for some $x_0$.
+\end{enumerate}
+\end{corollary}
+
+With the above properties of Wronskian, one can show that linear dependence is equivalent to that $W(x)\equiv 0$.
+
+\begin{lemma}
+  If $y_{1}$ and $y_{2}$ are two solutions of equation $y'' + p(x) y' + q(x) y = 0$, then they are {\color{red}linearly dependent} if and only if their Wronskian $W(y_{1}, y_{2})=y_{1} y_{2}'-y_{2} y_{1}'$ is {\color{red}identically zero}.
+\end{lemma}
+
+Theorem \ref{thm:generalsolutionlinearsecondorder} follows from the above lemma. Because linear independence implies that $W(x_0)\ne 0$ for some $x_0$, which implies the system of equations \eqref{eq:5-1-1} has a nontrivial solution.
+
+
+\begin{example}
+  Consider the equation 
+  \[y'' - 3y' + 2y =0\]
+  Determine whether
+  \[y= c_1 e^x + c_2 e^{2x}\]
+  is the general solution, where $c_1$ and $c_2$ are arbitrary constants.
+  \end{example}
+  \begin{solution}
+    To see if $y= c_1 e^x + c_2 e^{2x}$ is the general solution, it suffices to check that $y_1=e^x$ and $y_2=e^{2x}$ are two linearly independent solutions.
+    Since 
+    \[(e^x)''-3(e^x)'+2e^x=e^x-3e^x+2e^x=0\]
+    and
+    \[(e^{2x})''-3(e^{2x})'+2e^{2x}=4e^{2x}-6e^{2x}+2e^{2x}=0,\]
+    both $y_1$ and $y_2$ are solutions.
+  
+    As there is no constant number $c$ such that the equations $e^x=ce^{2x}$ and $ce^x=e^{2x}$ hold true for all $x$, the functions $y_1$ and $y_2$ are linearly independent.
+  
+    Therefore, $y= c_1 e^x + c_2 e^{2x}$ is the general solution.
+  \end{solution}
+  
+  Note the equation $y'' - 3y' + 2y =0$ again can be solve using substitutions (try it as an exercise).
+  
+  \begin{example}
+  Verify Abel’s formula for the following differential equations and the corresponding solutions.
+  \[y''-y=0;\quad y_1=e^x,\; y_2=e^{-x}.\]
+  \end{example}
+  \begin{solution}
+  Since $p\equiv0$, the integral $\int p(x)\D x$ is a constant. A direct calculation shows that 
+  \[W(x)=\begin{vmatrix}
+    e^x & e^{-x} \\ e^x & -e^{-x}
+  \end{vmatrix}=e^x(-e^{-x})-e^xe^{-x}=-2 \]
+  for all $x$.
+  This verifies Abel's formula.
+  \end{solution}
+  \begin{exercise}
+  Verify Abel’s formula for the following differential equations and the corresponding solutions,
+  \[y''+ y=0;\quad y_1=\cos x,\; y_2=\sin x.\]
+  \end{exercise}
+  \begin{exersol}
+  Since $p\equiv0$, we can verify Abel’s formula by showing that $W$ is constant. A direct calculation shows that 
+  \[\begin{aligned} W(x)&=
+  \begin{vmatrix}
+    \cos x & \sin x \\ -\sin x & \cos x
+  \end{vmatrix}\\
+  &=\cos^2x-\sin x(-\sin x)\\
+  &=1
+  \end{aligned}\]
+  for all $x$.
+  \end{exersol}
+
+  
+\subsection{The reduction of order method*}\label{sec:ReductionOfOrder}
+Lemma \ref{lem:WronskianIntp} also provides a way of finding the another solution $y_2$ given a solution $y_1$.
+
+\begin{proposition}\label{prop:WronskianNewSol}
+Suppose $y_1$ is a solution to $y'' + p(x) y' + q(x) y = 0$. Then a function $y_2$ is a solution if and only if
+\[
+  y_2(x) = y_1(x) \int \frac{e^{-\int p(x)\,\D x}}{{\bigl(y_1(x)\bigr)}^2} \D x.
+\]
+\end{proposition}
+\begin{proof}
+Let $y_1$ is a solution. If $y_2$ is another solution, then
+\[
+y_1y_2'-y_1'y_2=W=e^{\int p(x)\D x}.
+\]
+Note that $y_1y_2'-y_1'y_2=y_1^2\left(\frac{y_2}{y_1}\right)'$. 
+This equation can be solved by a linear substitution $z=\frac{y_2}{y_1}$.
+Indeed, since $z'=\frac{y_2'y_1-y_2y_1'}{y_1^2}$, the equation can be rewritten as
+\[y_1^2z'=e^{\int p(x)\D x}.\]
+Dividing both sides by $y_1^2$ and integrating directly yields
+\[\frac{y_2}{y_1}=z=\int\left(\dfrac{e^{-\int p(x)\D x}}{y_1^2}\right)\D x.\]
+Hence,
+\[y_2(x) = y_1\int \frac{e^{-\int p(x)\D x}}{{\bigl(y_1\bigr)}^2} \D x.\]
+
+Conversely, by the Fundamental Theorem of Calculus,
+\[y_2'=y_1' \int \frac{e^{-\int p(x)\D x}}{\bigl(y_1\bigr)^2} \D x + \frac{e^{-\int p(x)\D x}}{y_1}\]
+and
+\[
+\begin{aligned}
+y_2''=&y_1'' \int \frac{e^{-\int p(x)\D x}}{\bigl(y_1\bigr)^2} \D x + y_1' \frac{e^{-\int p(x)\D x}}{\bigl(y_1\bigr)^2} + \frac{-p(x)e^{-\int p(x)\D x}y_1-y_1'e^{-\int p(x)\D x}}{y_1^2}.\\
+=&y_1'' \int \frac{e^{-\int p(x)\D x}}{\bigl(y_1\bigr)^2} \D x - \frac{p(x)e^{-\int p(x)\D x}}{y_1}.
+\end{aligned}
+\]
+Therefore,
+\[
+\begin{aligned}
+&y_2''+p(x)y_2'+y_2\\
+=& y_1'' \int \frac{e^{-\int p(x)\D x}}{\bigl(y_1\bigr)^2} \D x - \frac{p(x)e^{-\int p(x)\D x}}{y_1}\\
+&+p(x)\left(y_1' \int \frac{e^{-\int p(x)\D x}}{\bigl(y_1\bigr)^2} \D x +\frac{e^{-\int p(x)\D x}}{y_1}\right) + q(x)y_1 \int \frac{e^{-\int p(x)\D x}}{{\bigl(y_1\bigr)}^2} \D x\\
+=& y_1'' \int \frac{e^{-\int p(x)\D x}}{\bigl(y_1\bigr)^2} \D x 
++ p(x) y_1' \int \frac{e^{-\int p(x)\D x}}{\bigl(y_1\bigr)^2} \D x
++q(x)y_1 \int \frac{e^{-\int p(x)\D x}}{{\bigl(y_1\bigr)}^2} \D x\\
+=& \bigl(y_1'' + p(x) y_1' + q(x)y_1\bigr)\int \frac{e^{-\int p(x)\D x}}{{\bigl(y_1\bigr)}^2} \D x\\
+=&0.
+\end{aligned}
+\]
+So $y_2$ is also a solution.
+\end{proof}
+
+\begin{example}
+Consider the equation
+\[x^2y'' + xy' - y=0.\]
+\begin{enumerate}
+  \item Guess a solution and find another solution that is linearly independent to it.
+  \item Find the general solution.
+\end{enumerate}
+\end{example}
+\begin{solution}
+Let $y_1=x$. Then it is a solution.
+Rewrite the equation so that the leading coefficient is 1:
+\[y'' + \frac{y'}{x} - \frac{y}{x^2}=0.\]
+So $p(x)=\frac1x$.
+By the proposition, another solution can be calculated as follows
+\[
+\begin{aligned}
+y_2=&y_1\int\left(\frac{e^{-\int p(x)\D x}}{y_1^2}\right)\D x\\
+=&x\int\left(\frac{e^{-\int\frac1x \D x}}{x^2}\right)\D x\\
+=&x\int\left(\frac{x^{-1}}{x^2}\right)\D x\\
+=&x\int\left(\frac{1}{x^3}\right)\D x\\
+=&x\left(-\frac{1}{2x^2}\right)\\
+=&-\frac{1}{2x}.
+\end{aligned}
+\]
+It's not so hard to check that $x$ and $\frac1{2x}$ are linearly independent.
+
+Therefore, the function $y=c_1x+\frac{c_2}{x}$ is the general solution.
+\end{solution}
+\begin{exercise}
+Consider the equation
+\[xy'' - y'=0.\]
+\begin{enumerate}
+  \item Guess a solution and find another solution that is linearly independent to it.
+  \item Find the general solution.
+\end{enumerate}
+\end{exercise}
+\begin{exersol}
+  Clearly, the constant function $y_1=1$ is a solution.
+Rewrite the equation so that the leading coefficient is 1:
+\[y'' - \frac{y'}{x}=0.\]
+So $p(x)=-\frac1x$.
+By the proposition, another solution can be calculated as follows
+\[
+\begin{aligned}
+y_2=&y_1\int\left(\frac{e^{-\int p(x)\D x}}{y_1^2}\right)\D x\\
+=&\int e^{\int\frac1x \D x} \D x\\
+=&\int e^{\ln x} \D x\\
+=&\int x\D x\\
+=&\frac{x^2}{2}\\
+\end{aligned}
+\]
+If there are numbers such that $c_1y_1+c_2y_2=$, then $c_1+c_2\frac{x^2}{2}=0$ for all $x$, which can only hold true if $c_1=c_2=0$. Therefore, $y_1$ and $y_2$ are linearly independent.
+
+Therefore, the function $y=c_1+c_2x^2$ is the general solution.
+\end{exersol}
+
+\section{Constant Coefficient Homogeneous Equations}
+
+A linear second order differential equation is said to be a \dfn{constant coefficient equation} if it can be written as
+\[y''+ay'+by=f(x),\]
+where $a$ and $b$ are constant real numbers.
+
+In this section, we consider the homogeneous constant coefficient equation
+\[y''+ay'+by=0.\]
+
+How to solve this type of equations? Recall, by Theorem \ref{thm:generalsolutionlinearsecondorder}, if $y_1$ and $y_2$ are two solutions not proportional to each other, then $y=c_1y_1+c_2y_2$ is the general solution. The question is how to find two linearly independent solutions.
+
+Since $a$ and $b$ are constants, a solution function has to have the same "degree" as its derivatives. We know such a function, $y=e^{rx}$.
+Plugging it into the equation $y''+ay'+by=0$ yields
+\[
+\begin{aligned}
+  (e^{rx})''+a(e^{rx})'+be^{rx}=&0\\
+  r(e^{rx})'+are^{rx}+be^{rx}=&0\\
+  r^2e^{rx}+are^{rx}+be^{rx}=&0\\
+  r^2+ar+b=&0\\
+\end{aligned}
+\]
+So $r$ is a solution of the quadratic equation $x^2+ax+b=0$.
+
+We call $p(r)=r^2+ar+b$ the \dfn{characteristic polynomial} of the equation $y''+ay'+by=0$. The quadratic equation $p(r)=0$ is called the \dfn{characteristic equation}.
+
+\begin{example}
+Consider the equation 
+\[  y'' - y' - 2y =0.\]
+Find the general solution.
+\end{example}
+\begin{solution}
+We expect that $y= e^{rx}$ to be a solution for some $r$. Since 
+\[
+\begin{split} 
+y' =& r e^{rx} \\
+y''=& r^2  e^{rx} 
+\end{split}
+\]
+Then
+\[y'' - y' - 2y =  r^2  e^{rx}  - r e^{rx} - 2 e^{rx} = (r^2 - r -2) e^{rx}.\]
+Therefore, $y= e^{rx}$ is a solution if and only if 
+\[(r^2 - r -2)e^{rx}=0.\]
+Equivalently, 
+\[r^2 - r -2=0.\]
+Solving the equation by the factorization \[r^-r-2r=(r+1)(r-2)\]
+yields, $r=-1$ or $r=2$.
+Therefore, $y= e^{-x}$ and $y=e^{2x}$
+are both solutions. Moreover, if there are numbers $d_1$ and $d_2$ such that
+\[d_1e^{-x}+d_2e^{2x}=0\]
+Then 
+\[d_1+d_2e^{3x}=0\]
+equivalently, $d_1=0$ and $d_2=0$. Therefore, the two solutions are linearly independent. Hence the general solution is 
+\[y = c_1 e^{-x} + c_2 e^{2x}.\]
+\end{solution}
+
+The methods used in this example works well if $r_1$ and $r_2$ are two distinct real root. 
+If $r_1=r_2$, then the \href{sec:ReductionOfOrder}{method of reduction of order} will be needed.
+If $r_1$ and $r_2$ are two conjugate complex solutions, the Euler's formula and the fact that $a+\mathrm{i}b=0$ if and only if $a=0$ and $b=0$ will be need.
+
+The equation can also be solved using decomposition and substitution as follows.
+Let $r_1$ and $r_2$ be two roots of the characteristic equation. Then
+\[y''+ay'+by=(y'-r_1y)'+r_2(y'-r_1y).\]
+Using this decomposition, we can reduced the equation $y''+ay'+by=0$ to first order equations by the substitution $z=y'-r_1y$.
+
+\begin{theorem}\label{thm:constcoef2ndorder}
+  Let $p(r)=r^2+ar+b$ be the \dfn{characteristic polynomial} of
+\[y''+ay'+by=0.\]
+\begin{enumerate}
+  \item If $p(r)=0$ has distinct real roots $r_1$ and $r_2,$ then the general solution of the equation is 
+  \[y=c_1e^{r_1x}+c_2e^{r_2x}.\]
+  \item If $p(r)=0$ has a repeated root $r$ then the general solution of the equation is 
+  \[y=e^{rx}(c_1+c_2x).\]
+  \item If $p(r)=0$ has complex conjugate roots $r_1=\alpha+\mathrm{i}\beta$ and $r_2=\alpha-\mathrm{i}\beta$, where $\beta>0$, then the general solution of the equation is 
+  \[y=e^{\alpha x}(c_1\cos\beta x+c_2\sin\beta x).\]
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Let $r_1$ and $r_2$ be two roots of the characteristic equation 
+\[r^2+ar+b=0.\]
+Then
+\[
+\begin{aligned}
+  y''+ay'+by=&y''-(r_1+r_2)y'+r_1r_2 y\\
+  =&(y''-r_1y')-r_2(y'-r_1 y)\\
+  =&(y'-r_1y)'-r_2(y'-r_1 y)
+\end{aligned} 
+\]
+Therefore, the equation $y''+ay'+by$ can be reduced to first order differential equations by the substitution $z=y'-r_1y$:
+\[
+\begin{aligned}
+  y''+ay'+by=&0\\
+  (y'-r_1y)'-r_2(y'-r_1 y)=&0\\
+  z'-r_2z=&0\\
+  \frac{z'}{z}=&r_2\\
+  z=&c_1e^{r_2x}.
+\end{aligned}  
+\]
+Thus,
+\[y'-r_1y=c_1e^{r_2x}.\]
+Since the coefficients of $y'$ and $y$ are 1 and $-r_1$ respectively, the integrating factor is
+\[r(x)=e^{\int(-r_1)\D x}=e^{-r_1x}.\]
+Therefore,
+\[
+  \begin{aligned}
+    y'-r_1y=&c_1e^{r_2x}\\
+    e^{-r_1x}y'-r_1e^{-r_1x}y=&c_1e^{-r_1x}e^{r_2x}\\
+    (ye^{-r_1x})'=&c_1e^{-r_1x}e^{r_2x}\\
+    ye^{-r_1x}=&c_1\int e^{(r_2-r_1)x}\D x\\
+    y=&c_1e^{r_1x}\int e^{(r_2-r_1)x}\D x
+  \end{aligned}
+\]
+
+If $r_1=r_2=r$, then 
+\[\int e^{(r_2-r_1)x}\D x=\int \D x=x+c.\]
+Therefore, the general solution is 
+\[y=c_1e^{rx}+c_2xe^{rx}\]
+
+If $r_1\ne r_2$, then
+\[\int e^{(r_2-r_1)x}\D x=\frac{e^{(r_2-r_1)x}}{r_2-r_1}+c\]
+Therefore, the general solution is 
+\[y=c_1e^{r_1x}+c_2e^{r_2x}.\]
+
+If $r_1$ and $r_2$, are real numbers, then $y=c_1e^{r_1x}+c_2e^{r_2x}$ is a real-valued function and is the general solution. 
+
+If $r_1=\alpha +\mathrm{i}\beta$ and $r_2=\alpha - \mathrm{i}\beta$ are complex numbers, then $y=c_1e^{r_1x}+c_2e^{r_2x}$ is a solution but it is a complex-valued function. We want to find a real-valued function from it.
+
+Euler’s formula says
+\[e^{\mathrm{i}x}=\cos x+\mathrm{i}\sin x \qquad e^{-\mathrm{i}x}=\cos x-\mathrm{i}\sin x.\]
+Then
+\[
+\begin{aligned}
+  &c_1e^{r_1x}+c_2e^{r_2x}\\
+  =&c_1e^{\alpha x+\mathrm{i}\beta x}+c_2e^{\alpha x-\mathrm{i}\beta x}\\
+  =&c_1e^{\alpha x}(\cos(\beta  x)+\mathrm{i}\sin(\beta x))+c_2e^{\alpha x}(\cos(\beta  x)-\mathrm{i}\sin(\beta x))\\
+  =&c_1e^{\alpha x}\cos(\beta  x)+c_2e^{\alpha x}(\cos(\beta  x)+\mathrm{i}\left(c_1e^{\alpha x}\sin(\beta x)-c_2e^{\alpha x}\sin(\beta x)\right)\\
+  =&(c_1+c_2)e^{\alpha x}\cos(\beta  x)+\mathrm{i}(c_1-c_2)e^{\alpha x}\sin(\beta x)
+\end{aligned}  
+\]
+
+Note that a complex-valued function $w(x)=u(x)+\mathrm{i}v(x)$ is a solution of $y''+ay'+by=0$ if and only if both $u(x)$ and $v(x)$ are solutions. Therefore, by Theorem \ref{thm:generalsolutionlinearsecondorder}, the real-valued linear combination 
+\[y=C_1e^{\alpha x}\cos(\beta  x)+C_2e^{\alpha x}\sin(\beta x)\]
+is the general solution.
+\end{proof}
+
+
+\begin{example}
+Solve the initial value problem 
+\[y''+ 6y'+5y=0, \quad y(0)=3,\; y'(0)=-1.\]
+\end{example}
+\begin{solution}
+The characteristic equation of the differential equation is
+\[r^2+6r+5=0.\]
+Solving it by factoring yields two distinct real roots: $r_1=-1$ and $r_2=-5$. By Theorem \ref{thm:constcoef2ndorder}, the general solution of the differential equation is
+\[y=c_1e^{-x}+c_2e^{-5x}.\]
+
+Since $y$ satisfies the initial conditions $y(0)=3$ and $y'(0)=-1$, and the first derivative of $y$ is
+\[y'=-c_1e^{-x}-5c_2e^{-5x},\]
+the constants $c_1$ and $c_2$ satisfy the following system of equations
+\[
+\begin{aligned}
+  c_1+ c_2 = & 3 \\ -c_1-5c_2 = & -1.
+\end{aligned}
+\]
+The solution of this system is $c_1=\frac72,c_2=-\frac12$. Therefore, the solution of the initial value problem is
+\[y=\frac{7}{2}e^{-x}-\frac{1}{2}e^{-5x}.\]
+\end{solution}
+
+\begin{example}
+Find the general solution of 
+\[  y'' -2y' + y =0.\]
+\end{example}
+\begin{solution}
+The characteristic equation is 
+\[r^2 -2r + 1 =0\]
+which is the same as 
+\[(r-1)^2 =0 \]
+Hence, $r=1$ is the repeated root. 
+By Theorem \ref{thm:constcoef2ndorder}, the general solution is 
+\[y= (c_1  + c_2 x) e^{x}.\]
+\end{solution}
+
+\begin{example}
+Solve the initial value problem
+\[  y'' -2y' + 2y = 0,\qquad y(0)=1,\qquad y'(0)=2.\]
+\end{example}
+\begin{solution}
+The characteristic equation is 
+\[r^2 -2r + 2 =0\]
+which is the same as 
+\[(r-1)^2 + 1 =0 \]
+Hence, $r=1\pm \mathrm{i}$ are the solutions. 
+By Theorem \ref{thm:constcoef2ndorder}, the general solution is 
+\[y= e^x(c_1\cos x + c_2\sin x).\]
+Since $y(0)=1$, $y'(0)=2$ and
+\[y'=e^x(c_1\cos x + c_2\sin x)+e^x(c_2\cos x - c_1\sin x),\]
+the constants $c_1$ and $c_2$ satisfy the system of equations
+\[
+  \begin{cases}
+    c_1=1\\
+    c_1+c_2=2
+  \end{cases}
+\]
+Therefore, $c_1=1$ and $c_2=1$, and the solution of the initial value problem is
+\[y=e^x(\cos x + \sin x).\]
+\end{solution}
+
+\begin{exercise}
+  Find the general solution of the differential equation
+  \[y''- 3y' + 2y=0.\]
+\end{exercise}
+\begin{exersol}
+  Solving the characteristic equation
+  \[r^2-3r+2=0\]
+  yields $r_1=1$ and $r_2=2$.
+  By Theorem \ref{thm:constcoef2ndorder}, the general solution is
+  \[y=c_1e^x+c_2e^{2x}.\] 
+\end{exersol}
+
+\begin{exercise}
+  Solve the initial value problem
+  \[y''- 4y' + 4y=0, \qquad y(0)=1,\qquad y'(0)=-1.\]
+\end{exercise}
+\begin{exersol}
+  Solving the characteristic equation
+  \[r^2-4r+4=0\]
+  yields a double root $r=2$.
+  By Theorem \ref{thm:constcoef2ndorder}, the general solution is
+  \[y=(c_1+c_2x)e^{2x}.\]
+  Since $y(0)=1$, $y'(0)=-1$, and $y'=c_2e^{2x}+2(c_1+c_2x)e^{2x}$, the constants $c_1$ and $c_2$ satisfy
+  \[
+  \begin{cases}
+    c_1=1\\
+    2c_1+c_2=-1.
+  \end{cases}  
+  \]
+  Therefore, $c_1=1$, $c_2=-3$, and the solution of the initial value problem is
+  \[y=(1-3x)e^{2x}.\]
+\end{exersol}
+
+\begin{exercise}
+  Find the general solution of the equation
+  \[y'' + 4y=0.\]
+\end{exercise}
+\begin{exersol}
+  Solving the characteristic equation
+  \[r^2+4=0\]
+  yields two complex roots $r_1=2\mathrm{i}$ and $r_2=-2\mathrm{i}$.
+  By Theorem \ref{thm:constcoef2ndorder}, the general solution is
+  \[y=c_1\cos(2x)+c_2\sin(2x).\]
+\end{exersol}
+
+\section{Non-Homogeneous Linear Equations}
+
+In this section, we consider the nonhomogeneous linear second order equation
+\[y''+p(x)y'+q(x)y=f(x).\]
+We will assume that $p$, $q$, and $f$ are continuous on a interval $(a, b)$.
+
+Like first order equation, to find the general solution, it is necessary to find the general solution of the associated homogeneous equation
+\[y''+p(x)y'+q(x)y=0,\]
+which is called the \dfn{complementary equation}.
+
+\subsection{The form of the general solution}
+
+If we have two linearly independent solutions of the complementary equation, which is also known as a fundamental set, and a particular solution of the nonhomogeneous equation, then the general solution of the nonhomogeneous equation is a linear combination of those solutions.
+
+\begin{theorem}\label{thm:generalsol2ndlinear}
+  Suppose $p$, $q$, and $f$ are continuous on $(a,b)$. Let $y_p$ be a particular solution of
+\begin{equation}
+  y''+p(x)y'+q(x)y=f(x)\label{eq:5-3-1}
+\end{equation}
+on $(a,b)$, and let $\{y_1,y_2\}$ be a fundamental set of solutions of the complementary equation
+\[y''+p(x)y'+q(x)y=0\]
+on $(a,b)$. Then $y$ is a solution of $\eqref{eq:5-3-1}$ on $(a,b)$ if and only if
+\[y=y_p+c_1y_1+c_2y_2,\]
+where $c_1$ and $c_2$ are constants.
+\end{theorem}
+\begin{proof}
+  Suppose that $y=y_p+c_1y_1+c_2y_2$.
+Since $y_1$ and $y_2$ are solutions of the complementary equation, and $y_p$ is a solution of Equation \eqref{eq:5-3-1}, we see that
+\[
+\begin{aligned}
+  y_1''+p(x)y_1'+q(x)y_1=&0\\
+  y_2''+p(x)y_2'+q(x)y_2=&0\\
+  y_p''+p(x)y_p'+q(x)y_p=&f(x)
+\end{aligned}  
+\]
+Then
+\[
+\begin{aligned}
+  &y''+p(x)y'+q(x)y\\
+  =&(y_p+c_1y_2+y_2)''+p(x)(y_p+c_1y_2+y_2)'+q(x)(y_p+c_1y_2+y_2)\\
+  =&(y_p''+p(x)y_p'+q(x)y_p) + c_1(y_1''+p(x)y_1'+q(x)y_1) + c_2(y_2''+p(x)y_2'+q(x)y_2)\\
+  =&f(x).
+\end{aligned}
+\]
+Therefore, $y$ is a solution of Equation \eqref{eq:5-3-1}.
+
+Conversely, suppose that $y$ is a solution of Equation \eqref{eq:5-3-1}. Then
+\[y''+p(x)y'+q(x)y=f(x)\]
+and 
+\[
+\begin{aligned}
+ &(y-y_p)''+p(x)(y-y_p)'+q(x)(y-y_p)\\
+  =&(y''+p(x)y'+q(x)y)-(y_p''+p(x)y_p'+q(x)y_p)\\
+  =&f(x)-f(x)\\
+  =&0.
+\end{aligned}
+\]
+Therefore, $y-y_p$ is a solution of the complementary equation. So there exists constants $c_1$ and $c_2$ such that
+\[y-y_p=c_1y_1+c_2y_2,\]
+or
+\[y=y_p+c_1y_1+c_2y_2.\]
+
+Thus, $y$ is a solution of Equation \eqref{eq:5-3-1} if and only if $y=y_p+c_1y_2+c_2y_2$.
+\end{proof}
+
+\begin{example}
+  Find the general solution of the equation
+  \[y''-y'-6y=12.\]
+\end{example}
+\begin{solution}
+  We first solve the complementary equation
+  \[y''-y'-6y=0.\]
+  Its characteristic equation is
+  \[r^2-r-6=0\]
+  which has two solutions $r_1=-2$ and $r_2=3$. Therefore, the fundamental set is $\{e^{-2x}, e^{3x}\}$.
+
+  Note that $y=2$ is a particular solution. Then the general solution of the equation is
+  \[y=2+c_1e^{-2x}+c_2e^{3x}.\]
+\end{solution}
+
+\begin{example}
+  Find the general solution of 
+  \[y'' - 3y'  + 2y = x^2 + 1\]
+\end{example}
+\begin{solution}
+  The complementary homogenous equation is
+  \[y'' - 3y'  + 2y = 0.\]
+  Since its characteristic equation
+  \[  r^2 -3r + 2 =0 \]
+  has two real roots $r_1=1$ and $r_2=2$, the general solution to the complementary equation is
+  \[y_h= c_1e^x + c_2 e^{2x}.\]
+
+  Next we need to find a particular solution of 
+  \[y'' - 3y'  + 2y = x^2 + 1.\]
+Since the right hand side is a degree 2 polynomial and taking derivatives decreases degrees, we may assume that a particular solution is a quadratic function
+  \[y_p= ax^2 + bx + c.\]
+ Since
+  \[\begin{aligned}
+    y'_p =& 2ax + b\\
+    y''_p =& 2a,
+  \end{aligned}
+  \]
+ the undetermined coefficients $a$, $b$, and $c$ satisfy the following equation for any value of $x$
+\[
+  \begin{aligned}
+    y_p'' - 3y_p'  + 2y_p =& x^2 + 1\\ 
+     2a - 6a x -3b+ 2a x^2 + 2bx + 2c =& x^2 + 1\\
+    2a x^2 + (2b -6a)x + (2a - 3b + 2c)  =& x^2 + 1
+  \end{aligned}
+\]
+  By comparing coefficients of powers of $x$, we get a system of linear equations
+  \[
+    \begin{cases}
+      2a  &=  1\\
+      2b - 6a &=  0 \\
+      2a-3b+ 2c &=1.
+    \end{cases}
+  \]
+  Solving this system implies that $a =\frac{1}{2}$, $b= \frac{3}{2}$ and $c=\frac{9}{4}$. Hence
+  \[y_p= \frac{2x^2 + 6x +9}{4}\]
+  is a particular solution.
+  
+  Therefore, the general solution is 
+  \[y= \frac{2x^2 + 6x +9}{4} + c_1e^x + c_2 e^{2x}\]
+\end{solution}
+
+The method used to find a particular solution in the above example is known as the method of undetermined coefficients. We will revisit this method in the next section.
+
+\begin{exercise}
+  Find the general solution of the equation
+  \[y''-y=x.\]
+\end{exercise}
+\begin{exersol}
+  The complementary equation is
+  \[y''-y=0\]
+  whose general solution is $y_h=c_1e^{-x}+c_2e^x$.
+
+  We may assume that $y_p=ax+b$ is a particular solution. Then $a$ and $b$ satisfies the following equation for all $x$
+  \[-(ax+b)=x.\]
+  Therefore, $a=-1$, $b=0$, and the particular solution is $y_p=-x$.
+
+  Hence, the general solution of the equation is
+  \[y=-x+c_1e^{-x}+c_2e^x.\]
+\end{exersol}
+
