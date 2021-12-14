@@ -1,4 +1,4 @@
-% arara: pdflatex: {synctex: yes, interaction: nonstopmode}
+% arara: pdflatex: {draft: yes, synctex: yes, interaction: nonstopmode, options: "-file-line-error"}
 % arara: makeindex if changed('idx') || missing('idx')
 % arara: biber if changed(toFile('reference.bib')) || missing('bcf')
 

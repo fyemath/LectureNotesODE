@@ -26,7 +26,7 @@ It seems reasonable to multiplying a non-zero factor to both sides of Equation \
 {\red Do integrating factors always exist?}
 
 This question is hard to answer in general. However, if we assume Equation \eqref{eq:2.3.1} has a general solution $F$, then the integrating factor exists and must be the ratio function 
-\[\mu(x, y)=\frac{\frac{\partial}{\partial x} F}{M}=\frac{\frac{\partial}{\partial y} F}{N}.\]
+\[\mu(x, y)=\frac{\frac{\partial F}{\partial x}}{M}=\frac{\frac{\partial F}{\partial y}}{N}.\]
 
 {\red How to construct integrating factors?}
 
@@ -34,19 +34,21 @@ By Theorem \ref{thm:exactness}, a nonzero function $\mu(x, y)$ is an integrating
 \[\frac{\partial}{\partial y}\Big(\mu(x,y)M(x,y)\Big)=\frac{\partial}{\partial x}\Big(\mu(x,y)N(x,y)\Big),\]
 or equivalently
 \begin{equation}
-  \frac{\partial}{\partial y}\mu M - \frac{\partial}{\partial x} \mu N=\left(\frac{\partial}{\partial x} N-\frac{\partial}{\partial y} M\right)\mu.
+  M\frac{\partial \mu}{\partial y} - N \frac{\partial \mu}{\partial x} =\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right)\mu.
   \label{eq:2.3.2}
 \end{equation}
 
 Equation \ref{eq:2.3.2} in general is even harder than the original equation to solve. Nevertheless, there are a few situations where Equation \ref{eq:2.3.2} can be solved relatively easily.
 
-Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\partial y} \mu=0$, or equivalently, $\mu(x, y)=q(y)$ or $\mu(x, y)=p(x)$, then the above Equation \ref{eq:2.3.2} can be solved easily. That leads to the following proposition.
+Clearly, if either $\frac{\partial \mu}{\partial x} = 0$ or $\frac{\partial \mu}{\partial y} = 0$, or equivalently, $\mu(x, y)=q(y)$ or $\mu(x, y)=p(x)$, then the above Equation \ref{eq:2.3.2} can be solved easily. That leads to the following proposition.
 
-\begin{proposition}[Constructing Integrating Factor]\label{prop:intfactor} Given a differential equation $ M(x,y) \D x +  N(x,y) \D y =0$, suppose that $M$, $N$, $\frac{\partial}{\partial x} M$ and $\frac{\partial}{\partial y} N$ are continuous. Then  
+\begin{proposition}[Constructing Integrating Factor]\label{prop:intfactor} Given a differential equation $ M(x,y) \D x +  N(x,y) \D y =0$, suppose that $M$, $N$, $\frac{\partial M}{\partial x}$ and $\frac{\partial N}{\partial y}$ are continuous. Then  
 \begin{enumerate}[label={Type \Roman*:}, leftmargin=*, align=left]
-  \item If \[\frac{1}{{\color{red}N(x,y)}}(\frac{\partial}{\partial_ M}-\frac{\partial}{\partial_ N})={\color{red}p(x)}\]
+  \item If 
+  \[\frac{1}{{\color{red}N(x,y)}}\left(\frac{\partial M}{\partial x}-\frac{\partial N}{\partial y}\right)={\color{red}p(x)}\]
   is a function {\color{red}only in $x$}, then we take integrating factor as a function of $x$, \[\mu(x,y)=e^{\int {\color{red}p(x)}\D x};\]
-  \item If \[\frac{1}{{\color{red}M(x,y)}}(\frac{\partial}{\partial_ M}-\frac{\partial}{\partial_ N})={\color{red}q(y)}\]
+  \item If 
+  \[\frac{1}{{\color{red}M(x,y)}}\left(\frac{\partial M}{\partial x}-\frac{\partial N}{\partial y}\right)={\color{red}q(y)}\]
   is a function {\color{red} only in $y$}, then we take integrating factor as a function of $y$,
   \[\mu(x,y)=e^{\int {\color{blue}-}{\color{red}q(y)}\D y}.\]
 \end{enumerate}
@@ -56,9 +58,14 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 	There are also some not so-obvious-cases that integrating factors can be constructed.
   
   If $u(x, y)=f(w(x, y))$, where $f$ is a single variable function, then an integrating factor is
-  \[\mu(x, y)=\int e^{\dfrac{\frac{\partial}{\partial y} M - \frac{\partial}{\partial x} N}{N\frac{\partial w}{\partial_x}-M\frac{\partial w}{\partial_y}\D w}}.\]
+  \[\mu(x, y)= e^{\int\chi(w)\D w},\]
+  where
+  \[
+  \chi(w)=\dfrac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}
+  {N\frac{\partial w}{\partial x}-M\frac{\partial w}{\partial y}}.
+  \]
 
-  If $M$ and $N$ are both homogeneous functions, then an integrating factor is
+  If $M$ and $N$ are both homogeneous functions of the same degree, then an integrating factor is
   \[\mu(x,y) = \frac{1}{x M(x,y) + y N(x,y)}.
   \]
 
@@ -73,7 +80,7 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 	\[ (2x^2+yx )  \D x +  (2xy+ x^2 )\D y  =0. \]
 	\begin{enumerate}
 		\item  Show that the equation is not exact;
-		\item Show that $\dfrac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{N(x,y)}$ depends only on $x$;
+		\item Show that $\dfrac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N}$ depends only on $x$;
 		\item Reduce the equation to an exact equation.
 	\end{enumerate}
 \end{example}
@@ -82,22 +89,22 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
       \item Because $M(x, y)= 2x^2 + xy$ and $N(x, y) = 2xy+x^2$. The partial derivatives are
       \[
       \begin{split}
-      \frac{\partial}{\partial y} M = & x, \\
-      \frac{\partial}{\partial x} N = &  2y+2x. 
+      \frac{\partial M}{\partial y} = & x, \\
+      \frac{\partial N}{\partial x} = &  2y+2x. 
       \end{split}
       \]
-      Hence $\frac{\partial}{\partial y} M \neq \frac{\partial}{\partial x} N$, and
+      Hence $\frac{\partial M}{\partial y} \neq \frac{\partial N}{\partial x}$, and
       the equation is not exact.
       \item 
       We compute
       \[
-      \frac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{N(x,y)} = \frac{x -(2y+2x)}{2xy+x^2} = \frac{-x-2y}{x(2y+x)} = -\frac{1}{x},
+      \frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N} = \frac{x -(2y+2x)}{2xy+x^2} = \frac{-x-2y}{x(2y+x)} = -\frac{1}{x},
       \]
       which depends only on $x$.
       \item By Proposition \ref{prop:intfactor}, 
       We find an integrating factor of type I, 
       \[
-      \mu = e^{\int \frac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{N(x,y)} \D x}= e^{\int - \frac{1}{x}\D x} =e^{-\ln x } = \frac{1}{e^{\ln x}}=\frac{1}{x}.
+      \mu = e^{\int \frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N} \D x}= e^{\int - \frac{1}{x}\D x} =e^{-\ln x } = \frac{1}{e^{\ln x}}=\frac{1}{x}.
       \]
         Multiplying the equation by the integrating factor $\mu$ yields
       \[ 
@@ -115,7 +122,7 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 	Consider the equation
 	\[y \D x+ (y-x) \D y  =0. \]
 	\begin{enumerate}
-		\item  Show that the equation is not exact, and $\dfrac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{M(x,y)}$ depends only on $y$.
+		\item  Show that the equation is not exact, and $\dfrac{\frac{\partial M}{\partial y}- \frac{\partial N}{\partial x}}{M}$ depends only on $y$.
 		\item Reduce the equation to an exact equation.
 		\item Solve the equation.
 	\end{enumerate}
@@ -125,16 +132,16 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 		\item Because $M(x, y)=y$, $N(x, y)=y-x$ and 
 		\[
 		\begin{split}
-		\frac{\partial}{\partial y} M(x, y) =&1 \\
-		\frac{\partial}{\partial x} N(x, y) =&-1 \\
+		\frac{\partial M}{\partial y} =&1 \\
+		\frac{\partial N}{\partial x} =&-1 \\
 		\end{split}
 		\]
 		The equation is not exact but
-		\[ \frac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{M(x,y)}=  \frac{2}{y}\] 
+		\[\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{M}=  \frac{2}{y}\] 
 		depends only on $y$.
 		\item By Proposition \ref{prop:intfactor}, 
 			we look for an integrating factor of type II,
-		\[I= e^{\int {\color{red}-}\frac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{M(x,y)}\D y} = e^{{\color{red}-}\int\frac{2}{y}} \D x=e^{{\color{red}-}2\ln y}=(e^{\ln(x)})^{{\color{red}-}2}=y^{{\color{red}-}2}=\frac{1}{y^2}. \]
+		\[I= e^{\int {\color{red}-}\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{M}\D y} = e^{{\color{red}-}\int\frac{2}{y}} \D x=e^{{\color{red}-}2\ln y}=\bigg(e^{\ln(x)}\bigg)^{{\color{red}-}2}=y^{{\color{red}-}2}=\frac{1}{y^2}. \]
 		Multiplying $\mu$ to the non-exact equation yields
 		\[
       \begin{aligned}
@@ -150,30 +157,30 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 		\end{split}
 		\]
 		\item We look for $F$ such that 
-		\[\frac{\partial}{\partial x} F  ~\D x+\frac{\partial}{\partial y} F ~\D y=  \frac{1}{y} \D x+\frac{y-x}{y^2} \D y.\]
+		\[\frac{\partial F}{\partial x} ~\D x+\frac{\partial F}{\partial y}~\D y=  \frac{1}{y} \D x+\frac{y-x}{y^2} \D y.\]
 		Equivalently, 
 		\[
 		\begin{cases}
-		\frac{\partial}{\partial x} F  = \frac{1}{y}\\
-		\frac{\partial}{\partial y} F  = \frac{y-x}{y^2}
+		\frac{\partial F}{\partial x} = \frac{1}{y}\\
+		\frac{\partial F}{\partial y} = \frac{y-x}{y^2}
 		\end{cases}
 		\]
 		Integrating the first equation with respect to $x$ implies
 		\[  
-		F = \int \frac{1}{y} \D x  =\frac{x}{y} + h(y).
+		F(x, y) = \int \frac{1}{y} \D x  =\frac{x}{y} + h(y).
 		\]
 		Since $F$ has to be a solution solves the second equation and
 		\[
-		\frac{\partial}{\partial y} F = \frac{\partial}{\partial y}\left(\frac{x}{y} + h(y)\right) = -\frac{x}{y^2} + h'(y),
+		\frac{\partial F}{\partial y} = \frac{\partial }{\partial y}\left(\frac{x}{y} + h(y)\right) = -\frac{x}{y^2} + h'(y),
 		\]
 		the function $h(y)$ must satisfy the equation
 		\[-\frac{x}{y^2} + h'(y) =\frac{y-x}{y^2},\]
 		or equivalently,
 		\[h'(y) =\frac1y.\]
 		Therefore, a solution is $h=\ln y$. Hence, 
-		\[F=\frac{x}{y}+\ln y\]
+		\[F(x, y)=\frac{x}{y}+\ln y\]
 		and the general solution is 
-		\[F=  \frac{x}{y} + \ln y=c.\]
+		\[F(x, y)=  \frac{x}{y} + \ln y=c.\]
 	\end{enumerate}
 \end{solution}
 
@@ -181,7 +188,7 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 	Consider the equation
 	\[ - y  \D x+ x \D y  =0. \]
 	\begin{enumerate}
-		\item  Show that the equation is not exact, and $\dfrac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{N(x,y)}$ depends only on $x$.
+		\item  Show that the equation is not exact, and $\dfrac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N}$ depends only on $x$.
 		\item Reduce the equation to an exact equation.
 		\item Solve the equation.
 	\end{enumerate}
@@ -191,16 +198,16 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 		\item Because $M(x, y)=-y$, $N(x, y)=x$ and 
 		\[
 		\begin{split}
-		\frac{\partial}{\partial y} M(x, y) =&-1 \\
-		\frac{\partial}{\partial x} N(x, y) =&1 \\
+		\frac{\partial M}{\partial y} =&-1 \\
+		\frac{\partial N}{\partial x} =&1 \\
 		\end{split}
 		\]
 		The equation is not exact but
-		\[ \frac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{N(x,y)}=  \frac{-2}{x}\] 
+		\[ \frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N}=  \frac{-2}{x}\] 
 		depends only on $x$.
 		\item By Proposition \ref{prop:intfactor}, 
 			we look for an integrating factor of type I,
-		\[  I= e^{\int \frac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{N(x,y)}\D x} = e^{\int  \frac{-2}{x}} \D x=e^{-2\ln x}=(e^{\ln(x)})^{-2}=x^{-2}=\frac{1}{x^2}. \]
+		\[  I= e^{\int \frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N}\D x} = e^{\int  \frac{-2}{x}} \D x=e^{-2\ln x}=(e^{\ln(x)})^{-2}=x^{-2}=\frac{1}{x^2}. \]
 		Multiplying the equation by $\mu$ implies
 		\[ \frac{1}{x^2} (- y  \D x+x \D y ) = 0  \]
 		which is 
@@ -208,38 +215,38 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 		This is an exact equation because
 		\[
 		\begin{split}
-		\frac{\partial}{\partial y} ( - \frac{y}{x^2} ) =&-\frac{1}{x^2} \\
-		\frac{\partial}{\partial x} (\frac{1}{x})=&-\frac{1}{x^2} \\
+		\frac{\partial}{\partial y} \left( - \frac{y}{x^2} \right) =&-\frac{1}{x^2} \\
+		\frac{\partial}{\partial x} \left(\frac{1}{x}\right)=&-\frac{1}{x^2} \\
 		\end{split}
 		\]
 		\item We look for $F$ such that 
-		\[\frac{\partial}{\partial x} F  ~\D x+\frac{\partial}{\partial y} F ~\D y=  - \frac{y}{x^2}  \D x+\frac{1}{x} \D y, \]
+		\[\frac{\partial F}{\partial x}  ~\D x+\frac{\partial F}{\partial y}~\D y=  - \frac{y}{x^2}  \D x+\frac{1}{x} \D y, \]
 		Equivalently, 
 		\[
 		\begin{cases}
-		\frac{\partial}{\partial x} F  =& -\frac{y}{x^2}\\
-		\frac{\partial}{\partial y} F  =& \frac{1}{x}
+		\frac{\partial F}{\partial x}=& -\frac{y}{x^2}\\
+		\frac{\partial F}{\partial y}=& \frac{1}{x}
 		\end{cases}
 		\]
 		Integrating the first equation with respect to $x$ implies
 		\[  
-		F = \int  -\frac{y}{x^2} \D x  =\frac{y}{x} + h(y)
+		F(x, y) = \int  -\frac{y}{x^2} \D x  =\frac{y}{x} + h(y)
 		\]
 		Since $F$ has to satisfy the second equation and 
 		\[
-		\frac{\partial}{\partial y} F = \frac{\partial}{\partial y} (\frac{y}{x} + h(y)) = \frac{1}{x} + h'(y)
+		\frac{\partial F}{\partial y}= \frac{\partial}{\partial y} \left(\frac{y}{x} + h(y)\right) = \frac{1}{x} + h'(y)
 		\]
 		the function $h(y)$ satisfies the equation
-		\[  \frac{1}{x} + h'(y) =\frac{1}{x} \]
+		\[\frac{1}{x} + h'(y) =\frac{1}{x} \]
 		or 
 		\[ h'(y) =0 \]
 		and $h=0$. Hence, 
 		\[
-		F=  \frac{y}{x}
+		F(x, y)=  \frac{y}{x}
 		\]
 		and the general solution is 
 		\[
-		F=  \frac{y}{x}=c
+		F(x, y)=  \frac{y}{x}=c
 		\]
 		Equivalently,
 		\[
@@ -252,7 +259,7 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 	Consider the equation
 	\[ (x-y)  \D x +  x \D y =0. \]
 	\begin{enumerate}
-		\item  Show the equation is not exact but $\dfrac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{N(x,y)}$ depends only on $x$.
+		\item  Show the equation is not exact but $\dfrac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N}$ depends only on $x$.
 		\item Reduce the equation to an exact equation.
 		\item Solve the equation
 	\end{enumerate}
@@ -262,43 +269,43 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 		\item $M=x-y$, $N=x$ and 
 		\[
 		\begin{split}
-		\frac{\partial}{\partial y} M =&-1 \\
-		\frac{\partial}{\partial x} N =&1 \\
+		\frac{\partial M}{\partial y}=&-1 \\
+		\frac{\partial N}{\partial x}=&1 \\
 		\end{split}
 		\]
 		The equation is not exact but
-		\[ \frac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{N(x,y)}=  \frac{-2}{x}\] 
+		\[\frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N}=  \frac{-2}{x}\] 
 		depends only on $x$.
 		\item By Proposition \ref{prop:intfactor}, 
 			we look for an integrating factor of type I, 
-		\[\mu = e^{\int \frac{\frac{\partial}{\partial y} M(x,y) - \frac{\partial}{\partial x} N(x,y)}{N(x,y)}\D x} = e^{\int  \frac{-2}{x}\D x} = \frac{1}{x^2}. \]
+		\[\mu = e^{\int \frac{\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}}{N}\D x} = e^{\int  \frac{-2}{x}\D x} = \frac{1}{x^2}. \]
 		Multiplying the equation by $\mu$ implies
-		\[ \frac{1}{x^2} [(x- y)  \D x +  x \D y] = 0  \]
+		\[ \frac{1}{x^2}\left((x- y)  \D x +  x \D y \right)= 0  \]
 		which is 
 		\[  \frac{x-y}{x^2}  \D x+  \frac{1}{x} \D y= 0  \]
 		This is an exact equation because
 		\[
 		\begin{split}
-		\frac{\partial}{\partial y} (  \frac{x-y}{x^2} ) =&\frac{-1}{x^2} \\
-		\frac{\partial}{\partial x} (\frac{1}{x})=&\frac{-1}{x^2} \\
+		\frac{\partial}{\partial y} \left(  \frac{x-y}{x^2} \right) =&\frac{-1}{x^2} \\
+		\frac{\partial}{\partial x} \left(\frac{1}{x}\right)=&\frac{-1}{x^2} \\
 		\end{split}
 		\]
 		\item 
 		We look for $F$ such that
 		\[
 		\begin{split}
-		\frac{\partial}{\partial x} F =& \frac{x-y}{x^2}\\
-		\frac{\partial}{\partial y} F  =& \frac{1}{x}
+		\frac{\partial F}{\partial x} =& \frac{x-y}{x^2}\\
+		\frac{\partial F}{\partial y}  =& \frac{1}{x}
 		\end{split}
 		\]
 		
 		Integrating the first equation with respect to $x$ implies
 		\[  
-		F = \int  \frac{x-y}{x^2} \D x =\int  \frac{1}{x}-\frac{y}{x^2} \D x =\ln x+ \frac{y}{x} + h(y)
+		F(x, y) = \int  \frac{x-y}{x^2} \D x =\int  \frac{1}{x}-\frac{y}{x^2} \D x =\ln x+ \frac{y}{x} + h(y)
 		\]
 		Since $F$ has to satisfy the second equation and 
 		\[
-		\frac{\partial}{\partial y} F = \frac{\partial}{\partial y} (\ln x+ \frac{y}{x} + h(y)) = \frac{1}{x} + h'(y),
+		\frac{\partial F}{\partial y} = \frac{\partial}{\partial y} \bigg(\ln x+ \frac{y}{x} + h(y)\bigg) = \frac{1}{x} + h'(y),
 		\]
 		the function $h(y)$ satisfies the equation
 		\[\frac{1}{x} + h'(y) =\frac{1}{x} \]
@@ -306,7 +313,7 @@ Clearly, if either $\frac{\partial}{\partial x} \mu=0$ or $\frac{\partial}{\part
 		\[ h'(y) =0 \]
 		and $h=0$. Hence, 
 		\[
-		F=\ln x + \frac{y}{x}
+		F(x, y)=\ln x + \frac{y}{x}
 		\]
 		and the general solution is 
 		\[
@@ -1098,7 +1105,7 @@ To find $F$, we take the following steps:
 
 \begin{remark}
 Instead of treating the whole equation as an non-exact equation and solve it, one can also find an integrating factor $\mu(x)$ of $yq(x)\mathrm{d} x + \mathrm{d} y$ and find $F$ so that
-$$\frac{\partial F}{\partial x}\mathrm{d} x + \frac{\partial F}{\partial y}\mathrm{d} yq(x)\mathrm{d} x + \mathrm{d} y.$$
+$$\frac{\partial F}{\partial x}\mathrm{d} x + \frac{\partial F}{\partial y}\mathrm{d} y=q(x)\mathrm{d} x + \mathrm{d} y.$$
 Then the equation $(yq(x)-q(x))\mathrm{d} x + \mathrm{d} y=0$ can be expressed as
 $$\mathrm{d} F(x, y)=\mu(x)q(x)\mathrm{d} x.$$
 Then integrating both sides yields the solution.
