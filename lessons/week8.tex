@@ -81,7 +81,7 @@ In calculus, several methods of finding the radius of convergence are given. One
 \subsubsection*{Differentiations of power series}
 
 For a continuous function $f$ that has derivatives of all orders for $|x|<R$, the Taylor expansion 
-\[f(x)=\sum\limits_{n=0}^\infty\dfrac{f^{(n)(x)}}{n!}x^n\]
+\[f(x)=\sum\limits_{n=0}^\infty\dfrac{f^{(n)}(x)}{n!}x^n\]
 is a power series known as the Maclaurin series of $f$. For example,
 \[e^{x} = \sum_{n=0}^{\infty} \frac{x^{n}}{n!}, \quad -\infty<x<\infty;\]
 \[\sin x = \sum_{n=0}^{\infty} (-1)^{n} \frac{x^{2n+1}}{(2n+1)!}, \quad -\infty<x<\infty;\]
@@ -135,7 +135,7 @@ that is, the power series $\sum_{n=0}^\infty a_n(x-x_0)^n$ is the Taylor series 
 
 \begin{example}
 Consider the power series 
-$\sum_{n=0}^\infty(-1)^n \frac{x^{2n+1}}{(2n+1)!}$
+$\sum\limits_{n=0}^\infty(-1)^n \frac{x^{2n+1}}{(2n+1)!}$
 which converges for all real number $x$.
 Show that the derivative of the power series defines a function which is $\cos x$.
 \end{example}
@@ -153,7 +153,7 @@ Show that the derivative of the power series defines a function which is $\cos x
 
 \begin{exercise}
   Consider the power series
-  $\sum_{n=0}^\infty \frac{x^n}{n!}$
+  $\sum\limits_{n=0}^\infty \frac{x^n}{n!}$
 which converges for all real number $x$.
 Show that the second derivative of the power series defines a function which is $e^x$.
 \end{exercise}
@@ -177,7 +177,7 @@ You probably know that the summation index is called a dummy index, and can chan
 \[
 \begin{aligned}
   f'(x)=&\sum\limits_{n=1}^\infty na_n(x-x_0)^{n-1}\\
-  =&\sum\limits_{k=0}^\infty (k+1)a_{k+1}(x-x_0)^k,\quad\text{substituting} k=n-1\\
+  =&\sum\limits_{k=0}^\infty (k+1)a_{k+1}(x-x_0)^k,\quad\text{substituting }~k=n-1\\
   =&\sum\limits_{n=0}^\infty (n+1)a_{n+1}(x-x_0)^n,\quad\text{renaming}\\
 \end{aligned}  
 \]
@@ -215,7 +215,7 @@ replacing $n$ by $n+2$ and $2$ by $2-2=0$ yields
 \subsection*{Linear combination of power series}
 
 From calculus, particular, the section on Riemann sums, we know that the linear combination of infinite sums is the infinite sums of linear combinations. More precisely, if $f(x)=\sum\limits_{n=0}^\infty a_nx^n$ with the convergence radius $R_1$ and $g(x)=\sum\limits_{n=0}^\infty b_nx^n$ with the convergence radius $R_2$, then
-\[Af(x)\pm Bg(x)=\sum\limits_{n\to 0}^\infty (Aa_n+Bb_n)x^n\] 
+\[A f(x)\pm B g(x)=\sum\limits_{n= 0}^\infty (Aa_n+Bb_n)x^n\] 
 which has the convergence radius $R=\min\{R_1, R_2\}$.
 
 Note that power series can also be multiplied like polynomials:
@@ -671,7 +671,7 @@ Therefore, $y$ is a solution if
 
 A sufficient condition is that
 \[r(r-1)+pr+q=0
-\quad\text{and } a_n=0 \text{for} n=1, 2, \dots.\]
+\quad\text{and } a_n=0 \text{ for } n=1, 2, \dots.\]
 
 The equation
 \[r(r-1)+pr+q=0\]

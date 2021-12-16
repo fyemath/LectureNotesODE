@@ -337,10 +337,9 @@ Assume there is no damping force or other external force, that is, $F_d\equiv 0$
 \[y''+\frac{k}{m}y=0.\]
 This motion is known as the \emph{\textbf{simple harmonic motion}}.
 
-
 Let $\omega=\sqrt{\frac km}$. Then the general solution of the equation $my'+ky=0$ is
-\[y=e^{-\frac{c}{2m}}C_1\cos(\omega t)+e^{-\frac{c}{2m}}C_2\sin(\omega t).\]
-If further, we let $R=\sqrt{\left(e^{-\frac{c}{2m}}C_1\right)^2+\left(e^{-\frac{c}{2m}}C_2\right)^2}$ and  $\phi$ the angle in $(-\pi,\pi)$ such that $\cos\phi=\frac{e^{-\frac{c}{2m}}C_1}{R}$ and $\sin\phi=-\frac{e^{-\frac{c}{2m}}C_2}{R}$, then the general solution can be written as
+\[y=C_1\cos(\omega t)+C_2\sin(\omega t).\]
+If further, we let $R=\sqrt{\left(C_1\right)^2+\left(C_2\right)^2}$ and  $\phi$ the angle in $(-\pi,\pi)$ such that $\cos\phi=\frac{C_1}{R}$ and $\sin\phi=-\frac{C_2}{R}$, then the general solution can be written as
 \[y=R\cos(\omega t+\phi).\]
 Here, the angle $\phi$ is known as the \emph{\textbf{phase angle}},  $R$ is the amplitude of the oscillation and the solution $y=R\cos(\omega t+\phi)$ is called the \emph{\textbf{amplitude-phase form}} of the displacement. The constant $\omega$ is the \emph{\textbf{frequency}} of the motion. If the time $t$ is measured in seconds, then, the frequency is measured in cycle per second or, in international unit, Hertz (Hz for short). Because the \emph{\textbf{period}} $T$ of the amplitude-phase form displacement is 
 \[T=\frac{2\pi}{\omega}.\]
@@ -374,15 +373,15 @@ An object stretches a spring \SI{5}{\meter} in equilibrium.
   \end{aligned}  
   \]
 
-The associated characteristic equation $r^2+\frac{49}{25}=0$ has two complex solutions $r=\pm\frac{7}{5}$. Therefore, the general solution is
-\[y=e^{-\frac{c}{2m}}C_1\frac{7}{5}\cos\left(\frac{7}{5}t\right)+e^{-\frac{c}{2m}}C_2\frac{7}{5}\sin\left(\frac{7}{5}t\right).\]
+The associated characteristic equation $r^2+\frac{49}{25}=0$ has two complex solutions $r=\pm\frac{7\mathrm{i}}{5}$. Therefore, the general solution is
+\[y=C_1\cos\left(\frac{7}{5}t\right)+C_2\sin\left(\frac{7}{5}t\right).\]
 
-Because the object is initially displaced \SI{18}{\meter} above equilibrium and given a downward velocity of \SI{1}{\meter\per\second}. In terms of mathematical equalities, we have
+Because the object is initially displaced \SI{18}{\meter} above equilibrium and given a downward velocity of \SI{7}{\meter\per\second}. In terms of mathematical equalities, we have
 \[y(0)=18\qquad\text{and}\qquad y'(0)=-7.\]
 Note that 
-\[y'=-e^{-\frac{c}{2m}}C_1\sin\left(\frac{7}{5}t\right)+e^{-\frac{c}{2m}}C_2\cos\left(\frac{7}{5}t\right)\]
-Then $e^{-\frac{c}{2m}}C_1=18$, $e^{-\frac{c}{2m}}C_2=-5$, and the displacement $y$ at time $t$ is
-\[y=18\cos\left(\frac{7}{5}t\right)-5\sin\left(\frac{7}{5}t\right)~ \si{\meter}.\]
+\[y'=-\frac{7}{5}C_1\sin\left(\frac{7}{5}t\right)+\frac{7}{5}C_2\cos\left(\frac{7}{5}t\right)\]
+Then $C_1=18$, $C_2=-5$, and the displacement $y$ at time $t$ is
+\[y=18\cos\left(\frac{7}{5}t\right)-5\sin\left(\frac{7}{5}t\right)\quad \si{\meter}.\]
 
 \item The frequency is $\omega=\frac{7}{5} \si{\radian\per\second}$.
 
@@ -392,9 +391,9 @@ The amplitude is
 Since 
 \[
 \begin{aligned}
-  \cos\phi=&\frac{e^{-\frac{c}{2m}}C_1}{R}=\frac{18}{\sqrt{18^2+(-5)^2}}=\frac{18}{\sqrt{349}}\\
-  \sin\phi=&\frac{-e^{-\frac{c}{2m}}C_2}{R}=-\frac{-5}{\sqrt{18^2+(-5)^2}}=\frac{5}{\sqrt{349}}\\
-  \tan\phi=&\frac{-e^{-\frac{c}{2m}}C_2}{e^{-\frac{c}{2m}}C_1}=\frac{5}{18},
+  \cos\phi=&\frac{C_1}{R}=\frac{18}{\sqrt{18^2+(-5)^2}}=\frac{18}{\sqrt{349}}\\
+  \sin\phi=&\frac{-C_2}{R}=-\frac{-5}{\sqrt{18^2+(-5)^2}}=\frac{5}{\sqrt{349}}\\
+  \tan\phi=&\frac{-C_2}{C_1}=\frac{5}{18},
 \end{aligned}  
 \]
 the angle $\phi$ is in the first quadrant, and 
@@ -417,17 +416,17 @@ and the frequency is
 Therefore, the displacement $y$ satisfies the initial value problem
 \[y'' + 49y=0, \quad y(0)=-0.4,\quad y'(0)=1.4.\]
 The general solution of the differential equation is
-\[y=e^{-\frac{c}{2m}}C_1\cos(\omega t)+e^{-\frac{c}{2m}}C_2\sin(\omega t) = e^{-\frac{c}{2m}}C_1\cos(7t)+e^{-\frac{c}{2m}}C_2\sin(7t).\]
+\[y=C_1\cos(\omega t)+C_2\sin(\omega t) = C_1\cos(7t)+C_2\sin(7t).\]
 So
-\[y'=-7e^{-\frac{c}{2m}}C_1\sin(7t)+7e^{-\frac{c}{2m}}C_2\cos(7t).\]
-Substituting the initial conditions into $y$ and $y'$ yields $e^{-\frac{c}{2m}}C_1=-0.4$ and $e^{-\frac{c}{2m}}C_2=0.3$. Hence, the displacement is
+\[y'=-7C_1\sin(7t)+7C_2\cos(7t).\]
+Substituting the initial conditions into $y$ and $y'$ yields $C_1=-0.4$ and $C_2=0.3$. Hence, the displacement is
 \[y=-0.4\cos(7t)+0.3\sin(7t)\]
 
 The amplitude is
-\[R=\sqrt{\left(e^{-\frac{c}{2m}}C_{1}\right)^{2}+\left(e^{-\frac{c}{2m}}C_{2}\right)^{2}}=\sqrt{(-0.4)^2+0.3^2}=0.5\]
+\[R=\sqrt{\left(C_{1}\right)^{2}+\left(C_{2}\right)^{2}}=\sqrt{(-0.4)^2+0.3^2}=0.5\]
 
 The phase angle is determined by
-\[\cos\phi = \frac{e^{-\frac{c}{2m}}C_{1}}{R}=\frac{-0.4}{0.5}=-\frac45\quad\text{and}\quad \sin\phi = -\frac{e^{-\frac{c}{2m}}C_{2}}{R}=-\frac{0.3}{0.5}=-\frac35.\]
+\[\cos\phi = \frac{C_{1}}{R}=\frac{-0.4}{0.5}=-\frac45\quad\text{and}\quad \sin\phi = -\frac{C_{2}}{R}=-\frac{0.3}{0.5}=-\frac35.\]
 Therefore, $\phi$ is in the third quadrant and
 \[\phi = -\arccos\left(-\frac45\right)\text{rad}.\]
 
@@ -451,7 +450,7 @@ may be two complex roots, a double root, or two distinct real roots.
 The motion is said to be \emph{\textbf{underdamped}}, if $c^2<4mk$. In this case, the solutions are complex roots 
 \[r=\frac{-c\pm\sqrt{c^2-4mk}}{2m}=\frac{-c\pm\mathrm{i}\sqrt{4mk-c^2}}{2m}.\] 
 Let $\omega_1=\frac{\sqrt{4mk-c^2}}{2m}$. Then the general solution is
-\[y=e^{-\frac{ct}{2m}}(C_1\cos(\omega_1 t_+C_2\sin(\omega_1 t)).\]
+\[y=e^{-\frac{ct}{2m}}(C_1\cos(\omega_1 t) + C_2\sin(\omega_1 t)).\]
 Again, we may derive an amplitude-phase form of the displacement
 \[y=Re^{-\frac{ct}{2m}}\cos(\omega_1 t +\phi),\]
 where
@@ -567,13 +566,13 @@ which is a non-homogeneous equation.
 In many mechanical problems, a device is subjected to periodic external forces $F(t)$ but not damping, for example, $F(t)=F_0\cos(\omega_0t)$. In this case, the displacement of the object satisfies the equation
 \[y''+\frac{k}{m}y=\frac{F_0}{m}\cos(\omega_0t).\]
 If $\omega_0\neq \omega=\sqrt{\frac{k}{m}}$, solving this equation using the method of undetermined coefficients and using the identity $k=m\omega^2$ yields the general solution
-\[y=e^{-\frac{c}{2m}}C_1\cos(\omega t)+e^{-\frac{c}{2m}}C_2\sin(\omega t)+\frac{F_0\cos(\omega_0 t)}{m(\omega^2-\omega_0^2)}.\] 
+\[y=C_1\cos(\omega t)+C_2\sin(\omega t)+\frac{F_0\cos(\omega_0 t)}{m(\omega^2-\omega_0^2)}.\] 
 
 If $\omega_0=\omega$, the general solution is
 \[
   \begin{aligned}
-    y=&e^{-\frac{c}{2m}}C_1\cos(\omega t)+e^{-\frac{c}{2m}}C_2\sin(\omega t)+\frac{F_0t\sin(\omega t)}{2m \omega}\\
-    =&e^{-\frac{c}{2m}}C_1\cos(\omega t)+\left(e^{-\frac{c}{2m}}C_2+\frac{F_0t}{2m \omega}\right)\sin(\omega t).
+    y=&C_1\cos(\omega t)+C_2\sin(\omega t)+\frac{F_0t\sin(\omega t)}{2m \omega}\\
+    =&C_1\cos(\omega t)+\left(C_2+\frac{F_0t}{2m \omega}\right)\sin(\omega t).
 \end{aligned}
 \]
 In this case, the amplitude increases as time goes.
